@@ -1,0 +1,33 @@
+header {
+    background: black;
+    padding-top: 20px;
+    height: 90px;
+}
+
+header .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .inner .site-logo {
+    max-width: 100px;
+    width: 100%;
+}
+
+header .inner ul {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+header .inner ul li {
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+header .inner .header-cta {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}

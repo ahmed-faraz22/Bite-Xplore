@@ -1,0 +1,44 @@
+.hero {
+    background: #000;
+}
+
+.hero .inner {
+    height: calc(100dvh - 90px);
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.hero .inner .description {
+    max-width: 60%;
+    text-align: center;
+}
+
+.hero .inner .hero-card {
+    max-width: 30%;
+    width: 100%;
+    rotate: -10deg;
+}
+
+.hero .inner .description h1 {
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #9381FF, #FFEEDD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero .inner p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #434343;
+}
+
+/* Responsive */
+
+ @media(max-width: 768px) {
+    .hero .inner {
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 70px;
+    }
+}

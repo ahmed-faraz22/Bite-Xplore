@@ -1,0 +1,82 @@
+/* Global Styling */
+@font-face {
+  font-family: "Gotham";
+  src: url("./assets/fonts/Gotham-Bold.woff2"),
+    url("./assets/fonts/Gotham-Bold.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Regular.woff2"),
+    url("./assets/fonts/Poppins-Regular.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins";
+  color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Gotham";
+  line-height: 72px;
+  text-transform: capitalize;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1 {
+  font-size: 60px;
+
+  @media (max-width: 768px) {
+    font-size: 45px;
+    line-height: 60px;
+  }
+
+}
+
+h2 {
+  font-size: 48px;
+
+  @media (max-width: 768px) {
+    font-size: 35px;
+    line-height: 60px;
+  }
+  
+}
+
+p {
+  font-size: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
+}

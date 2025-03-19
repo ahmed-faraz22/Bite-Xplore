@@ -1,0 +1,94 @@
+/* .nearby-restaurants {
+    padding: 40px 0;
+    background: #000000;
+}
+
+.nearby-restaurants .inner .description {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.nearby-restaurants .inner .locations {
+    text-align: center;
+    position: relative;
+}
+
+.nearby-restaurants .inner .locations .location-pointer {
+    width: 15px;
+    height: 15px;
+    background-color: #ff4757;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+    animation: beat 1.5s infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  
+  @keyframes beat {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 71, 87, 0);
+    }
+
+  } */
+
+.nearby-restaurants {
+  background: #000;
+  padding: 40px 0 20px 0;
+}
+
+.nearby-restaurants .inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nearby-restaurants .inner .description {
+  max-width: 40%;
+}
+
+.nearby-restaurants .inner .nearby-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  max-width: 45%;
+  width: 100%;
+}
+
+.card-wrapper:nth-child(3) {
+  grid-column: 1 / 3;
+  justify-self: center;
+  max-width: 45%;
+  width: 100%;
+}
+
+@media(max-width: 768px) {
+
+  .nearby-restaurants .inner {
+    flex-direction: column;
+    row-gap: 70px;
+    align-items: center;
+  }
+
+  .nearby-restaurants .inner .description {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .nearby-restaurants .inner .nearby-card {
+    max-width: 70%;
+  }
+
+}
