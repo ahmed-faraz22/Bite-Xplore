@@ -4,6 +4,7 @@ import NearbyRestaurants from '../components/NearbyRestaurants'
 import Products from '../components/Products'
 import Header from '../components/Header'
 
+
 const Home = () => {
   return (
     <>

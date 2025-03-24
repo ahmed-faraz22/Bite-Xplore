@@ -47,9 +47,14 @@ h6 {
 h1 {
   font-size: 60px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767.99px) {
     font-size: 45px;
     line-height: 60px;
+  }
+
+  @media (max-width: 575.99px) {
+    font-size: 35px;
+    line-height: 40px;
   }
 
 }
@@ -57,17 +62,22 @@ h1 {
 h2 {
   font-size: 48px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767.99px) {
     font-size: 35px;
     line-height: 60px;
   }
-  
+
+  @media (max-width: 575.99px) {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
 }
 
 p {
   font-size: 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767.99px) {
     font-size: 15px;
   }
 
@@ -79,4 +89,12 @@ img {
 
 ul {
   list-style-type: none;
+}
+
+
+/* optinal */
+a {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
 }

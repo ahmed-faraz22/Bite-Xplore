@@ -18,9 +18,9 @@ const NearbyRestaurants = () => {
               </p>
             </div>
             <div className="nearby-card">
-              <Foodcard width={300} />
-              <Foodcard width={300} />
-              <Foodcard width={300} />
+              <Foodcard />
+              <Foodcard />
+              <Foodcard />
             </div>
           </div>
         </div>

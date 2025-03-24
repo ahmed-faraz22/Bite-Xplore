@@ -17,6 +17,17 @@ const Products = () => {
             <h2>Lorem ipsum dolor sit amet.</h2>
           <Swiper
         effect={'coverflow'}
+        breakpoints={{
+            0: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 2
+            },
+            1024: {
+                slidesPerView: 3
+            }
+        }}
         grabCursor={true}
         centeredSlides={false}
         slidesPerView={'3'}
@@ -26,6 +37,7 @@ const Products = () => {
           depth: 100,
           modifier: 1,
           slideShadows: true,
+          
         }}
         pagination={false}
         modules={[EffectCoverflow, Pagination]}
