@@ -1,0 +1,22 @@
+.animated-card {
+    max-width: 30%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    rotate: -10deg;
+}
+
+@media (max-width: 767.99px) {
+    .hero .inner .description {
+        max-width: 100%;
+    }
+
+    .animated-card {
+        max-width: 50%;
+        top: 70%;
+        left: 50%;
+        margin: 20px 0;
+    }
+}

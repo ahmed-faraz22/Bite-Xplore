@@ -3,10 +3,11 @@
 }
 
 .hero .inner {
-    height: calc(100dvh - 90px);
+    height: calc(100dvh - 115px);
     display: flex;
     align-items: center;
     gap: 80px;
+    position: relative;
 }
 
 .hero .inner .description {
@@ -17,7 +18,7 @@
 .hero .inner .hero-card {
     max-width: 30%;
     width: 100%;
-    rotate: -10deg;
+    height: 350px;
 }
 
 .hero .inner .description h1 {
@@ -42,10 +43,15 @@
     }
 }
 
- @media(max-width: 767.99px) {
+@media(max-width: 767.99px) {
     .hero .inner {
         flex-direction: column;
         justify-content: center;
         row-gap: 70px;
+    }
+
+    .hero .inner .hero-card {
+        height: 285px;
+        max-width: 100%;
     }
 }

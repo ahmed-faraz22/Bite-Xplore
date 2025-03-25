@@ -1,8 +1,7 @@
 header {
     position: relative;
     background: black;
-    padding-top: 20px;
-    height: 90px;
+    min-height: 114px;
 }
 
 header .inner {
@@ -14,6 +13,7 @@ header .inner {
 header .inner .site-logo {
     max-width: 100px;
     width: 100%;
+    padding: 10px 0;
 }
 
 header .inner nav ul {
@@ -25,7 +25,25 @@ header .inner nav ul {
 header .inner nav ul li {
     padding: 5px 10px;
     font-size: 20px;
+    position: relative;
 }
+
+header .inner nav ul li::before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+    border-radius: 14px;
+    background: #9381FF;
+    transition: all .3s ease-in-out;
+}
+
+header .inner nav ul li:hover::before {
+    width: 100%;
+}
+
 
 /* mobile menu */
 
@@ -50,8 +68,8 @@ header .inner .mobile-menu .mobile-nav {
     position: absolute;
     /* right: -286px; */
     right: 0;
-    top: 90px;
-    height: calc(100dvh - 90px);
+    top: 115px;
+    height: calc(100dvh - 115px);
     background: #000000d6;
     max-width: 40%;
     width: 100%;
@@ -101,24 +119,14 @@ header .inner .mobile-menu .mobile-nav nav ul {
     header .inner .mobile-menu .mobile-nav {
         max-width: 45%;
     }
+
+    header .inner .site-logo {
+        max-width: 62px;
+    }
 }
 
 @media (max-width: 575.99px) {
     header .inner .mobile-menu .mobile-nav {
         max-width: 100%;
     }
-
-    .hero .inner .description {
-        max-width: 100%;
-    }
-
-    .hero .inner .hero-card {
-        max-width: 50%;
-    }
-
-    .nearby-restaurants .inner .nearby-card {
-        max-width: 100%;
-    }
-
-    
 }

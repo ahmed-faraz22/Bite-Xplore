@@ -17,7 +17,7 @@ const Hero = () => {
             <Button />
           </div>
           <div className="hero-card">
-            <Foodcard/>
+            {/* <Foodcard /> */}
           </div>
         </div>
       </div>
