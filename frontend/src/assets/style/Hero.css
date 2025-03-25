@@ -19,6 +19,7 @@
     max-width: 30%;
     width: 100%;
     height: 350px;
+    rotate: -10deg;
 }
 
 .hero .inner .description h1 {
@@ -50,8 +51,18 @@
         row-gap: 70px;
     }
 
-    .hero .inner .hero-card {
-        height: 285px;
+    .hero .inner .description {
         max-width: 100%;
+    }
+
+    .hero .inner .hero-card {
+        max-width: 45%;
+    }
+
+}
+
+@media(max-width: 539.99px) {
+    .hero .inner .hero-card {
+        max-width: 60%;
     }
 }

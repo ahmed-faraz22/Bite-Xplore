@@ -1,0 +1,36 @@
+.contact {
+    background: #000000;
+    padding: 40px 0;
+}
+
+.contact .inner h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact .inner .about-content {
+    display: flex;
+    gap: 50px;
+}
+
+.contact .inner .about-content .faq {
+    max-width: 50%;
+    width: 100%;
+    background: #a1a1a1;
+    padding: 50px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact .inner .about-content .faq .accordion {
+    background: #000000;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.contact .inner .about-content .faq .accordion .accordion-header {
+    font-size: 22px;
+    margin-bottom: 10px;
+}

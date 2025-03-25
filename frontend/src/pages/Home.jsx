@@ -10,9 +10,6 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="animated-card">
-        <Foodcard />
-      </div>
       <Hero />
       <NearbyRestaurants />
       <Products />
