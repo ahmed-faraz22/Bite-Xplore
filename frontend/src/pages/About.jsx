@@ -9,7 +9,7 @@ const About = () => {
         <div className="container">
           <div className="inner">
             <div className="description">
-              <h1>Heading H1</h1>
+              <h1>About Us</h1>
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex
                 voluptatum possimus alias, non et cum corrupti! Omnis dolore ex,

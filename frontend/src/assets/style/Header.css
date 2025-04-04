@@ -1,6 +1,6 @@
 header {
     position: relative;
-    background: black;
+    background: #000000;
     min-height: 114px;
 }
 
@@ -44,7 +44,6 @@ header .inner nav ul li:hover::before {
     width: 100%;
 }
 
-
 /* mobile menu */
 
 .mobile-btn {
@@ -66,10 +65,9 @@ header .inner .mobile-menu .mobile-btn .btn-bar {
 header .inner .mobile-menu .mobile-nav {
     display: block;
     position: absolute;
-    /* right: -286px; */
     right: 0;
     top: 115px;
-    height: calc(100dvh - 115px);
+    min-height: calc(100dvh - 115px);
     background: #000000d6;
     max-width: 40%;
     width: 100%;

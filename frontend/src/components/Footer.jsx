@@ -1,11 +1,12 @@
 import React from "react";
-import "../assets/style/Footer.css";
-import map from "../assets/images/logo.png";
+import { Link } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 import Button from "./Button";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaReddit } from "react-icons/fa";
+import "../assets/style/Footer.css";
 
 const Footer = () => {
   return (
@@ -15,23 +16,25 @@ const Footer = () => {
           <div className="inner">
             <div className="col">
               <div className="logo">
-                <img src={map} alt="" />
+                <Link to="/">
+                  <img src={logo} alt="" />
+                </Link>
               </div>
             </div>
             <div className="col">
               <h4>All Pages</h4>
               <ul>
                 <li>
-                  <a href="">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <a href="">About</a>
+                  <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <a href="">Products</a>
+                  <Link to="/explore">Explore</Link>
                 </li>
                 <li>
-                  <a href="">Contact</a>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </div>
@@ -39,22 +42,22 @@ const Footer = () => {
               <h4>All Pages</h4>
               <ul>
                 <li>
-                  <a href="">
+                  <a href="https://www.facebook.com/" target="blank">
                     <FaFacebook /> Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="https://www.instagram.com/" target="blank">
                     <FaInstagram /> Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="https://www.whatsapp.com/" target="blank">
                     <FaWhatsapp /> Whatsapp
                   </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a href="https://www.reddit.com/" target="blank">
                     <FaReddit /> Reddit
                   </a>
                 </li>
@@ -63,7 +66,7 @@ const Footer = () => {
             <div className="col">
               <label htmlFor="useremail">Contact Us</label>
               <input type="text" name="useremail" />
-              <Button />
+              <Button buttonLink={"#"} buttonText={`contact`} />
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const Hero = () => {
               Our app helps you discover the best food nearby with a TikTok-like
               experience, smart recommendations, and advanced search.
             </p>
-            <Button />
+            <Button buttonLink={"#"} buttonText={`explore`}/>
           </div>
           <div className="hero-card">
             <Foodcard />

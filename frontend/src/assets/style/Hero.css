@@ -3,7 +3,7 @@
 }
 
 .hero .inner {
-    height: calc(100dvh - 115px);
+    min-height: calc(100dvh - 115px);
     display: flex;
     align-items: center;
     gap: 80px;

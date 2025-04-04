@@ -1,0 +1,67 @@
+.food-filter {
+    background: #000000;
+    padding: 40px 0;
+}
+
+.food-filter .inner {
+    min-height: 100vh;
+}
+
+.food-filter .inner h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.food-filter .inner .filter-cta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 50px;
+}
+
+.food-filter .inner .filter-cta::-webkit-scrollbar {
+    display: none;
+}
+
+.food-filter .inner .filter-cta .btn {
+    background: #ffffff;
+}
+
+.food-filter .inner .filter-cta .btn:active {
+    background: #9381FF;
+}
+
+.food-filter .inner .result-products {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.food-filter .inner .result-products .productcard-wrapper {
+    max-width: calc(25% - 15px);
+    width: 100%;
+}
+
+
+@media(max-width: 1149.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: calc(33.33% - 13.33px);
+    }
+}
+
+@media(max-width: 991.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: calc(50% - 10px);
+    }
+}
+
+@media(max-width: 575.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: 100%;
+    }
+}

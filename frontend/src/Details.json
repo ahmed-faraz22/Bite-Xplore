@@ -1,0 +1,242 @@
+[
+    {
+      "id": 1,
+      "name": "Burger Lab",
+      "location": "Karachi",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROUsmomxTU3CM0j9qnKG3OePiAm62nW7jGfw&s",
+      "products": [
+        {
+          "id": 101,
+          "name": "Quadra Burger",
+          "price": 750,
+          "rating": 4.7,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyTMT0Mmhgbbb2uE4uYzJOY72UdlV8-TU0GA&s",
+          "categories": ["Burgers", "Fast Food"]
+        },
+        {
+          "id": 102,
+          "name": "Super Fries",
+          "price": 350,
+          "rating": 4.5,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRPw7U5ObTMOGfj4sHfg-RqyUMY1vUKIh4HQ&s",
+          "categories": ["Fries", "Fast Food"]
+        },
+        {
+          "id": 103,
+          "name": "Chicken Wings",
+          "price": 500,
+          "rating": 4.3,
+          "image": "https://assets.indolj.io/images/1741255761-FoodPanda-15%20(1).jpg",
+          "categories": ["Wings", "Fast Food"]
+        },
+        {
+          "id": 104,
+          "name": "Veggie Burger",
+          "price": 600,
+          "rating": 4.6,
+          "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6423e6fbc9c37df9416a5a21ca848409/3ac2b39ad528f8c8c5dc77c59abb683d.jpeg",
+          "categories": ["Burgers", "Fast Food"]
+        },
+        {
+          "id": 105,
+          "name": "Mozzarella Sticks",
+          "price": 400,
+          "rating": 4.4,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSialnZOlKxZUYXZrKGGNWgkI051t4CuC38PA&s",
+          "categories": ["Snacks", "Fast Food"]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Salt'n Pepper",
+      "location": "Lahore",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4tW2Fe02wvKlirn0rZL6e6vIEflPioZ8b8g&s",
+      "products": [
+        {
+          "id": 201,
+          "name": "Chicken Handi",
+          "price": 1200,
+          "rating": 4.8,
+          "image": "https://static.tossdown.com/images/4683de47-3aed-41b1-9115-ee7e06f53df5.webp",
+          "categories": ["Desi", "Karahi"]
+        },
+        {
+          "id": 202,
+          "name": "Seekh Kabab",
+          "price": 600,
+          "rating": 4.6,
+          "image": "https://static.tossdown.com/images/7b29d755-8e16-4857-9904-98d2610dda5d.webp",
+          "categories": ["BBQ", "Desi"]
+        },
+        {
+          "id": 203,
+          "name": "Mutton Karahi",
+          "price": 1800,
+          "rating": 4.9,
+          "image": "https://static.tossdown.com/images/c2f3cb6e-f7c1-462e-907d-befe620df395.webp",
+          "categories": ["Karahi", "Desi"]
+        },
+        {
+          "id": 204,
+          "name": "Chicken Biryani",
+          "price": 500,
+          "rating": 4.7,
+          "image": "https://justtadka.com/images/product/CHICKEN_20BIRYANI_20SALT_20N_20PEPPER_2_1.jpg",
+          "categories": ["Desi", "Rice"]
+        },
+        {
+          "id": 205,
+          "name": "Naan",
+          "price": 50,
+          "rating": 4.5,
+          "image": "https://media-cdn.tripadvisor.com/media/photo-s/1b/33/02/27/garlic-naan.jpg",
+          "categories": ["Bread", "Desi"]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Hardee's",
+      "location": "Islamabad",
+      "image": "https://www.vhv.rs/dpng/d/550-5502557_high-resolution-hardees-logo-hd-png-download.png",
+      "products": [
+        {
+          "id": 301,
+          "name": "Mushroom Swiss Burger",
+          "price": 850,
+          "rating": 4.6,
+          "image": "https://www.10buckdinners.com/wp-content/uploads/2010/05/mushroom.jpg",
+          "categories": ["Burgers", "Fast Food"]
+        },
+        {
+          "id": 302,
+          "name": "Curly Fries",
+          "price": 400,
+          "rating": 4.4,
+          "image": "https://cairoscene.com/Content/Admin/Uploads/Articles/ArticlesMainPhoto/1154979/b6e4e92d-fd65-42cb-9719-6e2f89d1c7d9.jpg",
+          "categories": ["Fries", "Fast Food"]
+        },
+        {
+          "id": 303,
+          "name": "Classic Fries",
+          "price": 350,
+          "rating": 4.2,
+          "image": "https://i0.wp.com/mid-east.info/wp-content/uploads/2021/07/hardees.png?fit=1000%2C1000&ssl=1",
+          "categories": ["Fries", "Fast Food"]
+        },
+        {
+          "id": 304,
+          "name": "Onion Rings",
+          "price": 320,
+          "rating": 4.1,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6K8kHpQETi7vHqx_91laQZ74vxXra8B4lbg&s",
+          "categories": ["Snacks", "Fast Food"]
+        },
+        {
+          "id": 305,
+          "name": "Grilled Chicken Burger",
+          "price": 950,
+          "rating": 4.8,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISwpjrU_NFXjDlkoPgbbAPmzNosrbC1dXBw&s",
+          "categories": ["Burgers", "Fast Food"]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pizza Hut",
+      "location": "Karachi",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGGlTaPTgDKJdry1F17JR43ZcEbj8e_lVJ8g&s",
+      "products": [
+        {
+          "id": 401,
+          "name": "Classic Margherita",
+          "price": 800,
+          "rating": 4.5,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkiljKbuFuO1tWvw-O5-UvrE4H3nmKpuHlvAr82ebfQtkmjQyIXdPa07FpZ-S2ZkS4Coo&usqp=CAU",
+          "categories": ["Pizza", "Italian"]
+        },
+        {
+          "id": 402,
+          "name": "Cheesy Garlic Bread",
+          "price": 300,
+          "rating": 4.3,
+          "image": "https://cdn.tictuk.com/1259192308070828/c49ac698-be8a-86ec-2046-3b0994c45e39.jpeg?a=7022ae82-faf0-ccff-1fdb-78f91f67c96f",
+          "categories": ["Sides", "Pizza"]
+        },
+        {
+          "id": 403,
+          "name": "Peppy Paneer Pizza",
+          "price": 900,
+          "rating": 4.6,
+          "image": "https://us2guntur.com/images//10024img/peppypaneer_B_260216.jpg",
+          "categories": ["Pizza", "Vegetarian"]
+        },
+        {
+          "id": 404,
+          "name": "Tandoori Chicken Pizza",
+          "price": 950,
+          "rating": 4.7,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWdgcqeDcKr0nUWSfO2OZIB63DCesLkKaKUA&s",
+          "categories": ["Pizza", "Non-Vegetarian"]
+        },
+        {
+          "id": 405,
+          "name": "Garlic Bread",
+          "price": 200,
+          "rating": 4.4,
+          "image": "https://feedgrump.com/wp-content/uploads/2023/05/pizza-hut-garlic-bread-feature.jpg",
+          "categories": ["Sides", "Pizza"]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "KFC",
+      "location": "Rawalpindi",
+      "image": "https://pngimg.com/d/kfc_PNG6.png",
+      "products": [
+        {
+          "id": 501,
+          "name": "Zinger Burger",
+          "price": 700,
+          "rating": 4.8,
+          "image": "https://i.ytimg.com/vi/dQP7OHrMY4c/maxresdefault.jpg",
+          "categories": ["Burgers", "Fast Food"]
+        },
+        {
+          "id": 502,
+          "name": "Popcorn Chicken",
+          "price": 550,
+          "rating": 4.6,
+          "image": "https://cdn.shopify.com/s/files/1/0517/4609/files/popcorn_480x480.jpg?v=1723123121",
+          "categories": ["Snacks", "Fast Food"]
+        },
+        {
+          "id": 503,
+          "name": "Bucket Meal",
+          "price": 1200,
+          "rating": 4.7,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_zwq3VK1iIsBgYPjD1ybIBP7yBnzoi-WZOg&s",
+          "categories": ["Meals", "Fast Food"]
+        },
+        {
+          "id": 504,
+          "name": "French Fries",
+          "price": 250,
+          "rating": 4.3,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGbQlSt_50v8omtAPfvyrjf07Am8boz6KK7g&s",
+          "categories": ["Fries", "Fast Food"]
+        },
+        {
+          "id": 505,
+          "name": "Soft Drink",
+          "price": 150,
+          "rating": 4.2,
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3q1X_mq4dZwlNzZcnroMLaurKZiTw1MdkFw&s",
+          "categories": ["Beverages", "Fast Food"]
+        }
+      ]
+    }
+  ]

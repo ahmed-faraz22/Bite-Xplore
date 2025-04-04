@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import "../assets/style/Contact.css";
+import Button from "../components/Button";
 
 const Contact = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -8,95 +10,83 @@ const Contact = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqs = [
+    {
+      question: "What is your response time?",
+      answer: "We typically respond within 48 hours.",
+    },
+    {
+      question: "Do you offer customer support?",
+      answer: "Yes, we offer 24/7 customer support.",
+    },
+    {
+      question: "How can I reach you?",
+      answer: "You can reach us via email or phone.",
+    },
+    {
+      question: "What are your working hours?",
+      answer: "We are available from 9 AM to 6 PM (Mon-Fri).",
+    },
+    {
+      question: "Do you provide international support?",
+      answer: "Yes, we assist customers worldwide.",
+    },
+  ];
+
   return (
-    <>
-      <section className="contact">
-        <div className="container">
-          <div className="inner">
-            <h1>Contact Us</h1>
-            <div className="about-content">
-              <div className="faq">
-                <div className="accordion">
+    <section className="contact">
+      <div className="container">
+        <div className="inner">
+          <h1>Contact Us</h1>
+          <div className="about-content">
+            <div className="faq">
+              {faqs.map((faq, index) => (
+                <div className="accordion" key={index}>
                   <div
                     className="accordion-header"
-                    onClick={() => toggleAccordion(0)}
+                    onClick={() => toggleAccordion(index)}
                   >
-                    What is your response time?
+                    <h4>{faq.question}</h4>
+                    <span>
+                      {openIndex === index ? (
+                        <MdKeyboardArrowUp />
+                      ) : (
+                        <MdKeyboardArrowDown />
+                      )}
+                    </span>
                   </div>
-                  {openIndex === 0 && (
-                    <div className="accordion-content">
-                      We typically respond within 24 hours.
-                    </div>
-                  )}
+                  <div
+                    className={`accordion-content ${
+                      openIndex === index ? "show" : ""
+                    }`}
+                  >
+                    {faq.answer}
+                  </div>
                 </div>
+              ))}
+            </div>
+            <div className="about-form">
+              <form>
+                <label htmlFor="userName">Name: </label>
+                <input type="text" name="userName" />
 
-                <div className="accordion">
-                  <div
-                    className="accordion-header"
-                    onClick={() => toggleAccordion(1)}
-                  >
-                    Do you offer customer support?
-                  </div>
-                  {openIndex === 1 && (
-                    <div className="accordion-content">
-                      Yes, we offer 24/7 customer support.
-                    </div>
-                  )}
-                </div>
+                <label htmlFor="userEmail">Email: </label>
+                <input type="email" name="userEmail" />
 
-                <div className="accordion">
-                  <div
-                    className="accordion-header"
-                    onClick={() => toggleAccordion(2)}
-                  >
-                    How can I reach you?
-                  </div>
-                  {openIndex === 2 && (
-                    <div className="accordion-content">
-                      You can reach us via email or phone.
-                    </div>
-                  )}
-                </div>
+                <label htmlFor="userSubject">Subject: </label>
+                <input type="tel" name="userSubject" />
 
-                <div className="accordion">
-                  <div
-                    className="accordion-header"
-                    onClick={() => toggleAccordion(3)}
-                  >
-                    How can I reach you?
-                  </div>
-                  {openIndex === 3 && (
-                    <div className="accordion-content">
-                      You can reach us via email or phone.
-                    </div>
-                  )}
+                <label htmlFor="userMessage">Message: </label>
+                <textarea name="userMessage" rows={5}></textarea>
+                <div className="form-btn">
+                  <Button buttonLink={"#"} buttonText={`submit`}/>
                 </div>
-
-                <div className="accordion">
-                  <div
-                    className="accordion-header"
-                    onClick={() => toggleAccordion(4)}
-                  >
-                    How can I reach you?
-                  </div>
-                  {openIndex === 4 && (
-                    <div className="accordion-content">
-                      You can reach us via email or phone.
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="about-form">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-                repudiandae soluta similique sed rerum explicabo laudantium
-                eveniet reiciendis minima sequi, assumenda in tempore maxime
-                quaerat sunt porro, temporibus ratione! Deserunt?
-              </div>
+              </form>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
