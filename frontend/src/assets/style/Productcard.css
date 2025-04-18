@@ -1,7 +1,6 @@
 .productcard-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
     border: 5px solid #ffffff38;
     border-radius: 18px;
     padding: 15px;
@@ -9,6 +8,7 @@
 }
 
 .productcard-wrapper .card-head {
+    height: 300px;
     margin-bottom: 20px;
 }
 

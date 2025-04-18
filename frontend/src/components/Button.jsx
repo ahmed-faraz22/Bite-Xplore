@@ -1,12 +1,14 @@
-import React from 'react'
-import '../assets/style/Button.css'
+import React from "react";
+import "../assets/style/Button.css";
 
-const Button = ({buttonLink,buttonText}) => {
+const Button = ({ buttonLink, buttonText, onClick, className }) => {
   return (
     <>
-    <a className='btn' href={buttonLink}>{buttonText}</a>
+      <button onClick={onClick} className={`btn ${className}`}>
+        {buttonText}
+      </button>
     </>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

@@ -7,12 +7,12 @@
     min-height: 100vh;
 }
 
-.food-filter .inner h2 {
+.food-filter h2 {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.food-filter .inner .filter-cta {
+.food-filter .filter-cta {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -23,15 +23,20 @@
     margin-bottom: 50px;
 }
 
-.food-filter .inner .filter-cta::-webkit-scrollbar {
+.food-filter .filter-cta::-webkit-scrollbar {
     display: none;
 }
 
-.food-filter .inner .filter-cta .btn {
+.food-filter .filter-cta .btn {
+    white-space: nowrap;
     background: #ffffff;
 }
 
-.food-filter .inner .filter-cta .btn:active {
+.food-filter .filter-cta .btn:hover {
+    background: #9381FF;
+}
+
+.food-filter .filter-cta .btn.active {
     background: #9381FF;
 }
 

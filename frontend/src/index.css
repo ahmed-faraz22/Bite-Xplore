@@ -24,6 +24,8 @@
 body {
   font-family: "Poppins";
   color: #ffffff;
+  overflow-x: hidden;
+  background-color: #000;
 }
 
 h1,
@@ -42,7 +44,9 @@ h6 {
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
-  overflow: hidden;
+
+  /* optinal because of hero animated card will be hide */
+  /* overflow: hidden; */
 }
 
 h1 {
@@ -94,6 +98,44 @@ ul {
 }
 
 a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
+}
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  /* Adjust width of scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1c1c;
+  /* Dark background for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  /* Dark thumb color */
+  border-radius: 6px;
+  /* Optional: rounded thumb corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+  /* Slightly lighter thumb color on hover */
+}
+
+/* Optional: Style for scrollbar in Firefox */
+scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+scrollbarthumb {
+  background-color: #333;
+  border-radius: 6px;
+}
+
+scrollbarthumb:hover {
+  background-color: #444;
 }

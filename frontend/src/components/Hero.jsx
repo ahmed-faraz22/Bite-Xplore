@@ -3,7 +3,9 @@ import Foodcard from "./Foodcard";
 import "../assets/style/Hero.css";
 import Button from "./Button";
 
-const Hero = () => {
+const Hero = ({ foodCardRef }) => {
+  const staticname = "static name";
+
   return (
     <section className="hero">
       <div className="container">
@@ -14,10 +16,10 @@ const Hero = () => {
               Our app helps you discover the best food nearby with a TikTok-like
               experience, smart recommendations, and advanced search.
             </p>
-            <Button buttonLink={"#"} buttonText={`explore`}/>
+            <Button buttonLink={"#"} buttonText={`explore`} />
           </div>
-          <div className="hero-card">
-            <Foodcard />
+          <div ref={foodCardRef} className="hero-card">
+            <Foodcard staticname={staticname} />
           </div>
         </div>
       </div>

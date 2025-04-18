@@ -1,39 +1,93 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
+import Productcard from "../components/Productcard";
 import "../assets/style/FoodFilter.css";
-import Productcard from "./Productcard";
-const FoodFilter = () => {
+
+const FoodFilter = ({ location }) => {
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [activeCategories, setActiveCategories] = useState([]);
+
+  const categories = [
+    "Burgers",
+    "Fast Food",
+    "Fries",
+    "Wings",
+    "Snacks",
+    "Desi",
+    "Karahi",
+    "BBQ",
+    "Rice",
+    "Bread",
+    "Pizza",
+    "Italian",
+    "Sides",
+    "Vegetarian",
+    "Non-Vegetarian",
+    "Meals",
+    "Beverages",
+  ];
+
+  const fetchFilteredProducts = async () => {
+    const query = new URLSearchParams();
+
+    if (activeCategories.length > 0) {
+      query.append("categories", activeCategories.join(","));
+    }
+    if (location) query.append("location", location);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/explore/products?${query.toString()}`
+      );
+      const data = await response.json();
+      setFilteredProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFilteredProducts();
+  }, [activeCategories, location]);
+
+  const handleCategoryClick = (category) => {
+    if (activeCategories.includes(category)) {
+      console.log(activeCategories);
+      setActiveCategories(activeCategories.filter((cat) => cat !== category));
+    } else {
+      setActiveCategories([...activeCategories, category]);
+    }
+  };
+
   return (
-    <>
-      <section className="food-filter">
-        <div className="container">
-          <div className="inner">
-            <h2>choose best for you</h2>
-            <div className="filter-cta">
-              <Button buttonLink={"#"} buttonText={`button 1`}/>
-              <Button buttonLink={"#"} buttonText={`button 2`}/>
-              <Button buttonLink={"#"} buttonText={`button 3`}/>
-              <Button buttonLink={"#"} buttonText={`button 4`}/>
-              <Button buttonLink={"#"} buttonText={`button 5`}/>
-              <Button buttonLink={"#"} buttonText={`button 6`}/>
-              <Button buttonLink={"#"} buttonText={`button 7`}/>
-              <Button buttonLink={"#"} buttonText={`button 8`}/>
-            </div>
-            <div className="result-products">
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-              <Productcard />
-            </div>
+    <section className="food-filter">
+      <h2>Choose best for you</h2>
+      <div className="filter-cta">
+        {categories.map((cat) => (
+          <Button
+            key={cat}
+            buttonText={cat}
+            buttonLink=""
+            onClick={() => handleCategoryClick(cat)}
+            className={activeCategories.includes(cat) ? "active" : ""}
+          />
+        ))}
+      </div>
+
+      <div className="container">
+        <div className="inner">
+          <div className="result-products">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <Productcard key={product.id} product={product} />
+              ))
+            ) : (
+              <p>No products found</p>
+            )}
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

@@ -3,6 +3,7 @@
       "id": 1,
       "name": "Burger Lab",
       "location": "Karachi",
+      "rating": 4.7,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROUsmomxTU3CM0j9qnKG3OePiAm62nW7jGfw&s",
       "products": [
         {
@@ -51,6 +52,7 @@
       "id": 2,
       "name": "Salt'n Pepper",
       "location": "Lahore",
+      "rating": 4.8,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4tW2Fe02wvKlirn0rZL6e6vIEflPioZ8b8g&s",
       "products": [
         {
@@ -99,7 +101,8 @@
       "id": 3,
       "name": "Hardee's",
       "location": "Islamabad",
-      "image": "https://www.vhv.rs/dpng/d/550-5502557_high-resolution-hardees-logo-hd-png-download.png",
+      "rating": 4.6,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjIdRsKwiDr7O8x-liAf19kxBQEynqgjN-7Q&s",
       "products": [
         {
           "id": 301,
@@ -146,7 +149,8 @@
     {
       "id": 4,
       "name": "Pizza Hut",
-      "location": "Karachi",
+      "location": "Multan",
+      "rating": 4.5,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGGlTaPTgDKJdry1F17JR43ZcEbj8e_lVJ8g&s",
       "products": [
         {
@@ -195,6 +199,7 @@
       "id": 5,
       "name": "KFC",
       "location": "Rawalpindi",
+      "rating": 4.8,
       "image": "https://pngimg.com/d/kfc_PNG6.png",
       "products": [
         {

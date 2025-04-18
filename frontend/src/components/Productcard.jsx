@@ -1,38 +1,35 @@
 import React from "react";
-import productimg from "../assets/images/foodiesfeed.com_colorful-bowl-of-deliciousness-with-fried-egg.png";
-import Button from "./Button";
 import { CiStar } from "react-icons/ci";
+import Button from "./Button";
 import "../assets/style/Productcard.css";
 
-const Productcard = () => {
+const Productcard = ({ product }) => {
   return (
-    <>
-      <div className="productcard-wrapper">
+    <div className="productcard-wrapper">
+      <div className="card">
         <div className="card-head">
-          <img src={productimg} alt="" />
+          <img src={product.image} alt={product.name} />
         </div>
         <div className="card-body">
           <span>
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
+            {[...Array(5)].map((_, index) => (
+              <CiStar
+                key={`${product.id}-${index}`}
+                className={product.rating > index ? "filled" : ""}
+              />
+            ))}
           </span>
           <div className="description">
-            <h4>Nike air max dn</h4>
-            <p>
-              Nike air max dnNike air max dnNike air max dnNike air max dnNike
-              air max dnNike air max dnNike air max dnNike air max dn
-            </p>
+            <h4>{product.name}</h4>
+            <p>{product.description || "No description available"}</p>
           </div>
           <div className="price-wrapper">
-            <span>$190.00</span>
-            <Button buttonLink={"#"} buttonText={`view details`} />
+            <span>${product.price}</span>
+            <Button buttonLink={"#"} buttonText={`View Details`} />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

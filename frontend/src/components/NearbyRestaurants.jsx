@@ -2,7 +2,6 @@ import React from "react";
 import "../assets/style/NearbyRestaurants.css";
 import Foodcard from "./Foodcard";
 
-
 const NearbyRestaurants = () => {
   return (
     <>
@@ -10,16 +9,17 @@ const NearbyRestaurants = () => {
         <div className="container">
           <div className="inner">
             <div className="description">
-              <h2>Heading H2</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-                distinctio debitis accusantium alias ut ipsam eligendi
-                perferendis autem molestias. Laboriosam fuga ut adipisci non
-                aperiam. Eveniet autem unde laborum facilis.
-              </p>
+              <h2>Nearby Restaurants</h2>
+              <p>Smart Location based recommendations</p>
+              <span>
+                Our smart algorithm curates recommendations based on your
+                preferences
+              </span>
             </div>
             <div className="nearby-card">
-              <Foodcard />
+              <div style={{ opacity: 0 }}>
+                <Foodcard />
+              </div>
               <Foodcard />
               <Foodcard />
             </div>

@@ -42,22 +42,22 @@ const Footer = () => {
               <h4>All Pages</h4>
               <ul>
                 <li>
-                  <a href="https://www.facebook.com/" target="blank">
+                  <a href="https://www.facebook.com/" target="blank" className="fb-link">
                     <FaFacebook /> Facebook
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/" target="blank">
+                  <a href="https://www.instagram.com/" target="blank" className="ig-link">
                     <FaInstagram /> Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.whatsapp.com/" target="blank">
+                  <a href="https://www.whatsapp.com/" target="blank" className="wp-link">
                     <FaWhatsapp /> Whatsapp
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.reddit.com/" target="blank">
+                  <a href="https://www.reddit.com/" target="blank" className="rd-link">
                     <FaReddit /> Reddit
                   </a>
                 </li>
