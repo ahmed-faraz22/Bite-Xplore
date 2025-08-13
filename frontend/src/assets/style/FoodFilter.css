@@ -1,0 +1,72 @@
+.food-filter {
+    background: #000000;
+    padding: 40px 0;
+}
+
+.food-filter h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.food-filter .filter-cta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    cursor: grab;
+    -ms-overflow-style: none;
+    margin-bottom: 50px;
+}
+
+.food-filter .filter-cta::-webkit-scrollbar {
+    display: none;
+}
+
+
+.food-filter .filter-cta .btn {
+    white-space: nowrap;
+    background: #ffffff;
+}
+
+.food-filter .filter-cta .btn:hover {
+    background: #9381FF;
+}
+
+.food-filter .filter-cta .btn.active {
+    background: #9381FF;
+}
+
+.food-filter .inner .result-products {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.food-filter .inner .result-products .productcard-wrapper {
+    max-width: calc(25% - 15px);
+    width: 100%;
+}
+
+
+@media(max-width: 1149.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: calc(33.33% - 13.33px);
+    }
+}
+
+@media(max-width: 991.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: calc(50% - 10px);
+    }
+}
+
+@media(max-width: 575.99px) {
+    .food-filter .inner .result-products .productcard-wrapper {
+        max-width: 100%;
+    }
+}

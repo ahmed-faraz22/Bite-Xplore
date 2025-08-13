@@ -1,0 +1,9 @@
+.products {
+    background: #000000;
+    padding: 40px 0;
+}
+
+.products .inner h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}

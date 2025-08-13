@@ -1,0 +1,46 @@
+.about {
+    background: #000000;
+    padding: 40px 0;
+}
+
+.about .inner .description {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about .inner .description h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.about .inner .our-team h2 {
+    margin-bottom: 30px;
+}
+
+.about .inner .about-cards {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.about .inner .about-cards .card-wrapper {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: all .3s ease;
+}
+
+.about .inner .about-cards .card-wrapper:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    scale: 1.1;
+}
+
+@media(max-width: 539.99px) {
+    .about .inner .about-cards {
+        flex-direction: column;
+    }
+
+    .about .inner .about-cards .card-wrapper {
+        width: 95%;
+    }
+}

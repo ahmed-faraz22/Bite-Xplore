@@ -1,0 +1,135 @@
+header {
+    position: relative;
+    background: #000000;
+    min-height: 114px;
+}
+
+header .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .inner .site-logo {
+    max-width: 100px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+header .inner nav ul {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+header .inner nav ul li a {
+    padding: 10px;
+    font-size: 20px;
+    position: relative;
+}
+
+header .inner nav ul li a::before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+    border-radius: 14px;
+    background: #9381FF;
+    transition: all .3s ease-in-out;
+}
+
+header .inner nav ul li a:hover::before,
+header .inner nav ul li a.active::before {
+    width: 100%;
+}
+
+header .inner nav ul li a.active {
+    color: #9381FF;
+}
+
+/* mobile menu */
+
+.mobile-btn {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+header .inner .mobile-menu .mobile-btn .btn-bar {
+    height: 3px;
+    width: 28px;
+    background: #ffffff;
+    border-radius: 2px;
+}
+
+header .inner .mobile-menu .mobile-nav {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 115px;
+    min-height: calc(100dvh - 115px);
+    background: #000000d6;
+    max-width: 40%;
+    width: 100%;
+    z-index: 1000;
+    padding: 50px 20px;
+    box-shadow: -20px 0 20px -10px rgba(163, 162, 162, 31%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-out;
+}
+
+header .inner .mobile-menu .active {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+header .inner .mobile-menu .mobile-nav nav ul {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive */
+@media (max-width: 991.99px) {
+    header .inner nav ul li {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767.99px) {
+    header .inner nav {
+        display: none;
+    }
+
+    header .inner .header-cta {
+        display: none;
+    }
+
+    header .inner .mobile-btn {
+        display: flex;
+    }
+
+    header .inner .mobile-menu .mobile-nav nav {
+        display: block;
+    }
+
+    header .inner .mobile-menu .mobile-nav {
+        max-width: 45%;
+    }
+
+    header .inner .site-logo {
+        max-width: 62px;
+    }
+}
+
+@media (max-width: 575.99px) {
+    header .inner .mobile-menu .mobile-nav {
+        max-width: 100%;
+    }
+}

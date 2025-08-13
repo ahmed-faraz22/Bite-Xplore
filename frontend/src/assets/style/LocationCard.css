@@ -1,0 +1,19 @@
+/* .card {
+    
+} */
+
+.card .card-head {
+    padding: 5px;
+    border: 2px solid #579dff;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+}
+
+.card .card-head img {
+    border-radius: 20px;
+    height: 100%;
+}

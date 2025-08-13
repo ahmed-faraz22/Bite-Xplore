@@ -1,0 +1,19 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #9381FF;
+    padding: 10px 30px;
+    border-radius: 24px;
+    border: none;
+    font-size: 16px;
+    color: #434343;
+    text-transform: capitalize;
+    position: relative;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    scale: 1.1;
+}
