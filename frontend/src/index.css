@@ -1,31 +1,31 @@
 /* Global Styling */
 @font-face {
-  font-family: "Gotham";
-  src: url("./assets/fonts/Gotham-Bold.woff2"),
-    url("./assets/fonts/Gotham-Bold.woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "Gotham";
+	src: url("./assets/fonts/Gotham-Bold.woff2"),
+		url("./assets/fonts/Gotham-Bold.woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/Poppins-Regular.woff2"),
-    url("./assets/fonts/Poppins-Regular.woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "Poppins";
+	src: url("./assets/fonts/Poppins-Regular.woff2"),
+		url("./assets/fonts/Poppins-Regular.woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: "Poppins";
-  color: #ffffff;
-  overflow-x: hidden;
-  background-color: #000;
+	font-family: "Poppins";
+	color: #ffffff;
+	overflow-x: hidden;
+	background-color: #000;
 }
 
 h1,
@@ -34,108 +34,99 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Gotham";
-  line-height: 72px;
-  text-transform: capitalize;
+	font-family: "Gotham";
+	line-height: 72px;
+	text-transform: capitalize;
 }
 
 .container {
-  max-width: 1440px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  /* optinal because of hero animated card will be hide */
-  /* overflow: hidden; */
+	max-width: 1440px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
 h1 {
-  font-size: 60px;
+	font-size: 60px;
 
-  @media (max-width: 767.99px) {
-    font-size: 45px;
-    line-height: 60px;
-  }
+	@media (max-width: 767.99px) {
+		font-size: 45px;
+		line-height: 60px;
+	}
 
-  @media (max-width: 575.99px) {
-    font-size: 35px;
-    line-height: 40px;
-  }
+	@media (max-width: 575.99px) {
+		font-size: 35px;
+		line-height: 40px;
+	}
 
 }
 
 h2 {
-  font-size: 48px;
+	font-size: 48px;
 
-  @media (max-width: 767.99px) {
-    font-size: 35px;
-    line-height: 60px;
-  }
+	@media (max-width: 767.99px) {
+		font-size: 35px;
+		line-height: 60px;
+	}
 
-  @media (max-width: 575.99px) {
-    font-size: 30px;
-    line-height: 40px;
-  }
+	@media (max-width: 575.99px) {
+		font-size: 30px;
+		line-height: 40px;
+	}
 
 }
 
 p {
-  font-size: 20px;
+	font-size: 20px;
 
-  @media (max-width: 767.99px) {
-    font-size: 15px;
-  }
+	@media (max-width: 767.99px) {
+		font-size: 15px;
+	}
 
 }
 
 img {
-  max-width: 100%;
-  max-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 ul {
-  list-style-type: none;
+	list-style-type: none;
 }
 
 a {
-  color: #ffffff;
-  text-decoration: none;
+	color: #ffffff;
+	text-decoration: none;
 }
 
-/* For Webkit browsers (Chrome, Safari, Edge) */
+
 ::-webkit-scrollbar {
-  width: 12px;
-  /* Adjust width of scrollbar */
+	width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #1c1c1c;
-  /* Dark background for the track */
+	background-color: #1c1c1c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #333;
-  /* Dark thumb color */
-  border-radius: 6px;
-  /* Optional: rounded thumb corners */
+	background-color: #333;
+	border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #444;
-  /* Slightly lighter thumb color on hover */
+	background-color: #444;
 }
 
-/* Optional: Style for scrollbar in Firefox */
 scrollbar {
-  width: 12px;
-  height: 12px;
+	width: 12px;
+	height: 12px;
 }
 
 scrollbarthumb {
-  background-color: #333;
-  border-radius: 6px;
+	background-color: #333;
+	border-radius: 6px;
 }
 
 scrollbarthumb:hover {
-  background-color: #444;
+	background-color: #444;
 }
