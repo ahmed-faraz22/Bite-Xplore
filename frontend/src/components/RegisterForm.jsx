@@ -1,120 +1,22 @@
-// import { useState } from "react";
-// import Button from "./Button";
-// import { registerUser } from "../../api/auth"; 
-// import { toast, ToastContainer } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
-
-// function RegisterForm() {
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     password: "",
-//   });
-
-//   const [errors, setErrors] = useState({});
-//   const navigate = useNavigate();
-
-//   const validate = () => {
-//     const newErrors = {};
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     const phoneRegex = /^\d{10,15}$/; 
-
-//     if (!form.name.trim()) newErrors.name = "Name is required";
-
-//     if (!form.email.trim()) newErrors.email = "Email is required";
-//     else if (!emailRegex.test(form.email))
-//       newErrors.email = "Invalid email format";
-
-//     if (!form.phone.trim()) newErrors.phone = "Phone is required";
-//     else if (!phoneRegex.test(form.phone))
-//       newErrors.phone = "Invalid phone number";
-
-//     if (!form.password) newErrors.password = "Password is required";
-//     else if (form.password.length < 6)
-//       newErrors.password = "Password must be at least 6 characters";
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const handleChange = (e) =>
-//     setForm({ ...form, [e.target.name]: e.target.value });
-
-//   const handleRegister = async (e) => {
-//     e.preventDefault();
-//     if (!validate()) return;
-
-//     try {
-//       await registerUser(form);
-//       toast.success("Registered successfully!");
-//       setTimeout(() => navigate("/"), 1000);
-//     } catch (err) {
-//       toast.error(err.message);
-//     }
-//   };
-
-//   return (
-//     <form>
-//       <h2>Register</h2>
-
-//       <input
-//         name="name"
-//         value={form.name}
-//         onChange={handleChange}
-//         type="text"
-//         placeholder="Name"
-//         className={errors.name ? "error" : ""}
-//       />
-//       {errors.name && <p className="error-msg">{errors.name}</p>}
-
-//       <input
-//         name="email"
-//         value={form.email}
-//         onChange={handleChange}
-//         type="email"
-//         placeholder="Email"
-//         className={errors.email ? "error" : ""}
-//       />
-//       {errors.email && <p className="error-msg">{errors.email}</p>}
-
-//       <input
-//         name="phone"
-//         value={form.phone}
-//         onChange={handleChange}
-//         type="tel"
-//         placeholder="Phone Number"
-//         className={errors.phone ? "error" : ""}
-//       />
-//       {errors.phone && <p className="error-msg">{errors.phone}</p>}
-
-//       <input
-//         name="password"
-//         value={form.password}
-//         onChange={handleChange}
-//         type="password"
-//         placeholder="Password"
-//         className={errors.password ? "error" : ""}
-//       />
-//       {errors.password && <p className="error-msg">{errors.password}</p>}
-
-//       <Button type="submit" onClick={handleRegister} className="authButton" buttonText="Register" />
-//       <ToastContainer />
-//     </form>
-//   );
-// }
-
-// export default RegisterForm;
 import React, { useState } from "react";
 import Button from "./Button";
 import { registerUser } from "../../api/auth"; 
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export default function Register({ onSwitch }) {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
-  const [errors, setErrors] = useState({});
+export default function Register() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    role: ""
+  });
 
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  // 🔹 Validation
   const validate = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -123,26 +25,31 @@ export default function Register({ onSwitch }) {
     if (!form.name.trim()) newErrors.name = "Name is required";
 
     if (!form.email.trim()) newErrors.email = "Email is required";
-    else if (!emailRegex.test(form.email))
-      newErrors.email = "Invalid email format";
+    else if (!emailRegex.test(form.email)) newErrors.email = "Invalid email format";
 
     if (!form.phone.trim()) newErrors.phone = "Phone is required";
-    else if (!phoneRegex.test(form.phone))
-      newErrors.phone = "Invalid phone number";
+    else if (!phoneRegex.test(form.phone)) newErrors.phone = "Invalid phone number";
 
     if (!form.password) newErrors.password = "Password is required";
-    else if (form.password.length < 6)
-      newErrors.password = "Password must be at least 6 characters";
+    else if (form.password.length < 6) newErrors.password = "Password must be at least 6 characters";
+
+    if (!form.role) newErrors.role = "Role is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // 🔹 Handle Submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      console.log("Register Data:", form);
-      // submit logic here
+    if (!validate()) return;
+
+    try {
+      await registerUser(form); // API call
+      toast.success("Registered successfully! 🎉");
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Registration failed");
     }
   };
 
@@ -150,11 +57,6 @@ export default function Register({ onSwitch }) {
     <div className="form-container sign-up-container">
       <form onSubmit={handleSubmit}>
         <h1>Create Account</h1>
-        <div className="social-container">
-          <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-          <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-          <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
-        </div>
         <span>or use your email for registration</span>
 
         <input
@@ -189,7 +91,19 @@ export default function Register({ onSwitch }) {
         />
         {errors.password && <small style={{ color: "red" }}>{errors.password}</small>}
 
+        {/* 🔹 Role Dropdown */}
+        <select
+          value={form.role}
+          onChange={(e) => setForm({ ...form, role: e.target.value })}
+        >
+          <option value="">Select Role</option>
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
+        {errors.role && <small style={{ color: "red" }}>{errors.role}</small>}
+
         <Button type="submit" className="authButton" buttonText="Register" />
+        <ToastContainer position="top-right" autoClose={2000} />
       </form>
     </div>
   );

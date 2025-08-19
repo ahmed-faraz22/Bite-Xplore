@@ -146,7 +146,7 @@ input.error {
     text-align: center;
   }
 
-  input {
+  input,select {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -308,4 +308,7 @@ input.error {
     display: inline-flex;
     align-self: self-start;
   }
+}
+.authButton{
+  margin-top: 20px;
 }
