@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/images/logo.png";
 import Button from "./Button";
 import "../assets/style/Header.css";
@@ -10,25 +12,42 @@ const Header = () => {
   const navigate = useNavigate();
   const [menuToggle, setMenuToggle] = useState(false);
 
+  // ✅ Sync login status on localStorage change
   useEffect(() => {
-    const handleStorage = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
-    };
+  const updateLoginStatus = () => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  };
 
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+  window.addEventListener("storage", updateLoginStatus);
+  window.addEventListener("authChange", updateLoginStatus); // ✅ Listen to custom login event
 
-  const handleLogout = () => {
+  return () => {
+    window.removeEventListener("storage", updateLoginStatus);
+    window.removeEventListener("authChange", updateLoginStatus); // ✅ Clean up
+  };
+}, []);
+
+
+  const handleLogout = async () => {
+    try {
+      // If your backend supports logout route, call it
+      await axios.post("http://localhost:4000/api/v1/users/logout", {}, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.warn("Logout request failed (fallback to local removal):", err?.message);
+    }
+
+    // Clear auth data
     localStorage.removeItem("token");
-    window.dispatchEvent(new Event("storage"));
-    setTimeout(() => {
-      navigate("/auth");
-    }, 50);
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    toast.success("Logged out successfully!");
+    navigate("/auth");
   };
 
   const handleMenuToggle = () => {
-    setMenuToggle((prevState) => !prevState);
+    setMenuToggle(prev => !prev);
   };
 
   return (
@@ -44,47 +63,19 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="main-nav">
             <ul>
-              <li>
-                <NavLink
-                  to="/"
-                  end
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/about"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/explore"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Contact
-                </NavLink>
-              </li>
+              <li><NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
+              <li><NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>About</NavLink></li>
+              <li><NavLink to="/explore" className={({ isActive }) => (isActive ? "active" : "")}>Explore</NavLink></li>
+              <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>Contact</NavLink></li>
             </ul>
           </nav>
 
+          {/* CTA Button */}
           <div className="header-cta">
             {isLoggedIn ? (
               <Button buttonText="Logout" onClick={handleLogout} />
             ) : (
-              <Button buttonLink="/auth" buttonText="Sign Up" />
+              <Button buttonText="Sign In" buttonLink="/auth" />
             )}
           </div>
 
@@ -99,43 +90,10 @@ const Header = () => {
             <div className={`mobile-nav ${menuToggle ? "active" : ""}`}>
               <nav>
                 <ul>
-                  <li>
-                    <NavLink
-                      to="/"
-                      end
-                      onClick={handleMenuToggle}
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/about"
-                      onClick={handleMenuToggle}
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      About
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/explore"
-                      onClick={handleMenuToggle}
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Explore
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/contact"
-                      onClick={handleMenuToggle}
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Contact
-                    </NavLink>
-                  </li>
+                  <li><NavLink to="/" end onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
+                  <li><NavLink to="/about" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>About</NavLink></li>
+                  <li><NavLink to="/explore" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Explore</NavLink></li>
+                  <li><NavLink to="/contact" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Contact</NavLink></li>
                 </ul>
               </nav>
             </div>
