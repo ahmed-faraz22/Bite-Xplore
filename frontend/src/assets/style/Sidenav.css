@@ -1,0 +1,39 @@
+.sidenav {
+    .inner {
+        /* border: 4px solid #fff; */
+        border-radius: 10px;
+        height:50vh;
+        overflow: hidden;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            li {
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    gap: 10px;
+                    padding: 10px 30px;
+                    color:#8F84FB ;
+                    &:hover {
+                        background-color: #8F84FB;
+                        color: #fff;
+                        transition: all 0.3s ease-in-out;
+                    }
+                    &.active {
+                        background-color: #8F84FB;
+                        color: #fff;
+                    }
+                    svg {
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
+        }
+
+    }
+
+}
