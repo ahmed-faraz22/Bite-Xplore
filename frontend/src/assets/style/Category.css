@@ -1,0 +1,106 @@
+.category {
+  /* max-width: 500px; */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.category .inner {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.category h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  /* color: #333; */
+}
+
+.category label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  /* color: #444; */
+}
+
+.category input,
+.category textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin: 20px 0;
+}
+
+.category input:focus,
+.category textarea:focus {
+  border-color: #8F84FB;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.category textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.btn:hover{
+    scale: unset;
+}
+
+/* Table Styles */
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    border: 2px solid #ddd;
+}
+
+.category-table th,
+.category-table td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.category-table th {
+    background-color: #8F84FB;
+    color: #fff;
+    font-weight: 600;
+}
+
+.category-table tbody tr:hover {
+    background-color: #f1f1f1;
+    color: #8F84FB;
+}
+
+/* Action Icons */
+.category-table .icon {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.category-table .edit-icon {
+    color: #28a745;
+}
+
+.category-table .edit-icon:hover {
+    color: #1e7e34;
+}
+
+.category-table .delete-icon {
+    color: #dc3545;
+}
+
+.category-table .delete-icon:hover {
+    color: #a71d2a;
+}
+
+/* No categories text */
+.category-table tbody tr td[colspan="3"] {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
