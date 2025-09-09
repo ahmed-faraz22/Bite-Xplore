@@ -24,7 +24,7 @@
 body {
 	font-family: "Poppins";
 	color: #ffffff;
-	overflow-x: hidden;
+	overflow-x: hidden !important;
 	background-color: #000;
 }
 
@@ -129,4 +129,99 @@ scrollbarthumb {
 
 scrollbarthumb:hover {
 	background-color: #444;
+}
+
+/* Global Table Styles */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 16px;
+	border: 2px solid #ddd;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 12px 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #8F84FB;
+	color: #fff;
+	font-weight: 600;
+}
+
+tbody tr:hover {
+	background-color: #f1f1f1;
+	color: #8F84FB;
+}
+
+/* Action Icons */
+.icon {
+	margin-right: 10px;
+	cursor: pointer;
+	font-size: 18px;
+	transition: 0.2s;
+}
+
+.edit-icon {
+	color: #28a745;
+}
+
+.edit-icon:hover {
+	color: #1e7e34;
+}
+
+.delete-icon {
+	color: #dc3545;
+}
+
+.delete-icon:hover {
+	color: #a71d2a;
+}
+
+/* No data text */
+tbody tr td[colspan] {
+	text-align: center;
+	font-style: italic;
+	color: #666;
+}
+
+/* ---------------------- */
+/* Responsive Table */
+/* ---------------------- */
+.table-wrapper {
+	width: 100%;
+	overflow-x: auto !important;
+	/* override body */
+	-webkit-overflow-scrolling: touch;
+}
+
+
+@media (max-width: 768px) {
+	table {
+		font-size: 14px;
+	}
+
+	th,
+	td {
+		padding: 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	table {
+		font-size: 13px;
+	}
+
+	th,
+	td {
+		padding: 8px;
+	}
+
+	.icon {
+		font-size: 16px;
+		margin-right: 6px;
+	}
 }

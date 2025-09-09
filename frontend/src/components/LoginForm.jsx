@@ -31,31 +31,67 @@ export default function Login({ onSwitch }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!validate()) return;
 
-    try {
-      const response = await axios.post("http://localhost:4000/api/v1/users/login", {
-        email,
-        password,
-      });
+  //   try {
+  //     const response = await axios.post("http://localhost:4000/api/v1/users/login", {
+  //       email,
+  //       password,
+  //     });
 
-      const { token, user } = response.data;
-      toast.success("Login successful 🎉");
+  //     const { token, user } = response.data;
+  //     toast.success("Login successful 🎉");
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+  //     localStorage.setItem("token", token);
+  //     localStorage.setItem("user", JSON.stringify(user));
 
-      // 🔁 Notify other components of login
-      window.dispatchEvent(new Event("authChange"));
+  //     // 🔁 Notify other components of login
+  //     window.dispatchEvent(new Event("authChange"));
 
-      setTimeout(() => navigate("/"), 1500);
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error(error?.response?.data?.message || "Login failed");
+  //     setTimeout(() => navigate("/"), 1500);
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //     toast.error(error?.response?.data?.message || "Login failed");
+  //   }
+  // };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  try {
+    const response = await axios.post("http://localhost:4000/api/v1/users/login", {
+      email,
+      password,
+    });
+
+    console.log("Login response:", response.data);
+
+    // ✅ response.data.data contains user + tokens
+    const { user, accessToken } = response.data.data;
+
+    toast.success("Login successful 🎉");
+
+    localStorage.setItem("token", accessToken);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    window.dispatchEvent(new Event("authChange"));
+
+    // ✅ Navigate based on role from DB
+    if (user.role === "seller") {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    toast.error(error?.response?.data?.message || "Login failed");
+  }
+};
+
+
 
   return (
     <div className="form-container sign-in-container">
@@ -85,7 +121,7 @@ export default function Login({ onSwitch }) {
         {errors.password && <small style={{ color: "red" }}>{errors.password}</small>}
 
         <a href="#" className="resetpass">Forgot your password?</a>
-        <Button type="submit" className="authButton" buttonText="Login" onClick={handleSubmit} />
+        <Button type="submit" className="authButton" buttonText="Login" />
       </form>
     </div>
   );

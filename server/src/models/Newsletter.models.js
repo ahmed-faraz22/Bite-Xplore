@@ -1,15 +1,23 @@
 import mongoose from "mongoose";
 
 const newsletterSchema = new mongoose.Schema({
-    email: {
+    userName: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
-    subscribedAt: {
-        type: Date,
-        default: Date.now
-    }
+    userEmail: {
+        type: String,
+        required: true
+    },
+    userSubject: {
+        type: String,
+        required: true
+    },
+    userMessage: {
+        type: String,
+        required: true
+    },
+    createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("Newsletter", newsletterSchema);
+export const Newsletter = mongoose.model("Newsletter", newsletterSchema);

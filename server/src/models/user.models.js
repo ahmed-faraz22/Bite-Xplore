@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     phone: { 
         type: String 
     }, 
-    // ✅ added to match frontend
+
     password: {
          type: String, 
          required: true 

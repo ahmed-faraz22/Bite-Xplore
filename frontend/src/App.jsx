@@ -10,21 +10,36 @@ import Auth from "./pages/auth/Auth";
 import Dashboard from "./pages/Dashboard";
 import Dashboardmain from "./components/dashboard/Dashboardmain";
 import Category from "./components/dashboard/Category";
+import Newsletter from "./components/dashboard/Newsletter";
+import Profile from "./components/dashboard/Profile";
+import ProtectedRoute from "./components/dashboard/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
+          {/* Public pages */}
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="explore" element={<Explore />} />
           <Route path="product/:id" element={<ProductDetail />} />
           <Route path="auth" element={<Auth />} />
-          <Route path="dashboard" element={<Dashboard />}>
+
+          {/* Seller-only dashboard */}
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute allowedRole="seller">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Dashboardmain />} />
             <Route path="categories" element={<Category />} />
+            <Route path="newsletter" element={<Newsletter />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

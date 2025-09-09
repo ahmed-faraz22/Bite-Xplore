@@ -42,30 +42,29 @@ export default function AuthForm() {
   const [isRightPanelActive, setIsRightPanelActive] = useState(false);
 
   return (
-   <section className="auth">
-     <div className="container">
-      <div className="inner">
-        <div className={`form-wrapper ${isRightPanelActive ? "right-panel-active" : ""}`}>
-      <RegisterForm />
-      <LoginForm /> 
-
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>To keep connected with us please login with your personal info</p>
-            <Button onClick={() => setIsRightPanelActive(false)} className="ghost" buttonText="Sign In" />
-          </div>
-          <div className="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
-            <p>Enter your personal details and start journey with us</p>
-            <Button onClick={() => setIsRightPanelActive(true)} className="ghost" buttonText="Sign Up" />
+    <section className="auth">
+      <div className="container">
+        <div className="inner">
+          <div className={`form-wrapper ${isRightPanelActive ? "right-panel-active" : ""}`}>
+            <RegisterForm />
+            <LoginForm />
+            <div className="overlay-container">
+              <div className="overlay">
+                <div className="overlay-panel overlay-left">
+                  <h1>Welcome Back!</h1>
+                  <p>To keep connected with us please login with your personal info</p>
+                  <Button onClick={() => setIsRightPanelActive(false)} className="ghost" buttonText="Sign In" />
+                </div>
+                <div className="overlay-panel overlay-right">
+                  <h1>Hello, Friend!</h1>
+                  <p>Enter your personal details and start journey with us</p>
+                  <Button onClick={() => setIsRightPanelActive(true)} className="ghost" buttonText="Sign Up" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-      </div>
-     </div>
-   </section>
+    </section>
   );
 }

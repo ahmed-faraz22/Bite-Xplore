@@ -60,6 +60,10 @@ header .inner nav ul li a.active {
     display: none;
 }
 
+header .inner .mobile-menu {
+    display: none;
+}
+
 header .inner .mobile-menu .mobile-btn .btn-bar {
     height: 3px;
     width: 28px;
@@ -109,6 +113,10 @@ header .inner .mobile-menu .mobile-nav nav ul {
 
     header .inner .header-cta {
         display: none;
+    }
+
+    header .inner .mobile-menu {
+        display: block;
     }
 
     header .inner .mobile-btn {

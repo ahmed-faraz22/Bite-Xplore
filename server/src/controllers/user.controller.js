@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Otp } from "../models/otp.model.js";
 import { sendOtp } from "../utils/otp.js";
+import { Newsletter } from "../models/Newsletter.models.js";
 
 // ✅ Generate tokens
 const generateAccessAndRefreshToken = async (userId) => {
@@ -112,30 +113,47 @@ const register = asyncHandler(async (req, res) => {
 
 // ✅ Login
 const login = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) throw new APIError(400, "Email and password are required");
+  const { email, password } = req.body;
+  if (!email || !password) throw new APIError(400, "Email and password are required");
 
-    const user = await User.findOne({ email });
-    if (!user) throw new APIError(404, "User not found");
+  const user = await User.findOne({ email });
+  if (!user) throw new APIError(404, "User not found");
 
-    const isPasswordValid = await user.isPasswordCorrect(password);
-    if (!isPasswordValid) throw new APIError(401, "Invalid credentials");
+  const isPasswordValid = await user.isPasswordCorrect(password);
+  if (!isPasswordValid) throw new APIError(401, "Invalid credentials");
 
-    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
 
-    const isProd = process.env.NODE_ENV === "production";
-    const options = {
-        httpOnly: true,
-        secure: isProd,
-        sameSite: isProd ? "None" : "Lax",
-    };
+  const isProd = process.env.NODE_ENV === "production";
+  const options = {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "None" : "Lax",
+  };
 
-    return res
-        .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(new ApiResponse(200, { user, accessToken, refreshToken }, "Login successful"));
+  // ✅ Strip sensitive fields
+  const safeUser = {
+    id: user._id,
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    role: user.role,   // 🔑 role comes from DB
+    status: user.status,
+  };
+
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        { user: safeUser, accessToken, refreshToken },
+        "Login successful"
+      )
+    );
 });
+
 
 // ✅ Refresh token
 const refreshAccessToken = asyncHandler(async (req, res) => {
@@ -191,4 +209,93 @@ const logout = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Logged out successfully"));
 });
 
-export { register, sendOtpController, verifyOtp, login, refreshAccessToken, logout };
+const addNewsletter = asyncHandler(async (req, res) => {
+    const { userName, userEmail, userSubject, userMessage } = req.body;
+
+    if (!userName || !userEmail || !userSubject || !userMessage) {
+        throw new APIError(400, "All fields are required");
+    }
+
+    const newSubmission = await Newsletter.create({
+        userName,
+        userEmail,
+        userSubject,
+        userMessage,
+    });
+
+    return res
+        .status(201)
+        .json(new ApiResponse(201, newSubmission, "Submission added successfully"));
+});
+
+// ✅ Get all submissions
+const getNewsletters = asyncHandler(async (req, res) => {
+    const submissions = await Newsletter.find().sort({ createdAt: -1 });
+    return res
+        .status(200)
+        .json(new ApiResponse(200, submissions, "Fetched all submissions"));
+});
+
+const deleteNewsletter = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const deleted = await Newsletter.findByIdAndDelete(id);
+
+    if (!deleted) {
+        return res
+            .status(404)
+            .json(new ApiResponse(404, null, "Newsletter not found"));
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, deleted, "Newsletter deleted successfully"));
+});
+
+
+const clearNewsletters = asyncHandler(async (req, res) => {
+    await Newsletter.deleteMany({});
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, null, "All newsletter submissions cleared"));
+});
+
+const getUserProfile = asyncHandler(async (req, res) => {
+
+    const user = await User.findById(req.user._id).select('-password -refreshToken');
+
+    if (!user) {
+        throw new APIError(404, 'User not found');
+    }
+
+    res.status(200).json(new ApiResponse(200, user, 'User profile fetched successfully'));
+});
+// ✅ Update user profile
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const { name, username, email, phone } = req.body;
+
+    // find logged-in user
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        throw new APIError(404, "User not found");
+    }
+
+    // update only provided fields
+    if (name) user.name = name;
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (phone) user.phone = phone;
+
+    await user.save();
+
+    // return updated user without sensitive fields
+    const updatedUser = await User.findById(req.user._id).select("-password -refreshToken");
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, updatedUser, "Profile updated successfully"));
+});
+
+
+export { register, sendOtpController, verifyOtp, login, refreshAccessToken, logout, addNewsletter, getNewsletters, deleteNewsletter, clearNewsletters, getUserProfile, updateUserProfile };
