@@ -44,6 +44,9 @@
   min-height: 100px;
   resize: vertical;
 }
+.btn:hover{
+    scale: unset;
+}
 
 /* Table Styles */
 .category-table {
