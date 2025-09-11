@@ -9,13 +9,16 @@ const Productcard = ({ product }) => {
     <div className="productcard-wrapper">
       <div className="card">
         <div className="card-head">
-          <img src={product.image} alt={product.name} />
+          <img
+            src={product.images?.[0] || "/placeholder.jpg"}
+            alt={product.name}
+          />
         </div>
         <div className="card-body">
           <span>
             {[...Array(5)].map((_, index) => (
               <CiStar
-                key={`${product.id}-${index}`}
+                key={`${product._id}-${index}`}
                 className={product.rating > index ? "filled" : ""}
               />
             ))}
@@ -26,9 +29,10 @@ const Productcard = ({ product }) => {
           </div>
           <div className="price-wrapper">
             <span>Rs {product.price}</span>
-            {/* <Link to={}> */}
-              <Button buttonLink={`/product/${product.id}`} buttonText="View Details" />
-            {/* </Link> */}
+            <Button
+              buttonLink={`/product/${product._id}`}
+              buttonText="View Details"
+            />
           </div>
         </div>
       </div>

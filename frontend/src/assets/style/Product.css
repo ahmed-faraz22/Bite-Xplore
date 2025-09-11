@@ -1,0 +1,140 @@
+/* Product Page Styles */
+.product {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product .inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.product label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #444;
+}
+
+.product input,
+.product textarea,
+.product select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.product input:focus,
+.product textarea:focus,
+.product select:focus {
+  border-color: #8f84fb;
+  box-shadow: 0 0 0 3px rgba(143, 132, 251, 0.2);
+}
+
+.product textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Buttons */
+.product .btn {
+  background-color: #8f84fb;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.product .btn:hover {
+  background-color: #6d66f5;
+  transform: scale(1.02);
+}
+
+/* File Input */
+.product input[type="file"] {
+  padding: 6px;
+}
+
+/* Table Styles */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  margin-top: 30px;
+  border: 2px solid #ddd;
+}
+
+.product-table th,
+.product-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+  background-color: #8f84fb;
+  color: #fff;
+  font-weight: 600;
+}
+
+.product-table tbody tr:hover {
+  background-color: #f1f1f1;
+  color: #8f84fb;
+}
+
+/* Action Icons */
+.product-table .icon {
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.product-table .edit-icon {
+  color: #28a745;
+}
+
+.product-table .edit-icon:hover {
+  color: #1e7e34;
+}
+
+.product-table .delete-icon {
+  color: #dc3545;
+}
+
+.product-table .delete-icon:hover {
+  color: #a71d2a;
+}
+
+/* Product Images */
+.product-table img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* No products text */
+.product-table tbody tr td[colspan="7"] {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+}

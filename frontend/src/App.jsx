@@ -13,6 +13,7 @@ import Category from "./components/dashboard/Category";
 import Newsletter from "./components/dashboard/Newsletter";
 import Profile from "./components/dashboard/Profile";
 import ProtectedRoute from "./components/dashboard/ProtectedRoute";
+import Product from "./components/dashboard/Product";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="categories" element={<Category />} />
             <Route path="newsletter" element={<Newsletter />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="Product" element={< Product/>} />
           </Route>
         </Route>
       </Routes>

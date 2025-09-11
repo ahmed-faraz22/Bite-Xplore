@@ -17,10 +17,12 @@ app.use(cookieParser());
 import userRoutes from "./routes/user.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import restaurantRoutes from "./routes/restaurant.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/restaurants", restaurantRoutes);
+app.use("/api/v1/products", productRoutes);
 
 
 export default app;

@@ -1,4 +1,4 @@
-import Restaurant from "../models/restaurant.model.js";
+import Restaurant from "../models/Restaurant.models.js";
 import APIError from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";

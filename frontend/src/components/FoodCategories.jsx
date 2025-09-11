@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaSearchLocation,
   FaLocationArrow,
@@ -13,35 +13,43 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
   const [activeCity, setActiveCity] = useState("");
   const [activeRestaurant, setActiveRestaurant] = useState("");
 
-  const cities = ["Rawalpindi", "Islamabad", "Karachi", "Lahore", "Multan"];
-  const restaurants = [
-    "Burger Lab",
-    "Pizza Hut",
-    "Zaify's",
-    "KFC",
-    "Buddys's",
-    "Hardee’s",
-    "Salt'n Pepper",
-  ];
+  const [cities, setCities] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+
+  // 🔥 Fetch cities & restaurants dynamically
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cityRes = await fetch("http://localhost:4000/api/cities");
+        const restaurantRes = await fetch(
+          "http://localhost:8000/api/restaurants"
+        );
+
+        setCities(await cityRes.json());
+        setRestaurants(await restaurantRes.json());
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const filteredCities = cities.filter((city) =>
-    city.toLowerCase().includes(searchCity.toLowerCase())
+    city.name.toLowerCase().includes(searchCity.toLowerCase())
   );
 
   const filteredRestaurants = restaurants.filter((restaurant) =>
-    restaurant.toLowerCase().includes(searchRestaurant.toLowerCase())
+    restaurant.name.toLowerCase().includes(searchRestaurant.toLowerCase())
   );
 
   const handleLocationClick = (city) => {
-    setActiveCity(city);
-    onLocationChange(city);
+    setActiveCity(city.name);
+    onLocationChange(city.name);
   };
 
   const handleRestaurantClick = (restaurant) => {
-    setActiveRestaurant(restaurant);
-    if (onRestaurantChange) {
-      onRestaurantChange(restaurant);
-    }
+    setActiveRestaurant(restaurant.name);
+    onRestaurantChange(restaurant.name);
   };
 
   return (
@@ -67,11 +75,11 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
                 <ul>
                   {filteredCities.map((city) => (
                     <li
-                      className={activeCity === city ? "active" : ""}
-                      key={city}
+                      className={activeCity === city.name ? "active" : ""}
+                      key={city.id}
                       onClick={() => handleLocationClick(city)}
                     >
-                      <FaLocationArrow /> <span>{city}</span>
+                      <FaLocationArrow /> <span>{city.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -99,12 +107,12 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
                   {filteredRestaurants.map((restaurant) => (
                     <li
                       className={
-                        activeRestaurant === restaurant ? "active" : ""
+                        activeRestaurant === restaurant.name ? "active" : ""
                       }
-                      key={restaurant}
+                      key={restaurant.id}
                       onClick={() => handleRestaurantClick(restaurant)}
                     >
-                      <FaUtensils /> <span>{restaurant}</span>
+                      <FaUtensils /> <span>{restaurant.name}</span>
                     </li>
                   ))}
                 </ul>

@@ -4,86 +4,84 @@ import Productcard from "../components/Productcard";
 import "../assets/style/FoodFilter.css";
 
 const FoodFilter = ({ location, restaurant }) => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]); // store all/fetched products
+  const [categories, setCategories] = useState([]);
   const [activeCategories, setActiveCategories] = useState([]);
 
-  const categories = [
-    "Burgers",
-    "Fast Food",
-    "Fries",
-    "Wings",
-    "Snacks",
-    "Desi",
-    "Karahi",
-    "BBQ",
-    "Rice",
-    "Bread",
-    "Pizza",
-    "Italian",
-    "Sides",
-    "Vegetarian",
-    "Non-Vegetarian",
-    "Meals",
-    "Beverages",
-    "Chinese",
-    "Platter",
-    "Cuisine",
-    "Deal",
-  ];
-
-  const fetchFilteredProducts = async () => {
-    const query = new URLSearchParams();
-
-    if (activeCategories.length > 0) {
-      query.append("categories", activeCategories.join(","));
-    }
-    if (location) query.append("location", location);
-    if (restaurant) query.append("restaurant", restaurant);
+  // 🔥 Fetch categories
+  const fetchCategories = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/explore/products?${query.toString()}`
+      const res = await fetch("http://localhost:4000/api/v1/categories");
+      const data = await res.json();
+      setCategories(data.data || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  // 🔥 Fetch products
+  const fetchProducts = async () => {
+    try {
+      const query = new URLSearchParams();
+      if (activeCategories.length > 0) {
+        query.append("categories", activeCategories.join(","));
+      }
+      if (location) query.append("location", location);
+      if (restaurant) query.append("restaurant", restaurant);
+
+      const res = await fetch(
+        `http://localhost:4000/api/v1/products?${query.toString()}`
       );
-      const data = await response.json();
-      setFilteredProducts(data);
-      console.log(filteredProducts);
+      const data = await res.json();
+      setProducts(data.data || []); // use .data because your backend wraps response
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
+  // Initial fetch
   useEffect(() => {
-    fetchFilteredProducts();
+    fetchCategories();
+    fetchProducts();
+  }, []);
+
+  // Fetch products when filters change
+  useEffect(() => {
+    fetchProducts();
   }, [activeCategories, location, restaurant]);
 
-  const handleCategoryClick = (category) => {
-    if (activeCategories.includes(category)) {
-      setActiveCategories(activeCategories.filter((cat) => cat !== category));
+  const handleCategoryClick = (categoryId) => {
+    if (activeCategories.includes(categoryId)) {
+      setActiveCategories(activeCategories.filter((id) => id !== categoryId));
     } else {
-      setActiveCategories([...activeCategories, category]);
+      setActiveCategories([...activeCategories, categoryId]);
     }
   };
 
   return (
     <section className="food-filter">
       <h2>Choose best for you</h2>
+
+      {/* Category Filters */}
       <div className="filter-cta">
         {categories.map((cat) => (
           <Button
-            key={cat}
-            buttonText={cat}
+            key={cat._id}
+            buttonText={cat.name}
             buttonLink=""
-            onClick={() => handleCategoryClick(cat)}
-            className={activeCategories.includes(cat) ? "active" : ""}
+            onClick={() => handleCategoryClick(cat._id)}
+            className={activeCategories.includes(cat._id) ? "active" : ""}
           />
         ))}
       </div>
 
+      {/* Products */}
       <div className="container">
         <div className="inner">
           <div className="result-products">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <Productcard key={product.id} product={product} />
+            {products.length > 0 ? (
+              products.map((product) => (
+                <Productcard key={product._id} product={product} />
               ))
             ) : (
               <p>No products found</p>
