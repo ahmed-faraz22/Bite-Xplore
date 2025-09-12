@@ -4,7 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js",
+    "seed:categories": "node seeders/category.Seeder.js",
+    "seed:categories:delete": "node seeders/category.Seeder.js -d"
   },
   "keywords": [],
   "author": "Ahmed Faraz",
