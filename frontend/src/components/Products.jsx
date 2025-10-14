@@ -12,7 +12,7 @@ const Products = () => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/restaurants/top-rated")
+    fetch("http://localhost:4000/restaurants/top-rated")
       .then((res) => res.json())
       .then((data) => {
         setRestaurants(data);

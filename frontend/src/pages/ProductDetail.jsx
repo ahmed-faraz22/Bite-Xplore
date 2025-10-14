@@ -11,25 +11,20 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://localhost:8000/explore/products");
-        const allProducts = await response.json();
+        // ✅ fetch product by ID
+        const res = await fetch(`http://localhost:4000/api/v1/products/${id}`);
+        const data = await res.json();
 
-        const foundProduct = allProducts.find((p) => String(p.id) === id);
-        if (foundProduct) {
-          setProduct(foundProduct);
+        if (data?.data) {
+          setProduct(data.data);
 
-          // Optional: fetch restaurant data
-          const restaurantRes = await fetch(
-            `http://localhost:8000/restaurants?location=${foundProduct.restaurantLocation}`
-          );
-          const restaurants = await restaurantRes.json();
-
-          const matchedRestaurant = restaurants.find((r) =>
-            r.products.some((p) => String(p.id) === id)
-          );
-
-          if (matchedRestaurant) {
-            setRestaurant(matchedRestaurant);
+          // ✅ if product has restaurantId, fetch restaurant
+          if (data.data.restaurantId) {
+            const restRes = await fetch(
+              `http://localhost:4000/api/v1/restaurants/${data.data.restaurantId}`
+            );
+            const restData = await restRes.json();
+            setRestaurant(restData?.data || null);
           }
         }
       } catch (error) {
@@ -48,18 +43,26 @@ const ProductDetail = () => {
         <div className="inner">
           <div className="product-details">
             <div className="product-img">
-              <img src={product.image} alt={product.name} />
+              <img
+                src={product.images?.[0] || "/placeholder.jpg"}
+                alt={product.name}
+              />
             </div>
             <div className="product-content">
-              <div className="resturent-logo">
-                <img src={restaurant?.image} alt="Restaurant Logo" />
-              </div>
+              {restaurant && (
+                <div className="resturent-logo">
+                  <img
+                    src={restaurant.image || "/placeholder.jpg"}
+                    alt="Restaurant Logo"
+                  />
+                </div>
+              )}
               <div className="head">
                 <h3>{product.name}</h3>
                 <span>Rs {product.price}</span>
               </div>
               <div className="body">
-                <p>{product.description}</p>
+                <p>{product.description || "No description available"}</p>
                 {restaurant && (
                   <ul>
                     <li>
@@ -73,6 +76,7 @@ const ProductDetail = () => {
                   </ul>
                 )}
               </div>
+              <Button buttonText="Order Now" buttonLink={`/checkout/${id}`} />
             </div>
           </div>
         </div>
@@ -82,3 +86,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+  

@@ -22,7 +22,7 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
       try {
         const cityRes = await fetch("http://localhost:4000/api/cities");
         const restaurantRes = await fetch(
-          "http://localhost:8000/api/restaurants"
+          "http://localhost:4000/api/restaurants"
         );
 
         setCities(await cityRes.json());
