@@ -14,6 +14,7 @@ import Newsletter from "./components/dashboard/Newsletter";
 import Profile from "./components/dashboard/Profile";
 import ProtectedRoute from "./components/dashboard/ProtectedRoute";
 import Product from "./components/dashboard/Product";
+import Orders from "./components/dashboard/Orders";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path="newsletter" element={<Newsletter />} />
             <Route path="profile" element={<Profile />} />
             <Route path="Product" element={< Product/>} />
+            <Route path="Orders" element= {<Orders/>} />
           </Route>
         </Route>
       </Routes>

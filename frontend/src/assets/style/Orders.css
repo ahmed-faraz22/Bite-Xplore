@@ -1,0 +1,247 @@
+/* ====== General Layout ====== */
+.order-tab {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%);
+  color: #f2f2f2;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(147, 129, 255, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(147, 129, 255, 0.2);
+}
+
+.inner {
+  padding: 30px 40px;
+}
+
+/* ====== Tabs ====== */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(147, 129, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px 0;
+  background: transparent;
+  color: #b8b8ff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background-color: rgba(147, 129, 255, 0.15);
+  color: #fff;
+}
+
+.tab.active {
+  background-color: #9381ff;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(147, 129, 255, 0.4);
+}
+
+/* ====== Orders Section ====== */
+.orders-section {
+  /* background-color: rgba(147, 129, 255, 0.05); */
+  padding: 25px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.orders-section h3 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #fff;
+  border-left: 5px solid #9381ff;
+  padding-left: 10px;
+}
+
+/* ====== Order Cards ====== */
+.orders-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.orders-section li {
+  background: linear-gradient(145deg, #1c1c1c, #232323);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 10px rgba(147, 129, 255, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(147, 129, 255, 0.15);
+}
+
+.orders-section li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(147, 129, 255, 0.2);
+}
+
+/* Order Header */
+.orders-section li>div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orders-section li span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Status Badge */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background-color: #ffd166;
+  color: #000;
+}
+
+.status.confirmed {
+  background-color: #06d6a0;
+  color: #000;
+}
+
+.status.delivered {
+  background-color: #4cc9f0;
+  color: #000;
+}
+
+.status.cancelled {
+  background-color: #ef476f;
+  color: #fff;
+}
+
+/* Items List */
+.orders-section li ul {
+  margin-top: 10px;
+  padding-left: 15px;
+}
+
+.orders-section li ul li {
+  background: rgba(147, 129, 255, 0.1);
+  border-radius: 8px;
+  margin: 6px 0;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: #dcdcdc;
+}
+
+/* ====== Summary Section ====== */
+.order-summary {
+  margin-top: 30px;
+}
+
+.order-summary h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.monthly-orders {
+  margin-bottom: 25px;
+}
+
+.monthly-orders h5 {
+  font-size: 1.2rem;
+  color: #b8b8ff;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.monthly-orders ul {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.monthly-orders li {
+  font-size: 1rem;
+  color: #e8e8ff;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(147, 129, 255, 0.2);
+}
+
+/* === Toggle Button === */
+.toggle-btn {
+  background: rgba(147, 129, 255, 0.15);
+  color: #b8b8ff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: rgba(147, 129, 255, 0.3);
+  color: #fff;
+}
+
+/* === Payment Details Section === */
+.payment-details {
+  background: rgba(147, 129, 255, 0.05);
+  border: 1px solid rgba(147, 129, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 12px 15px;
+  font-size: 0.9rem;
+  color: #e2e2ff;
+}
+
+.payment-details p {
+  margin: 4px 0;
+}
+
+.payment-details strong {
+  color: #b8b8ff;
+}
+
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .inner {
+    padding: 20px;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    margin-bottom: 10px;
+  }
+
+  .orders-section li {
+    padding: 15px;
+  }
+
+  .orders-section li>div:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

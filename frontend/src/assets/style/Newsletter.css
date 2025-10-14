@@ -3,11 +3,8 @@
     word-wrap: break-word;
     word-break: break-word;
     white-space: normal;
-    /* allow wrapping */
     max-width: 200px;
-    /* adjust as needed */
     overflow-wrap: anywhere;
-    /* modern browsers */
 }
 
 .delete-icon {
