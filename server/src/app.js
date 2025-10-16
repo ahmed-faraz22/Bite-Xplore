@@ -18,11 +18,13 @@ import userRoutes from "./routes/user.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import restaurantRoutes from "./routes/restaurant.routes.js";
 import productRoutes from "./routes/product.routes.js";
+import cartRoutes from "./routes/cart.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/restaurants", restaurantRoutes);
 app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 
 export default app;

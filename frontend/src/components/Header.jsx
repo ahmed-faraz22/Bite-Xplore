@@ -1,53 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import logo from "../assets/images/logo.png";
+import { toast } from "react-toastify";
+import { FaShoppingCart } from "react-icons/fa";
 import Button from "./Button";
+import CartPopup from "./CartPopup";
+import logo from "../assets/images/logo.png";
 import "../assets/style/Header.css";
+import { CartContext } from "../context/CartContext.jsx";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const navigate = useNavigate();
-  const [menuToggle, setMenuToggle] = useState(false);
+  const cartRef = useRef(null);
 
-  // ✅ Sync login status on localStorage change
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [showCart, setShowCart] = useState(false);
+
+  const { cartItems, fetchCart } = useContext(CartContext);
+
+  // fetch cart on login
   useEffect(() => {
-  const updateLoginStatus = () => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
-  };
+    if (isLoggedIn) fetchCart();
+  }, [isLoggedIn, fetchCart]);
 
-  window.addEventListener("storage", updateLoginStatus);
-  window.addEventListener("authChange", updateLoginStatus); // ✅ Listen to custom login event
-
-  return () => {
-    window.removeEventListener("storage", updateLoginStatus);
-    window.removeEventListener("authChange", updateLoginStatus); // ✅ Clean up
-  };
-}, []);
-
+  // click outside to close
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) setShowCart(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleLogout = async () => {
     try {
-      // If your backend supports logout route, call it
-      await axios.post("http://localhost:4000/api/v1/users/logout", {}, {
-        withCredentials: true,
-      });
+      await axios.post("http://localhost:4000/api/v1/users/logout", {}, { withCredentials: true });
     } catch (err) {
-      console.warn("Logout request failed (fallback to local removal):", err?.message);
+      console.warn(err);
     }
-
-    // Clear auth data
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     setIsLoggedIn(false);
     toast.success("Logged out successfully!");
     navigate("/auth");
-  };
-
-  const handleMenuToggle = () => {
-    setMenuToggle(prev => !prev);
   };
 
   return (
@@ -55,48 +49,40 @@ const Header = () => {
       <div className="container">
         <div className="inner">
           <div className="site-logo">
-            <NavLink to="/">
-              <img src={logo} alt="Site Logo" />
-            </NavLink>
+            <NavLink to="/"><img src={logo} alt="Logo" /></NavLink>
           </div>
 
-          {/* Desktop Navigation */}
           <nav className="main-nav">
             <ul>
-              <li><NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
-              <li><NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>About</NavLink></li>
-              <li><NavLink to="/explore" className={({ isActive }) => (isActive ? "active" : "")}>Explore</NavLink></li>
-              <li><NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>Contact</NavLink></li>
+              <li><NavLink to="/">Home</NavLink></li>
+              <li><NavLink to="/about">About</NavLink></li>
+              <li><NavLink to="/explore">Explore</NavLink></li>
+              <li><NavLink to="/contact">Contact</NavLink></li>
             </ul>
           </nav>
 
-          {/* CTA Button */}
-          <div className="header-cta">
+          <div className="header-cta" style={{ position: "relative", display: "flex", gap: "1rem" }}>
             {isLoggedIn ? (
-              <Button buttonText="Logout" onClick={handleLogout} />
+              <>
+                <div ref={cartRef} style={{ position: "relative" }}>
+                  <button
+                    onClick={() => setShowCart(prev => !prev)}
+                    style={{ background: "none", border: "none", cursor: "pointer" }}
+                  >
+                    <FaShoppingCart color="#fff" size={25} />
+                  </button>
+
+                  {showCart && (
+                    <div style={{ position: "absolute", right: 0, top: "2.5rem", zIndex: 100 }}>
+                      <CartPopup items={cartItems} onClose={() => setShowCart(false)} />
+                    </div>
+                  )}
+                </div>
+                <Button buttonText="Logout" onClick={handleLogout} />
+              </>
             ) : (
               <Button buttonText="Sign In" buttonLink="/auth" />
             )}
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="mobile-menu">
-            <div className="mobile-btn" onClick={handleMenuToggle}>
-              <div className="btn-bar"></div>
-              <div className="btn-bar"></div>
-              <div className="btn-bar"></div>
-            </div>
-
-            <div className={`mobile-nav ${menuToggle ? "active" : ""}`}>
-              <nav>
-                <ul>
-                  <li><NavLink to="/" end onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
-                  <li><NavLink to="/about" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>About</NavLink></li>
-                  <li><NavLink to="/explore" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Explore</NavLink></li>
-                  <li><NavLink to="/contact" onClick={handleMenuToggle} className={({ isActive }) => (isActive ? "active" : "")}>Contact</NavLink></li>
-                </ul>
-              </nav>
-            </div>
           </div>
         </div>
       </div>

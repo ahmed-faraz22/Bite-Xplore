@@ -99,6 +99,14 @@ header .inner .mobile-menu .mobile-nav nav ul {
     flex-direction: column;
 }
 
+header .header-cta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+
+}
+
 /* Responsive */
 @media (max-width: 991.99px) {
     header .inner nav ul li {
