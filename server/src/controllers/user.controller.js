@@ -90,8 +90,8 @@ const register = asyncHandler(async (req, res) => {
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) throw new APIError(400, "User already exists");
 
-    // 4. Create new user
-    const user = await User.create({ name, username, email, phone, password, role });
+    // 4. Create new user (OTP already verified, so set isVerified to true)
+    const user = await User.create({ name, username, email, phone, password, role, isVerified: true });
 
     // 5. Generate tokens
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
@@ -122,6 +122,11 @@ const login = asyncHandler(async (req, res) => {
   const isPasswordValid = await user.isPasswordCorrect(password);
   if (!isPasswordValid) throw new APIError(401, "Invalid credentials");
 
+  // Check if user is verified
+  if (!user.isVerified) {
+    throw new APIError(403, "Please verify your email before logging in");
+  }
+
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
 
   const isProd = process.env.NODE_ENV === "production";
@@ -139,6 +144,7 @@ const login = asyncHandler(async (req, res) => {
     email: user.email,
     role: user.role,   // 🔑 role comes from DB
     status: user.status,
+    isVerified: user.isVerified,
   };
 
   return res

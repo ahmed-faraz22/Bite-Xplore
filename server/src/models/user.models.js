@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
       enum: ["active", "blocked"],
       default: "active",
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     refreshToken: { type: String },
   },
   { timestamps: true }
