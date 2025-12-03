@@ -312,3 +312,26 @@ input.error {
 .authButton{
   margin-top: 20px;
 }
+
+/* Error Message Styles for Auth Forms */
+.auth form small {
+  display: block;
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.auth input.error,
+.auth select.error {
+  border-color: #ff4444 !important;
+  background-color: #fff5f5 !important;
+}
+
+.auth input:focus.error,
+.auth select:focus.error {
+  border-color: #ff4444 !important;
+  outline-color: #ff4444 !important;
+}

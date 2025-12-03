@@ -19,12 +19,17 @@ import categoryRoutes from "./routes/category.routes.js";
 import restaurantRoutes from "./routes/restaurant.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import cityRoutes from "./routes/city.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/restaurants", restaurantRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/cart", cartRoutes);
+
+// ✅ Additional routes for frontend compatibility (without /v1)
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/cities", cityRoutes);
 
 
 export default app;

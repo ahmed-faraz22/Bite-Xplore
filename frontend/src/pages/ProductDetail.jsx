@@ -11,6 +11,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
+  const [restaurantMenu, setRestaurantMenu] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -22,11 +23,11 @@ const ProductDetail = () => {
 
   const fetchProduct = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/v1/products/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setProduct(res.data.data);
-      setRestaurant(res.data.data.restaurantId);
+      const res = await axios.get(`http://localhost:4000/api/v1/products/${id}`);
+      const productData = res.data.data;
+      setProduct(productData);
+      setRestaurant(productData.restaurantId);
+      setRestaurantMenu(productData.restaurantMenu || []);
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to fetch product");
     }
@@ -63,12 +64,29 @@ const ProductDetail = () => {
               <img src={product.images?.[0] || "/placeholder.jpg"} alt={product.name} />
             </div>
             <div className="product-content">
+              {/* Restaurant Information */}
               {restaurant && (
-                <div className="resturent-logo">
-                  <img src={restaurant.image || "/placeholder.jpg"} alt="Restaurant Logo" />
+                <div className="restaurant-info">
+                  <div className="restaurant-header">
+                    {restaurant.logo && (
+                      <div className="restaurant-logo">
+                        <img src={restaurant.logo} alt={`${restaurant.name} Logo`} />
+                      </div>
+                    )}
+                    <div className="restaurant-details">
+                      <h2>{restaurant.name}</h2>
+                      <div className="restaurant-meta">
+                        {restaurant.address && <p><strong>Address:</strong> {restaurant.address}</p>}
+                        {restaurant.city && <p><strong>City:</strong> {restaurant.city}</p>}
+                        {restaurant.phone && <p><strong>Phone:</strong> {restaurant.phone}</p>}
+                        {restaurant.hasOwnDelivery && <p className="delivery-badge">✓ Has Own Delivery</p>}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
+              {/* Product Details */}
               <div className="head">
                 <h3>{product.name}</h3>
                 <span>Rs {product.price}</span>
@@ -91,6 +109,38 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+
+          {/* Restaurant Menu Section */}
+          {restaurantMenu && restaurantMenu.length > 0 && (
+            <div className="restaurant-menu-section">
+              <h2>Menu from {restaurant?.name}</h2>
+              <div className="menu-grid">
+                {restaurantMenu.map((menuItem) => (
+                  <div key={menuItem._id} className="menu-item-card">
+                    <div className="menu-item-image">
+                      <img 
+                        src={menuItem.images?.[0] || "/placeholder.jpg"} 
+                        alt={menuItem.name} 
+                      />
+                    </div>
+                    <div className="menu-item-content">
+                      <h4>{menuItem.name}</h4>
+                      <p className="menu-item-description">
+                        {menuItem.description || "No description"}
+                      </p>
+                      <div className="menu-item-footer">
+                        <span className="menu-item-price">Rs {menuItem.price}</span>
+                        <Button
+                          buttonLink={`/product/${menuItem._id}`}
+                          buttonText="View"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

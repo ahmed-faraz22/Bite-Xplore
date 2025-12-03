@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js",
     "seed:categories": "node seeders/category.Seeder.js",
-    "seed:categories:delete": "node seeders/category.Seeder.js -d"
+    "seed:categories:delete": "node seeders/category.Seeder.js -d",
+    "seed:products": "node seeders/product.Seeder.js",
+    "seed:products:delete": "node seeders/product.Seeder.js -d"
   },
   "keywords": [],
   "author": "Ahmed Faraz",

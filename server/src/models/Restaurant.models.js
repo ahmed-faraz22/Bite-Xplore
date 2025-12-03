@@ -11,7 +11,12 @@ const restaurantSchema = new mongoose.Schema({
         required: true
     },
     address: String,
+    city: {
+        type: String,
+        required: true
+    },
     phone: String,
+    logo: String,
     hasOwnDelivery: {
         type: Boolean,
         default: false

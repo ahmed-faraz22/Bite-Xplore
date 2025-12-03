@@ -15,6 +15,7 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
 
   const [cities, setCities] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]); // Store all restaurants
 
   // 🔥 Fetch cities & restaurants dynamically
   useEffect(() => {
@@ -26,13 +27,34 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
         );
 
         setCities(await cityRes.json());
-        setRestaurants(await restaurantRes.json());
+        const restaurantsData = await restaurantRes.json();
+        setAllRestaurants(restaurantsData);
+        setRestaurants(restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
+
+  // 🔥 Filter restaurants by selected city
+  useEffect(() => {
+    if (activeCity) {
+      const cityRestaurants = allRestaurants.filter(
+        (restaurant) => restaurant.city?.toLowerCase() === activeCity.toLowerCase()
+      );
+      setRestaurants(cityRestaurants);
+      // Clear restaurant selection when city changes
+      if (activeRestaurant) {
+        setActiveRestaurant("");
+        onRestaurantChange("");
+      }
+    } else {
+      // If no city selected, show all restaurants
+      setRestaurants(allRestaurants);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCity, allRestaurants]);
 
   const filteredCities = cities.filter((city) =>
     city.name.toLowerCase().includes(searchCity.toLowerCase())
@@ -43,8 +65,14 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
   );
 
   const handleLocationClick = (city) => {
-    setActiveCity(city.name);
-    onLocationChange(city.name);
+    // Toggle city selection - if same city clicked, deselect it
+    if (activeCity === city.name) {
+      setActiveCity("");
+      onLocationChange("");
+    } else {
+      setActiveCity(city.name);
+      onLocationChange(city.name);
+    }
   };
 
   const handleRestaurantClick = (restaurant) => {
@@ -109,7 +137,7 @@ const FoodCategories = ({ onLocationChange, onRestaurantChange }) => {
                       className={
                         activeRestaurant === restaurant.name ? "active" : ""
                       }
-                      key={restaurant.id}
+                      key={restaurant._id || restaurant.id}
                       onClick={() => handleRestaurantClick(restaurant)}
                     >
                       <FaUtensils /> <span>{restaurant.name}</span>

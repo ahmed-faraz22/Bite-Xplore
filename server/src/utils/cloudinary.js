@@ -7,14 +7,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadOnCloudinary = async (localFilePath) => {
+const uploadOnCloudinary = async (localFilePath, folder = 'products') => {
     try {
         if (!localFilePath) return null;
         
         // Upload file on Cloudinary
         const response = await cloudinary.uploader.upload(localFilePath, {
             resource_type: 'auto',
-            folder: 'products' // Organize uploads in folders
+            folder: folder // Organize uploads in folders
         });
         
         // Delete local file after successful upload

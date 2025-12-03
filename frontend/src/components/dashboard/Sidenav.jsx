@@ -24,7 +24,7 @@ const Sidenav = () => {
                     </li>
                     <li>
                         <NavLink to="Product">
-                            <IoAddCircleOutline /> Add Product
+                            <IoAddCircleOutline /> Menu Items
                         </NavLink>
                     </li>
                     <li>

@@ -10,6 +10,7 @@ const UserProfile = () => {
     const [formData, setFormData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -31,12 +32,55 @@ const UserProfile = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const validate = () => {
+        const newErrors = {};
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
+        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+
+        // Name validation
+        if (!formData.name || !formData.name.trim()) {
+            newErrors.name = "Name is required";
+        } else if (formData.name.trim().length < 2) {
+            newErrors.name = "Name must be at least 2 characters";
+        }
+
+        // Username validation
+        if (!formData.username || !formData.username.trim()) {
+            newErrors.username = "Username is required";
+        } else if (!usernameRegex.test(formData.username)) {
+            newErrors.username = "Username must be 3-20 characters (letters, numbers, underscore only)";
+        }
+
+        // Email validation
+        if (!formData.email || !formData.email.trim()) {
+            newErrors.email = "Email is required";
+        } else if (!emailRegex.test(formData.email)) {
+            newErrors.email = "Please enter a valid email address";
+        }
+
+        // Phone validation (optional but validate format if provided)
+        if (formData.phone && formData.phone.trim()) {
+            if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
+                newErrors.phone = "Please enter a valid phone number";
+            }
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSave = async () => {
+        if (!validate()) {
+            return;
+        }
+
         try {
             setLoading(true);
             await axios.put("http://localhost:4000/api/v1/users/profile", formData);
             setUser(formData);
             setIsEditing(false);
+            setErrors({});
             toast.success("Profile updated successfully 🎉");
         } catch (err) {
             toast.error(err?.response?.data?.message || "Error saving profile");
@@ -62,27 +106,33 @@ const UserProfile = () => {
             <div className="user-col-right">
                 <div className="user-field-row">
                     <div className="user-field">
-                        <label>Name</label>
+                        <label>Name *</label>
                         {isEditing ? (
-                            <input
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="user-input"
-                            />
+                            <>
+                                <input
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className={`user-input ${errors.name ? "error-input" : ""}`}
+                                />
+                                {errors.name && <span className="error-message">{errors.name}</span>}
+                            </>
                         ) : (
                             <p>{user.name}</p>
                         )}
                     </div>
                     <div className="user-field">
-                        <label>Username</label>
+                        <label>Username *</label>
                         {isEditing ? (
-                            <input
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                className="user-input"
-                            />
+                            <>
+                                <input
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    className={`user-input ${errors.username ? "error-input" : ""}`}
+                                />
+                                {errors.username && <span className="error-message">{errors.username}</span>}
+                            </>
                         ) : (
                             <p>{user.username}</p>
                         )}
@@ -91,14 +141,18 @@ const UserProfile = () => {
 
                 <div className="user-field-row">
                     <div className="user-field">
-                        <label>Email</label>
+                        <label>Email *</label>
                         {isEditing ? (
-                            <input
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="user-input"
-                            />
+                            <>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className={`user-input ${errors.email ? "error-input" : ""}`}
+                                />
+                                {errors.email && <span className="error-message">{errors.email}</span>}
+                            </>
                         ) : (
                             <p>{user.email}</p>
                         )}
@@ -106,14 +160,19 @@ const UserProfile = () => {
                     <div className="user-field">
                         <label>Phone</label>
                         {isEditing ? (
-                            <input
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="user-input"
-                            />
+                            <>
+                                <input
+                                    name="phone"
+                                    type="tel"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className={`user-input ${errors.phone ? "error-input" : ""}`}
+                                    placeholder="e.g., +1234567890"
+                                />
+                                {errors.phone && <span className="error-message">{errors.phone}</span>}
+                            </>
                         ) : (
-                            <p>{user.phone}</p>
+                            <p>{user.phone || "Not set"}</p>
                         )}
                     </div>
                 </div>

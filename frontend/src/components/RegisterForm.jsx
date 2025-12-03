@@ -25,12 +25,52 @@ export default function Register() {
 
   const validate = () => {
     const newErrors = {};
-    if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.username.trim()) newErrors.username = "Username is required";
-    if (!form.email.trim()) newErrors.email = "Email is required";
-    if (!form.phone.trim()) newErrors.phone = "Phone is required";
-    if (!form.password) newErrors.password = "Password is required";
-    if (!form.role) newErrors.role = "Role is required";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+
+    // Name validation
+    if (!form.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (form.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    // Username validation
+    if (!form.username.trim()) {
+      newErrors.username = "Username is required";
+    } else if (!usernameRegex.test(form.username)) {
+      newErrors.username = "Username must be 3-20 characters (letters, numbers, underscore only)";
+    }
+
+    // Email validation
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(form.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Phone validation
+    if (!form.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!phoneRegex.test(form.phone.replace(/\s/g, ""))) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+
+    // Password validation
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])/.test(form.password)) {
+      newErrors.password = "Password must contain at least one uppercase and one lowercase letter";
+    }
+
+    // Role validation
+    if (!form.role) {
+      newErrors.role = "Please select a role";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };

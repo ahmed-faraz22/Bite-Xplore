@@ -35,10 +35,48 @@ const createProduct = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, product, "Product created successfully"));
 });
 
-// ✅ Get All Products
+// ✅ Get All Products with Filters
 const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find()
-    .populate("restaurantId", "name")
+  const { categories, location, restaurant } = req.query;
+
+  // Build filter query
+  let filter = {};
+
+  // Filter by categories (comma-separated category IDs)
+  if (categories) {
+    const categoryIds = categories.split(",").map(id => id.trim());
+    filter.categoryId = { $in: categoryIds };
+  }
+
+  // Build restaurant filter (city and/or restaurant name)
+  let restaurantFilter = {};
+  if (location) {
+    restaurantFilter.city = { $regex: new RegExp(location, "i") };
+  }
+  if (restaurant) {
+    restaurantFilter.name = { $regex: new RegExp(restaurant, "i") };
+  }
+
+  // If we have restaurant filters, find matching restaurant IDs
+  if (Object.keys(restaurantFilter).length > 0) {
+    const restaurants = await Restaurant.find(restaurantFilter).select("_id");
+    const restaurantIds = restaurants.map(r => r._id);
+    
+    if (restaurantIds.length === 0) {
+      // No restaurants match, return empty result
+      return res
+        .status(200)
+        .json(new ApiResponse(200, [], "No products found for the selected filters"));
+    }
+    
+    filter.restaurantId = { $in: restaurantIds };
+  }
+
+  // Only show available products
+  filter.available = true;
+
+  const products = await Product.find(filter)
+    .populate("restaurantId", "name address city phone")
     .populate("categoryId", "name")
     .sort({ createdAt: -1 });
 
@@ -47,21 +85,36 @@ const getAllProducts = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, products, "Products fetched successfully"));
 });
 
-// ✅ Get Product by ID
+// ✅ Get Product by ID with Restaurant Menu
 const getProductById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const product = await Product.findById(id)
-    .populate("restaurantId", "name")
+    .populate("restaurantId", "name address city phone logo hasOwnDelivery")
     .populate("categoryId", "name");
 
   if (!product) {
     throw new APIError(404, "Product not found");
   }
 
+  // Get all products (menu items) from the same restaurant
+  const restaurantMenu = await Product.find({ 
+    restaurantId: product.restaurantId,
+    available: true 
+  })
+    .populate("categoryId", "name")
+    .select("name description price images categoryId")
+    .sort({ createdAt: -1 });
+
+  // Combine product with restaurant menu
+  const productWithMenu = {
+    ...product.toObject(),
+    restaurantMenu: restaurantMenu
+  };
+
   return res
     .status(200)
-    .json(new ApiResponse(200, product, "Product fetched successfully"));
+    .json(new ApiResponse(200, productWithMenu, "Product fetched successfully"));
 });
 
 // ✅ Update Product

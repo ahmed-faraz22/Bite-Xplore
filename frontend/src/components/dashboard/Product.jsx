@@ -19,6 +19,7 @@ const Product = () => {
   const [previewImages, setPreviewImages] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [restaurantId, setRestaurantId] = useState("");
+  const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null); // 👈 create ref for file input
 
   const token = localStorage.getItem("token");
@@ -76,11 +77,41 @@ const Product = () => {
     setPreviewImages(previews);
   };
 
+  const validate = () => {
+    const newErrors = {};
+
+    if (!form.categoryId) {
+      newErrors.categoryId = "Please select a category";
+    }
+
+    if (!form.name || !form.name.trim()) {
+      newErrors.name = "Product name is required";
+    } else if (form.name.trim().length < 2) {
+      newErrors.name = "Product name must be at least 2 characters";
+    }
+
+    if (!form.price || form.price <= 0) {
+      newErrors.price = "Price must be greater than 0";
+    } else if (isNaN(form.price)) {
+      newErrors.price = "Price must be a valid number";
+    }
+
+    if (form.description && form.description.trim().length > 500) {
+      newErrors.description = "Description must be less than 500 characters";
+    }
+
+    if (!editingId && (!form.images || form.images.length === 0)) {
+      newErrors.images = "Please upload at least one image";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Add or update product
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.categoryId || !form.name || !form.price) {
-      toast.error("Category, name, and price are required");
+    if (!validate()) {
       return;
     }
 
@@ -113,6 +144,7 @@ const Product = () => {
       setForm({ categoryId: "", name: "", description: "", price: "", images: [] });
       setPreviewImages([]);
       setEditingId(null);
+      setErrors({});
 
       if (fileInputRef.current) fileInputRef.current.value = ""; // 👈 clear file input
 
@@ -151,11 +183,19 @@ const Product = () => {
   return (
     <section className="product">
       <div className="inner">
-        <h3>{editingId ? "Edit Product" : "Add Product"}</h3>
+        <h3>{editingId ? "Edit Menu Item" : "Add Menu Item"}</h3>
+        <p style={{ color: "#666", marginBottom: "20px" }}>
+          Add products to your restaurant menu. These items will appear on your product detail pages.
+        </p>
 
         <form onSubmit={handleSubmit} className="product-form">
-          <label>Category</label>
-          <select name="categoryId" value={form.categoryId} onChange={handleChange}>
+          <label>Category *</label>
+          <select 
+            name="categoryId" 
+            value={form.categoryId} 
+            onChange={handleChange}
+            className={errors.categoryId ? "error-input" : ""}
+          >
             <option value="">Select Category</option>
             {categories.map((cat) => (
               <option key={cat._id} value={cat._id}>
@@ -163,15 +203,18 @@ const Product = () => {
               </option>
             ))}
           </select>
+          {errors.categoryId && <span className="error-message">{errors.categoryId}</span>}
 
-          <label>Product Name</label>
+          <label>Product Name *</label>
           <input
             name="name"
             type="text"
             placeholder="Enter Product Name"
             value={form.name}
             onChange={handleChange}
+            className={errors.name ? "error-input" : ""}
           />
+          {errors.name && <span className="error-message">{errors.name}</span>}
 
           <label>Description</label>
           <textarea
@@ -179,24 +222,39 @@ const Product = () => {
             placeholder="Enter Description"
             value={form.description}
             onChange={handleChange}
+            className={errors.description ? "error-input" : ""}
+            maxLength={500}
           />
+          {errors.description && <span className="error-message">{errors.description}</span>}
+          {form.description && (
+            <small style={{ color: "#666" }}>
+              {form.description.length}/500 characters
+            </small>
+          )}
 
-          <label>Price</label>
+          <label>Price *</label>
           <input
             name="price"
             type="number"
+            step="0.01"
+            min="0"
             placeholder="Enter Price"
             value={form.price}
             onChange={handleChange}
+            className={errors.price ? "error-input" : ""}
           />
+          {errors.price && <span className="error-message">{errors.price}</span>}
 
-          <label>Images</label>
+          <label>Images {!editingId && "*"}</label>
           <input
             type="file"
             multiple
+            accept="image/*"
             onChange={handleFileChange}
             ref={fileInputRef} // 👈 attach ref
+            className={errors.images ? "error-input" : ""}
           />
+          {errors.images && <span className="error-message">{errors.images}</span>}
           <div className="image-preview" style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
             {previewImages.map((img, idx) => (
               <img
