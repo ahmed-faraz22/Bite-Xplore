@@ -6,7 +6,7 @@ import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js
 
 // ✅ Create restaurant profile (first time)
 export const createMyRestaurant = asyncHandler(async (req, res) => {
-  const { name, address, city, phone, hasOwnDelivery } = req.body;
+  const { name, address, city, phone, hasOwnDelivery, openingTime, closingTime } = req.body;
 
   if (!city) {
     throw new APIError(400, "City is required");
@@ -33,6 +33,8 @@ export const createMyRestaurant = asyncHandler(async (req, res) => {
     phone,
     logo: logoUrl,
     hasOwnDelivery,
+    openingTime: openingTime || "09:00",
+    closingTime: closingTime || "22:00",
   });
 
   res
@@ -53,7 +55,7 @@ export const getMyRestaurant = asyncHandler(async (req, res) => {
 
 // ✅ Update my restaurant
 export const updateMyRestaurant = asyncHandler(async (req, res) => {
-  const { name, address, city, phone, hasOwnDelivery } = req.body;
+  const { name, address, city, phone, hasOwnDelivery, openingTime, closingTime } = req.body;
 
   const restaurant = await Restaurant.findOne({ ownerId: req.user._id });
   if (!restaurant) {
@@ -78,7 +80,15 @@ export const updateMyRestaurant = asyncHandler(async (req, res) => {
   }
 
   // Update other fields
-  const updateData = { name, address, phone, hasOwnDelivery, logo: restaurant.logo };
+  const updateData = { 
+    name, 
+    address, 
+    phone, 
+    hasOwnDelivery, 
+    logo: restaurant.logo,
+    openingTime: openingTime || restaurant.openingTime || "09:00",
+    closingTime: closingTime || restaurant.closingTime || "22:00"
+  };
   if (city) updateData.city = city;
 
   const updatedRestaurant = await Restaurant.findOneAndUpdate(

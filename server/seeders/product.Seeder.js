@@ -81,6 +81,8 @@ const importData = async () => {
         }
 
         // Create product
+        // Stock: 1 = Available, 0 = Not Available (matches checkbox functionality)
+        const isAvailable = product.available !== undefined ? product.available : true;
         await Product.create({
           restaurantId: restaurantId,
           categoryId: categoryId,
@@ -88,7 +90,8 @@ const importData = async () => {
           description: product.description,
           price: product.price,
           images: product.images || [],
-          available: product.available !== undefined ? product.available : true
+          available: isAvailable,
+          stock: isAvailable ? 1 : 0 // 1 for available, 0 for not available
         });
 
         totalProducts++;

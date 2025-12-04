@@ -24,6 +24,14 @@ const restaurantSchema = new mongoose.Schema({
     minOrder: {
         type: Number,
         default: 0
+    },
+    openingTime: {
+        type: String,
+        default: "09:00"
+    },
+    closingTime: {
+        type: String,
+        default: "22:00"
     }
 }, { timestamps: true });
 

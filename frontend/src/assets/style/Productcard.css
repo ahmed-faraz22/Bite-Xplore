@@ -26,6 +26,39 @@
     cursor: pointer;
 }
 
+.productcard-wrapper .card-body .rating-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.productcard-wrapper .card-body .rating-display .stars {
+    display: flex;
+    gap: 2px;
+}
+
+.productcard-wrapper .card-body .rating-display .star-filled {
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.productcard-wrapper .card-body .rating-display .star-half {
+    color: #ffc107;
+    font-size: 16px;
+    opacity: 0.5;
+}
+
+.productcard-wrapper .card-body .rating-display .star-empty {
+    color: #666;
+    font-size: 16px;
+}
+
+.productcard-wrapper .card-body .rating-display .rating-text {
+    font-size: 14px;
+    color: #999;
+}
+
 .productcard-wrapper .card-body .description {
     margin-bottom: 20px;
 }
@@ -58,4 +91,53 @@
     .btn {
         padding: 5px 20px;
     }
+}
+
+.productcard-wrapper .card-head {
+    position: relative;
+}
+
+.productcard-wrapper .out-of-stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(244, 67, 54, 0.9);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Availability badge - same styling as out-of-stock-badge */
+.productcard-wrapper .not-available-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(244, 67, 54, 0.9);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.productcard-wrapper .card-body .stock-info {
+    margin-bottom: 15px;
+}
+
+.productcard-wrapper .card-body .stock-info .stock-in {
+    color: #4caf50;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.productcard-wrapper .card-body .stock-info .stock-out {
+    color: #f44336;
+    font-size: 14px;
+    font-weight: 600;
 }

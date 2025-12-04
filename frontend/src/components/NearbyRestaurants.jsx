@@ -19,12 +19,10 @@ const NearbyRestaurants = () => {
               <div className="description-card">
                 <h3>Filters</h3>
                 <ul>
-                  <li>person</li>
-                  <li>Rating</li>
-                  <li>Price</li>
-                  <li>society</li>
-                  <li>facilites</li>
-                  <li>ambience</li>
+                  <li>Cities</li>
+                  <li>Restaurants</li>
+                  <li>Cuisine</li>
+                  <li>Ambience</li>
                 </ul>
                 <p>Apply mutliple filters to refine your search</p>
               </div>

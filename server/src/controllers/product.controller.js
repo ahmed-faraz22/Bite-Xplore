@@ -1,4 +1,5 @@
 import Product from "../models/Product.models.js";
+import Review from "../models/Review.models.js";
 import APIError from "../utils/ApiError.js";
 import Restaurant from "../models/Restaurant.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -7,7 +8,7 @@ import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js
 
 // ✅ Create Product
 const createProduct = asyncHandler(async (req, res) => {
-  const { restaurantId, categoryId, name, description, price } = req.body;
+  const { restaurantId, categoryId, name, description, price, stock } = req.body;
 
   if (!restaurantId || !categoryId || !name || !price) {
     throw new APIError(400, "All required fields must be provided");
@@ -28,6 +29,7 @@ const createProduct = asyncHandler(async (req, res) => {
     description,
     price,
     images,
+    stock: stock !== undefined && stock !== null && stock !== "" ? parseInt(stock) || 0 : 0,
   });
 
   return res
@@ -80,9 +82,27 @@ const getAllProducts = asyncHandler(async (req, res) => {
     .populate("categoryId", "name")
     .sort({ createdAt: -1 });
 
+  // Calculate average ratings for each product
+  const productsWithRatings = await Promise.all(
+    products.map(async (product) => {
+      const reviews = await Review.find({ productId: product._id }).select("rating");
+      const ratings = reviews.map((r) => r.rating);
+      const averageRating =
+        ratings.length > 0
+          ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+          : 0;
+
+      return {
+        ...product.toObject(),
+        averageRating: Math.round(averageRating * 10) / 10,
+        totalReviews: reviews.length,
+      };
+    })
+  );
+
   return res
     .status(200)
-    .json(new ApiResponse(200, products, "Products fetched successfully"));
+    .json(new ApiResponse(200, productsWithRatings, "Products fetched successfully"));
 });
 
 // ✅ Get Product by ID with Restaurant Menu
@@ -106,10 +126,38 @@ const getProductById = asyncHandler(async (req, res) => {
     .select("name description price images categoryId")
     .sort({ createdAt: -1 });
 
-  // Combine product with restaurant menu
+  // Calculate average rating for the product
+  const reviews = await Review.find({ productId: product._id }).select("rating");
+  const ratings = reviews.map((r) => r.rating);
+  const averageRating =
+    ratings.length > 0
+      ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+      : 0;
+
+  // Calculate ratings for menu items
+  const menuWithRatings = await Promise.all(
+    restaurantMenu.map(async (menuItem) => {
+      const menuReviews = await Review.find({ productId: menuItem._id }).select("rating");
+      const menuRatings = menuReviews.map((r) => r.rating);
+      const menuAverageRating =
+        menuRatings.length > 0
+          ? menuRatings.reduce((sum, rating) => sum + rating, 0) / menuRatings.length
+          : 0;
+
+      return {
+        ...menuItem.toObject(),
+        averageRating: Math.round(menuAverageRating * 10) / 10,
+        totalReviews: menuReviews.length,
+      };
+    })
+  );
+
+  // Combine product with restaurant menu and rating
   const productWithMenu = {
     ...product.toObject(),
-    restaurantMenu: restaurantMenu
+    averageRating: Math.round(averageRating * 10) / 10,
+    totalReviews: reviews.length,
+    restaurantMenu: menuWithRatings,
   };
 
   return res
@@ -121,7 +169,7 @@ const getProductById = asyncHandler(async (req, res) => {
 // ✅ Update Product
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, categoryId, available } = req.body;
+  const { name, description, price, categoryId, available, stock } = req.body;
 
   const product = await Product.findById(id);
   if (!product) throw new APIError(404, "Product not found");
@@ -166,6 +214,11 @@ const updateProduct = asyncHandler(async (req, res) => {
   product.price = price || product.price;
   product.categoryId = categoryId || product.categoryId;
   if (available !== undefined) product.available = available;
+  if (stock !== undefined && stock !== null && stock !== "") {
+    product.stock = parseInt(stock) || 0;
+  } else if (stock === "" || stock === "0") {
+    product.stock = 0;
+  }
 
   await product.save();
 
