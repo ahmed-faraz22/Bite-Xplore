@@ -18,28 +18,6 @@ const Header = () => {
 
   const { cartItems, fetchCart } = useContext(CartContext);
 
-  // Listen for auth changes (login/logout)
-  useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
-    };
-
-    // Check on mount
-    checkAuth();
-
-    // Listen for auth change events
-    window.addEventListener("authChange", checkAuth);
-    
-    // Also check periodically (in case token is set elsewhere)
-    const interval = setInterval(checkAuth, 1000);
-
-    return () => {
-      window.removeEventListener("authChange", checkAuth);
-      clearInterval(interval);
-    };
-  }, []);
-
   // fetch cart on login
   useEffect(() => {
     if (isLoggedIn) fetchCart();
@@ -61,10 +39,7 @@ const Header = () => {
       console.warn(err);
     }
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     setIsLoggedIn(false);
-    // Dispatch event to notify other components
-    window.dispatchEvent(new Event("authChange"));
     toast.success("Logged out successfully!");
     navigate("/auth");
   };

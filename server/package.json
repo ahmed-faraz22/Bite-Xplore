@@ -8,7 +8,12 @@
     "seed:categories": "node seeders/category.Seeder.js",
     "seed:categories:delete": "node seeders/category.Seeder.js -d",
     "seed:products": "node seeders/product.Seeder.js",
-    "seed:products:delete": "node seeders/product.Seeder.js -d"
+    "seed:products:delete": "node seeders/product.Seeder.js -d",
+    "seed:reviews": "node seeders/review.Seeder.js",
+    "seed:reviews:delete": "node seeders/review.Seeder.js -d",
+    "seed:delete-all": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d",
+    "seed:all": "node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
+    "seed:reset": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js"
   },
   "keywords": [],
   "author": "Ahmed Faraz",

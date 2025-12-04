@@ -10,7 +10,7 @@ const LocationCard = () => {
         </div>
         <div className="card-body">
         <div className="review"> 5 star</div>
-        <div className="title">Ahmed white wala</div>
+        <div className="title">Lorem, ipsum.</div>
         </div>
     </div>
     </>

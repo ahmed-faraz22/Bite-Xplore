@@ -13,6 +13,8 @@ const Dashboardmain = () => {
     city: "",
     phone: "",
     hasOwnDelivery: false,
+    openingTime: "09:00",
+    closingTime: "22:00",
   });
   const [logoFile, setLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState(null);
@@ -57,7 +59,26 @@ const Dashboardmain = () => {
     if (type === "file" && name === "logo") {
       const file = files[0];
       if (file) {
+        // Validate file type - only images allowed, no PDF
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        
+        if (!allowedTypes.includes(file.type)) {
+          toast.error("Please upload an image file only (JPG, PNG, GIF, WEBP). PDF files are not allowed.");
+          e.target.value = ""; // Clear the input
+          return;
+        }
+        
+        if (file.size > maxSize) {
+          toast.error("Image size should be less than 5MB");
+          e.target.value = ""; // Clear the input
+          return;
+        }
+        
         setLogoFile(file);
+        // Clear any previous errors
+        setErrors({ ...errors, logo: "" });
+        
         // Create preview
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -70,18 +91,27 @@ const Dashboardmain = () => {
         ...formData,
         [name]: type === "checkbox" ? checked : type === "number" ? parseFloat(value) || 0 : value,
       });
+      // Clear error when user types
+      if (errors[name]) {
+        setErrors({ ...errors, [name]: "" });
+      }
     }
   };
 
   const validate = () => {
     const newErrors = {};
-    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
+    
+    // Pakistani phone number regex
+    // Accepts: +92XXXXXXXXXX, 0092XXXXXXXXXX, 0XXXXXXXXXX, 03XXXXXXXXX
+    const pakistaniPhoneRegex = /^(\+92|0092|92|0)?[0-9]{10}$/;
 
     // Name validation
     if (!formData.name || !formData.name.trim()) {
       newErrors.name = "Restaurant name is required";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Restaurant name must be at least 2 characters";
+    } else if (formData.name.trim().length > 100) {
+      newErrors.name = "Restaurant name must be less than 100 characters";
     }
 
     // City validation
@@ -89,18 +119,56 @@ const Dashboardmain = () => {
       newErrors.city = "City is required";
     } else if (formData.city.trim().length < 2) {
       newErrors.city = "City name must be at least 2 characters";
+    } else if (formData.city.trim().length > 50) {
+      newErrors.city = "City name must be less than 50 characters";
     }
 
-    // Phone validation (optional but validate format if provided)
+    // Phone validation - Pakistani phone numbers only
     if (formData.phone && formData.phone.trim()) {
-      if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
-        newErrors.phone = "Please enter a valid phone number";
+      const cleanedPhone = formData.phone.replace(/[\s-]/g, "");
+      if (!pakistaniPhoneRegex.test(cleanedPhone)) {
+        newErrors.phone = "Please enter a valid Pakistani phone number (e.g., +923001234567, 03001234567)";
       }
     }
 
     // Address validation (optional but validate length if provided)
-    if (formData.address && formData.address.trim().length < 5) {
-      newErrors.address = "Address must be at least 5 characters";
+    if (formData.address && formData.address.trim()) {
+      if (formData.address.trim().length < 5) {
+        newErrors.address = "Address must be at least 5 characters";
+      } else if (formData.address.trim().length > 200) {
+        newErrors.address = "Address must be less than 200 characters";
+      }
+    }
+
+    // Opening time validation
+    if (!formData.openingTime) {
+      newErrors.openingTime = "Opening time is required";
+    }
+
+    // Closing time validation
+    if (!formData.closingTime) {
+      newErrors.closingTime = "Closing time is required";
+    }
+
+    // Validate closing time is after opening time
+    if (formData.openingTime && formData.closingTime) {
+      const opening = new Date(`2000-01-01T${formData.openingTime}`);
+      const closing = new Date(`2000-01-01T${formData.closingTime}`);
+      if (closing <= opening) {
+        newErrors.closingTime = "Closing time must be after opening time";
+      }
+    }
+
+    // Logo file validation (if new file is being uploaded)
+    if (logoFile) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      
+      if (!allowedTypes.includes(logoFile.type)) {
+        newErrors.logo = "Please upload an image file only (JPG, PNG, GIF, WEBP). PDF files are not allowed.";
+      } else if (logoFile.size > maxSize) {
+        newErrors.logo = "Image size should be less than 5MB";
+      }
     }
 
     setErrors(newErrors);
@@ -124,6 +192,8 @@ const Dashboardmain = () => {
       submitData.append("city", formData.city);
       submitData.append("phone", formData.phone || "");
       submitData.append("hasOwnDelivery", formData.hasOwnDelivery);
+      submitData.append("openingTime", formData.openingTime || "09:00");
+      submitData.append("closingTime", formData.closingTime || "22:00");
       
       if (logoFile) {
         submitData.append("logo", logoFile);
@@ -214,7 +284,7 @@ const Dashboardmain = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className={`user-input ${errors.phone ? "error-input" : ""}`}
-                  placeholder="e.g., +1234567890"
+                  placeholder="e.g., +923001234567 or 03001234567"
                 />
                 {errors.phone && <span className="error-message">{errors.phone}</span>}
               </>
@@ -259,6 +329,18 @@ const Dashboardmain = () => {
               <p>{restaurant?.city || "Not set"}</p>
             )}
           </div>
+          <div className="user-field">
+            <label>Opening Hours</label>
+            {isEditing ? (
+              <p style={{ color: "#999", fontSize: "14px" }}>
+                Set opening and closing times below
+              </p>
+            ) : (
+              <p>
+                {restaurant?.openingTime || "09:00"} - {restaurant?.closingTime || "22:00"}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="user-field-row">
@@ -274,11 +356,12 @@ const Dashboardmain = () => {
                 <input
                   type="file"
                   name="logo"
-                  accept="image/*"
+                  accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                   onChange={handleChange}
-                  className="logo-input"
+                  className={`logo-input ${errors.logo ? "error-input" : ""}`}
                 />
-                <p className="logo-hint">Upload restaurant logo (JPG, PNG, etc.)</p>
+                {errors.logo && <span className="error-message" style={{ display: "block", marginTop: "5px" }}>{errors.logo}</span>}
+                <p className="logo-hint">Upload restaurant logo (JPG, PNG, GIF, WEBP only - Max 5MB)</p>
               </div>
             ) : (
               <div className="logo-display">
@@ -301,6 +384,49 @@ const Dashboardmain = () => {
               />
               Has Own Delivery?
             </label>
+          </div>
+        </div>
+
+        <div className="user-field-row">
+          <div className="user-field">
+            <label>Opening Time *</label>
+            {isEditing ? (
+              <>
+                <input
+                  name="openingTime"
+                  type="time"
+                  value={formData.openingTime || "09:00"}
+                  onChange={handleChange}
+                  className={`user-input ${errors.openingTime ? "error-input" : ""}`}
+                />
+                {errors.openingTime && <span className="error-message">{errors.openingTime}</span>}
+                <small style={{ color: "#666", display: "block", marginTop: "5px" }}>
+                  Restaurant opening time
+                </small>
+              </>
+            ) : (
+              <p>{restaurant?.openingTime || "09:00"}</p>
+            )}
+          </div>
+          <div className="user-field">
+            <label>Closing Time *</label>
+            {isEditing ? (
+              <>
+                <input
+                  name="closingTime"
+                  type="time"
+                  value={formData.closingTime || "22:00"}
+                  onChange={handleChange}
+                  className={`user-input ${errors.closingTime ? "error-input" : ""}`}
+                />
+                {errors.closingTime && <span className="error-message">{errors.closingTime}</span>}
+                <small style={{ color: "#666", display: "block", marginTop: "5px" }}>
+                  Restaurant closing time
+                </small>
+              </>
+            ) : (
+              <p>{restaurant?.closingTime || "22:00"}</p>
+            )}
           </div>
         </div>
 

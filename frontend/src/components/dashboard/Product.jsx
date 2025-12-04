@@ -14,6 +14,7 @@ const Product = () => {
     name: "",
     description: "",
     price: "",
+    isAvailable: true,
     images: [],
   });
   const [previewImages, setPreviewImages] = useState([]);
@@ -65,15 +66,48 @@ const Product = () => {
 
   // Form changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setForm({ 
+      ...form, 
+      [name]: type === "checkbox" ? checked : value 
+    });
   };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setForm({ ...form, images: files });
+    
+    // Validate all files are images, not PDFs
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 5 * 1024 * 1024; // 5MB per file
+    const validFiles = [];
+    const errors = [];
 
-    const previews = files.map((file) => URL.createObjectURL(file));
+    files.forEach((file, index) => {
+      if (!allowedTypes.includes(file.type)) {
+        errors.push(`${file.name} is not an image file. Only JPG, PNG, GIF, WEBP are allowed.`);
+      } else if (file.size > maxSize) {
+        errors.push(`${file.name} is too large. Maximum size is 5MB.`);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (errors.length > 0) {
+      toast.error(errors.join(" "));
+      e.target.value = ""; // Clear the input
+      setForm({ ...form, images: [] });
+      setPreviewImages([]);
+      return;
+    }
+
+    if (validFiles.length === 0) {
+      return;
+    }
+
+    setForm({ ...form, images: validFiles });
+    setErrors({ ...errors, images: "" }); // Clear image errors
+
+    const previews = validFiles.map((file) => URL.createObjectURL(file));
     setPreviewImages(previews);
   };
 
@@ -84,24 +118,43 @@ const Product = () => {
       newErrors.categoryId = "Please select a category";
     }
 
+    // Product name validation
     if (!form.name || !form.name.trim()) {
       newErrors.name = "Product name is required";
     } else if (form.name.trim().length < 2) {
       newErrors.name = "Product name must be at least 2 characters";
+    } else if (form.name.trim().length > 100) {
+      newErrors.name = "Product name must be less than 100 characters";
     }
 
+    // Price validation
     if (!form.price || form.price <= 0) {
       newErrors.price = "Price must be greater than 0";
     } else if (isNaN(form.price)) {
       newErrors.price = "Price must be a valid number";
+    } else if (parseFloat(form.price) > 100000) {
+      newErrors.price = "Price must be less than Rs. 100,000";
     }
 
+    // Description validation
     if (form.description && form.description.trim().length > 500) {
       newErrors.description = "Description must be less than 500 characters";
     }
 
+    // Image validation
     if (!editingId && (!form.images || form.images.length === 0)) {
       newErrors.images = "Please upload at least one image";
+    } else if (form.images && form.images.length > 0) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      
+      form.images.forEach((file, index) => {
+        if (!allowedTypes.includes(file.type)) {
+          newErrors.images = `Image ${index + 1} is not a valid image file. Only JPG, PNG, GIF, WEBP are allowed. PDF files are not allowed.`;
+        } else if (file.size > maxSize) {
+          newErrors.images = `Image ${index + 1} is too large. Maximum size is 5MB.`;
+        }
+      });
     }
 
     setErrors(newErrors);
@@ -121,6 +174,8 @@ const Product = () => {
     data.append("name", form.name);
     data.append("description", form.description);
     data.append("price", form.price);
+    // Convert checkbox to stock: 1 if available, 0 if not available
+    data.append("stock", form.isAvailable ? "1" : "0");
     form.images.forEach((img) => data.append("images", img));
 
     try {
@@ -141,7 +196,7 @@ const Product = () => {
       }
 
       // 🔥 Reset form
-      setForm({ categoryId: "", name: "", description: "", price: "", images: [] });
+      setForm({ categoryId: "", name: "", description: "", price: "", isAvailable: true, images: [] });
       setPreviewImages([]);
       setEditingId(null);
       setErrors({});
@@ -160,6 +215,7 @@ const Product = () => {
       name: product.name,
       description: product.description,
       price: product.price,
+      isAvailable: product.stock > 0,
       images: [],
     });
     setPreviewImages(product.images || []);
@@ -245,16 +301,33 @@ const Product = () => {
           />
           {errors.price && <span className="error-message">{errors.price}</span>}
 
+          <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
+            <input
+              name="isAvailable"
+              type="checkbox"
+              checked={form.isAvailable}
+              onChange={handleChange}
+              style={{ width: "18px", height: "18px", cursor: "pointer" }}
+            />
+            <span>Available</span>
+          </label>
+          <small style={{ color: "#666", display: "block", marginTop: "5px", marginLeft: "28px" }}>
+            Check this box if the item is available for order
+          </small>
+
           <label>Images {!editingId && "*"}</label>
           <input
             type="file"
             multiple
-            accept="image/*"
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
             onChange={handleFileChange}
             ref={fileInputRef} // 👈 attach ref
             className={errors.images ? "error-input" : ""}
           />
           {errors.images && <span className="error-message">{errors.images}</span>}
+          <small style={{ color: "#666", display: "block", marginTop: "5px" }}>
+            Upload image files only (JPG, PNG, GIF, WEBP - Max 5MB each). PDF files are not allowed.
+          </small>
           <div className="image-preview" style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
             {previewImages.map((img, idx) => (
               <img
@@ -277,6 +350,7 @@ const Product = () => {
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
+              <th>Availability</th>
               <th>Category</th>
               <th>Images</th>
               <th>Actions</th>
@@ -288,7 +362,15 @@ const Product = () => {
                 <tr key={p._id}>
                   <td>{p.name}</td>
                   <td>{p.description}</td>
-                  <td>${p.price}</td>
+                  <td>Rs {p.price}</td>
+                  <td>
+                    <span style={{ 
+                      color: p.stock > 0 ? "#4caf50" : "#f44336",
+                      fontWeight: "600"
+                    }}>
+                      {p.stock > 0 ? "✓ Available" : "✗ Not Available"}
+                    </span>
+                  </td>
                   <td>{p.categoryId?.name || "-"}</td>
                   <td>
                     {p.images?.map((img, idx) => (
@@ -303,7 +385,7 @@ const Product = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6">No products added yet.</td>
+                <td colSpan="7">No products added yet.</td>
               </tr>
             )}
           </tbody>

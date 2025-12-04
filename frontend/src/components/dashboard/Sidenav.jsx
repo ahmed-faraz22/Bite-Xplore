@@ -37,11 +37,11 @@ const Sidenav = () => {
                             <FaListCheck /> Orders
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="Newsletter">
                             <FaRegNewspaper /> Newsletter
                         </NavLink>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </aside>
