@@ -32,6 +32,28 @@ const restaurantSchema = new mongoose.Schema({
     closingTime: {
         type: String,
         default: "22:00"
+    },
+    // Subscription fields
+    orderCount: {
+        type: Number,
+        default: 0
+    },
+    subscriptionStatus: {
+        type: String,
+        enum: ["free", "active", "expired", "suspended"],
+        default: "free"
+    },
+    subscriptionExpiry: {
+        type: Date,
+        default: null
+    },
+    isSuspended: {
+        type: Boolean,
+        default: false
+    },
+    lastPaymentDate: {
+        type: Date,
+        default: null
     }
 }, { timestamps: true });
 

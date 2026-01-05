@@ -15,6 +15,7 @@ import Profile from "./components/dashboard/Profile";
 import ProtectedRoute from "./components/dashboard/ProtectedRoute";
 import Product from "./components/dashboard/Product";
 import Orders from "./components/dashboard/Orders";
+import Subscription from "./components/dashboard/Subscription";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="Product" element={< Product/>} />
             <Route path="Orders" element= {<Orders/>} />
+            <Route path="subscription" element={<Subscription />} />
           </Route>
         </Route>
       </Routes>

@@ -11,6 +11,8 @@
     "seed:products:delete": "node seeders/product.Seeder.js -d",
     "seed:reviews": "node seeders/review.Seeder.js",
     "seed:reviews:delete": "node seeders/review.Seeder.js -d",
+    "seed:subscription-test": "node seeders/subscriptionTest.Seeder.js",
+    "seed:subscription-test:delete": "node seeders/subscriptionTest.Seeder.js -d",
     "seed:delete-all": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d",
     "seed:all": "node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
     "seed:reset": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js"
@@ -29,7 +31,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.5"
+    "nodemailer": "^7.0.5",
+    "stripe": "^20.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",

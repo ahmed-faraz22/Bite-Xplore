@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "../../assets/style/Profile.css";
@@ -244,9 +245,56 @@ const Dashboardmain = () => {
     }
   };
 
+  const [subscriptionStatus, setSubscriptionStatus] = useState(null);
+
+  useEffect(() => {
+    if (restaurant) {
+      fetchSubscriptionStatus();
+    }
+  }, [restaurant]);
+
+  const fetchSubscriptionStatus = async () => {
+    try {
+      const res = await axios.get("http://localhost:4000/api/v1/subscription/status", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      });
+      setSubscriptionStatus(res.data.data);
+    } catch (err) {
+      console.error("Failed to fetch subscription status:", err);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
 
   return (
+    <div>
+      {/* Subscription Status Banner */}
+      {subscriptionStatus && (
+        <div className={`subscription-banner ${subscriptionStatus.isSuspended || subscriptionStatus.needsSubscription ? 'warning' : subscriptionStatus.subscriptionStatus === 'active' ? 'success' : ''}`}>
+          {subscriptionStatus.isSuspended ? (
+            <div>
+              <strong>⚠️ Account Suspended</strong>
+              <p>Your subscription has expired. <Link to="/dashboard/subscription">Renew now</Link> to continue receiving orders.</p>
+            </div>
+          ) : subscriptionStatus.needsSubscription ? (
+            <div>
+              <strong>⚠️ Free Limit Reached</strong>
+              <p>You've received {subscriptionStatus.orderCount} orders. <Link to="/dashboard/subscription">Subscribe now</Link> to continue (PKR 3,500/month).</p>
+            </div>
+          ) : subscriptionStatus.subscriptionStatus === 'active' ? (
+            <div>
+              <strong>✓ Subscription Active</strong>
+              <p>You can receive unlimited orders until {subscriptionStatus.subscriptionExpiry ? new Date(subscriptionStatus.subscriptionExpiry).toLocaleDateString() : 'N/A'}.</p>
+            </div>
+          ) : (
+            <div>
+              <strong>Free Tier Active</strong>
+              <p>{subscriptionStatus.freeOrdersRemaining} free orders remaining out of 15.</p>
+            </div>
+          )}
+        </div>
+      )}
+
     <div className="user-card">
       <div className="user-avatar-wrapper">
         <img
@@ -450,6 +498,7 @@ const Dashboardmain = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,3 +1,60 @@
+.subscription-banner {
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  background: #2a2a2a;
+  border: 1px solid #3f3f3f;
+}
+
+.subscription-banner.warning {
+  background: rgba(244, 67, 54, 0.1);
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.subscription-banner.success {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.subscription-banner strong {
+  display: block;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.subscription-banner.warning strong {
+  color: #f44336;
+}
+
+.subscription-banner.success strong {
+  color: #4caf50;
+}
+
+.subscription-banner p {
+  color: #ccc;
+  margin: 0;
+  font-size: 14px;
+}
+
+.subscription-banner.warning p {
+  color: #ffcdd2;
+}
+
+.subscription-banner.success p {
+  color: #c8e6c9;
+}
+
+.subscription-banner a {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.subscription-banner a:hover {
+  text-decoration: underline;
+}
+
 .user-card {
   /* max-width: 700px; */
   margin: 2rem auto;

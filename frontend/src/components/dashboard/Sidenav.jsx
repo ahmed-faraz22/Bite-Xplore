@@ -6,6 +6,7 @@ import { CiMemoPad } from "react-icons/ci";
 import { FaListCheck, FaRegNewspaper } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { FaCreditCard } from "react-icons/fa";
 
 const Sidenav = () => {
     return (
@@ -35,6 +36,11 @@ const Sidenav = () => {
                     <li>
                         <NavLink to="Orders">
                             <FaListCheck /> Orders
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="subscription">
+                            <FaCreditCard /> Subscription
                         </NavLink>
                     </li>
                     {/* <li>
