@@ -83,7 +83,7 @@ button[type="submit"]:hover {
 }
 .authButton:hover{
   scale: 1;
-  background-color: #624aef;
+  background-color: #E55A2B;
 }
 
 input.error {
@@ -136,7 +136,7 @@ input.error {
   }
 
   form {
-    background-color: #000000;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,7 +157,7 @@ input.error {
   .form-wrapper {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgb(255 253 253 / 25%), 0 10px 10px rgb(2 2 2);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05);
     position: relative;
     overflow: hidden;
     max-width: 80%;
@@ -229,9 +229,9 @@ input.error {
   }
 
   .overlay {
-    background: #9381ff;
-    background: -webkit-linear-gradient(to right, #9381ff, #9381ff);
-    background: linear-gradient(to right, #9381ff, #9381ff);
+    background: #FF6B35;
+    background: -webkit-linear-gradient(to right, #FF6B35, #E55A2B);
+    background: linear-gradient(to right, #FF6B35, #E55A2B);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -300,7 +300,7 @@ input.error {
   }
 
   .btn.ghost {
-    background: #000000;
+    background: #FF6B35;
     color: #FFFFFF;
   }
 

@@ -2,14 +2,14 @@
 .order-tab {
   max-width: 1000px;
   margin: 40px auto;
-  background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%);
-  color: #f2f2f2;
+  background: linear-gradient(180deg, #ffffff 0%, #fff5f0 100%);
+  color: #1a1a1a;
   border-radius: 16px;
-  box-shadow: 0 0 25px rgba(147, 129, 255, 0.2);
+  box-shadow: 0 0 25px rgba(255, 107, 53, 0.15);
   overflow: hidden;
   backdrop-filter: blur(12px);
   transition: all 0.4s ease;
-  border: 1px solid rgba(147, 129, 255, 0.2);
+  border: 1px solid rgba(255, 107, 53, 0.2);
 }
 
 .inner {
@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(147, 129, 255, 0.1);
+  background-color: rgba(255, 107, 53, 0.08);
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 25px;
@@ -31,7 +31,7 @@
   flex: 1;
   padding: 15px 0;
   background: transparent;
-  color: #b8b8ff;
+  color: #555;
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -41,15 +41,15 @@
 }
 
 .tab:hover {
-  background-color: rgba(147, 129, 255, 0.15);
-  color: #fff;
+  background-color: rgba(255, 107, 53, 0.12);
+  color: #1a1a1a;
 }
 
 .tab.active {
-  background-color: #9381ff;
+  background-color: #FF6B35;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 0 15px rgba(147, 129, 255, 0.4);
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
 }
 
 /* ====== Orders Section ====== */
@@ -64,8 +64,8 @@
   font-size: 1.6rem;
   margin-bottom: 20px;
   font-weight: 700;
-  color: #fff;
-  border-left: 5px solid #9381ff;
+  color: #1a1a1a;
+  border-left: 5px solid #FF6B35;
   padding-left: 10px;
 }
 
@@ -76,19 +76,19 @@
 }
 
 .orders-section li {
-  background: linear-gradient(145deg, #1c1c1c, #232323);
-  color: #fff;
+  background: #ffffff;
+  color: #1a1a1a;
   border-radius: 14px;
   padding: 18px 20px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 10px rgba(147, 129, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   transition: all 0.3s ease;
-  border: 1px solid rgba(147, 129, 255, 0.15);
+  border: 1px solid #f0e6e0;
 }
 
 .orders-section li:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 20px rgba(147, 129, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.15);
 }
 
 /* Order Header */
@@ -140,12 +140,12 @@
 }
 
 .orders-section li ul li {
-  background: rgba(147, 129, 255, 0.1);
+  background: rgba(255, 107, 53, 0.08);
   border-radius: 8px;
   margin: 6px 0;
   padding: 8px 12px;
   font-size: 0.95rem;
-  color: #dcdcdc;
+  color: #1a1a1a;
 }
 
 /* ====== Summary Section ====== */
@@ -156,7 +156,7 @@
 .order-summary h4 {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #fff;
+  color: #1a1a1a;
   margin-bottom: 10px;
 }
 
@@ -166,7 +166,7 @@
 
 .monthly-orders h5 {
   font-size: 1.2rem;
-  color: #b8b8ff;
+  color: #FF6B35;
   font-weight: 500;
   margin-bottom: 12px;
 }
@@ -178,15 +178,15 @@
 
 .monthly-orders li {
   font-size: 1rem;
-  color: #e8e8ff;
+  color: #555;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(147, 129, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.15);
 }
 
 /* === Toggle Button === */
 .toggle-btn {
-  background: rgba(147, 129, 255, 0.15);
-  color: #b8b8ff;
+  background: rgba(255, 107, 53, 0.12);
+  color: #FF6B35;
   border: none;
   border-radius: 8px;
   padding: 6px 12px;
@@ -197,19 +197,19 @@
 }
 
 .toggle-btn:hover {
-  background: rgba(147, 129, 255, 0.3);
-  color: #fff;
+  background: rgba(255, 107, 53, 0.25);
+  color: #1a1a1a;
 }
 
 /* === Payment Details Section === */
 .payment-details {
-  background: rgba(147, 129, 255, 0.05);
-  border: 1px solid rgba(147, 129, 255, 0.1);
+  background: rgba(255, 107, 53, 0.06);
+  border: 1px solid rgba(255, 107, 53, 0.15);
   border-radius: 10px;
   margin-top: 10px;
   padding: 12px 15px;
   font-size: 0.9rem;
-  color: #e2e2ff;
+  color: #1a1a1a;
 }
 
 .payment-details p {
@@ -217,7 +217,7 @@
 }
 
 .payment-details strong {
-  color: #b8b8ff;
+  color: #FF6B35;
 }
 
 

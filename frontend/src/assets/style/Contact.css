@@ -1,5 +1,5 @@
 .contact {
-    background: #000000;
+    background: #ffffff;
     padding: 40px 0;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .contact .inner .about-content .faq .accordion {
-    background: #141414;
+    background: #fff5f0;
     padding: 20px;
     border-radius: 14px;
 }
@@ -60,7 +60,7 @@
 }
 
 .contact .inner .about-content .about-form {
-    background: #141414;
+    background: #fff5f0;
     padding: 50px;
     border-radius: 14px;
     max-width: calc(40% - 15px);

@@ -1,4 +1,14 @@
-/* Global Styling */
+/* Global Styling - White & Orange Theme */
+:root {
+	--color-primary: #FF6B35;
+	--color-primary-dark: #E55A2B;
+	--color-primary-light: #fff5f0;
+	--color-bg: #ffffff;
+	--color-bg-alt: #fafafa;
+	--color-text: #1a1a1a;
+	--color-text-muted: #555;
+}
+
 @font-face {
 	font-family: "Gotham";
 	src: url("./assets/fonts/Gotham-Bold.woff2"),
@@ -23,9 +33,9 @@
 
 body {
 	font-family: "Poppins";
-	color: #ffffff;
+	color: #1a1a1a;
 	overflow-x: hidden !important;
-	background-color: #000;
+	background-color: #ffffff;
 }
 
 h1,
@@ -95,7 +105,7 @@ ul {
 }
 
 a {
-	color: #ffffff;
+	color: #1a1a1a;
 	text-decoration: none;
 }
 
@@ -105,16 +115,16 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-	background-color: #1c1c1c;
+	background-color: #f0f0f0;
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #333;
+	background-color: #FF6B35;
 	border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #444;
+	background-color: #E55A2B;
 }
 
 scrollbar {
@@ -123,12 +133,12 @@ scrollbar {
 }
 
 scrollbarthumb {
-	background-color: #333;
+	background-color: #FF6B35;
 	border-radius: 6px;
 }
 
 scrollbarthumb:hover {
-	background-color: #444;
+	background-color: #E55A2B;
 }
 
 /* Global Table Styles */
@@ -147,14 +157,14 @@ td {
 }
 
 th {
-	background-color: #8F84FB;
+	background-color: #FF6B35;
 	color: #fff;
 	font-weight: 600;
 }
 
 tbody tr:hover {
-	background-color: #f1f1f1;
-	color: #8F84FB;
+	background-color: #fff5f0;
+	color: #E55A2B;
 }
 
 /* Action Icons */

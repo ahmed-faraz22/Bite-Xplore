@@ -69,7 +69,7 @@ const Header = () => {
                     onClick={() => setShowCart(prev => !prev)}
                     style={{ background: "none", border: "none", cursor: "pointer" }}
                   >
-                    <FaShoppingCart color="#fff" size={25} />
+                    <FaShoppingCart color="#FF6B35" size={25} />
                   </button>
 
                   {showCart && (

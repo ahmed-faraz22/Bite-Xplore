@@ -1,5 +1,5 @@
 .food-filter {
-    background: #000000;
+    background: #ffffff;
     padding: 40px 0;
 }
 
@@ -29,15 +29,17 @@
 
 .food-filter .filter-cta .btn {
     white-space: nowrap;
-    background: #ffffff;
+    background: #fff0e8;
+    color: #1a1a1a;
 }
 
 .food-filter .filter-cta .btn:hover {
-    background: #9381FF;
+    background: #ffe4d6;
 }
 
 .food-filter .filter-cta .btn.active {
-    background: #9381FF;
+    background: #FF6B35;
+    color: #fff;
 }
 
 .food-filter .inner .result-products {

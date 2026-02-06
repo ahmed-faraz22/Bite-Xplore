@@ -8,22 +8,11 @@
     width: 100%;
 }
 
-.card-wrapper::before {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    background: #000000;
-    opacity: 0.5;
-    height: 100%;
-    width: 100%;
-    border-radius: 24px;
-}
-
 .card-wrapper .card-description {
     padding: 10px 20px;
     position: relative;
     z-index: 10;
+    color: #ffffff;
 }
 
 /* Responsive */

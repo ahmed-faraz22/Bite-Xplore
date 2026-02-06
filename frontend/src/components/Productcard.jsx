@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CiStar } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaBalanceScale } from "react-icons/fa";
 import Button from "./Button";
+import { CompareContext } from "../context/CompareContext";
 import "../assets/style/Productcard.css";
 
 const Productcard = ({ product }) => {
+  const { addToCompare, removeFromCompare, isInCompare } = useContext(CompareContext);
+  const inCompare = isInCompare(product._id);
   const averageRating = product.averageRating || 0;
   const totalReviews = product.totalReviews || 0;
   const stock = product.stock || 0;
@@ -15,6 +18,17 @@ const Productcard = ({ product }) => {
     <div className="productcard-wrapper">
       <div className="card">
         <div className="card-head">
+          <button
+            className={`compare-btn ${inCompare ? "active" : ""}`}
+            onClick={(e) => {
+              e.preventDefault();
+              inCompare ? removeFromCompare(product._id) : addToCompare(product);
+            }}
+            title={inCompare ? "Remove from compare" : "Add to compare"}
+            aria-label={inCompare ? "Remove from compare" : "Add to compare"}
+          >
+            <FaBalanceScale />
+          </button>
           <img
             src={product.images?.[0] || "/placeholder.jpg"}
             alt={product.name}
