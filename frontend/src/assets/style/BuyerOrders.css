@@ -15,7 +15,7 @@
   font-size: 2.5rem;
   margin-bottom: 2rem;
   color: #fff;
-  background: linear-gradient(135deg, #9381FF 0%, #B8B8FF 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #ffe4d6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -65,7 +65,7 @@
 }
 
 .orders-tabs .tab.active {
-  background-color: #9381FF;
+  background-color: #FF6B35;
   color: #fff;
   box-shadow: 0 0 15px rgba(147, 129, 255, 0.4);
 }
@@ -201,7 +201,7 @@
 
 .item-price {
   font-weight: 600;
-  color: #9381FF;
+  color: #FF6B35;
   font-size: 1.1rem;
 }
 
@@ -305,7 +305,7 @@
 }
 
 .btn-primary {
-  background: #9381FF;
+  background: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 24px;
@@ -316,7 +316,7 @@
 }
 
 .btn-primary:hover {
-  background: #B8B8FF;
+  background: #ffe4d6;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(147, 129, 255, 0.4);
 }

@@ -115,7 +115,7 @@ const AdminVerification = () => {
 
               {/* Verification Documents */}
               <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid #333" }}>
-                <h4 style={{ color: "#a855f7", marginBottom: "15px" }}>Verification Documents</h4>
+                <h4 style={{ color: "#FF6B35", marginBottom: "15px" }}>Verification Documents</h4>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                   <div>
                     <p style={{ color: "#aaa", marginBottom: "10px", fontWeight: "600" }}>Business License:</p>
@@ -126,7 +126,7 @@ const AdminVerification = () => {
                         rel="noopener noreferrer"
                         style={{ 
                           display: "inline-block", 
-                          color: "#a855f7", 
+                          color: "#FF6B35", 
                           textDecoration: "underline",
                           marginBottom: "10px"
                         }}
@@ -146,7 +146,7 @@ const AdminVerification = () => {
                         rel="noopener noreferrer"
                         style={{ 
                           display: "inline-block", 
-                          color: "#a855f7", 
+                          color: "#FF6B35", 
                           textDecoration: "underline",
                           marginBottom: "10px"
                         }}

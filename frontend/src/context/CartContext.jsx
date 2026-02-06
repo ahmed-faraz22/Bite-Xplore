@@ -25,8 +25,22 @@ export const CartProvider = ({ children }) => {
         fetchCart();
     }, [token]);
 
+    const removeFromCart = async (productId) => {
+        if (!token) return;
+        try {
+            await axios.delete(`http://localhost:4000/api/v1/cart/delete/${productId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true,
+            });
+            await fetchCart();
+        } catch (err) {
+            console.error("Failed to remove item from cart", err);
+            throw err;
+        }
+    };
+
     return (
-        <CartContext.Provider value={{ cartItems, setCartItems, fetchCart }}>
+        <CartContext.Provider value={{ cartItems, setCartItems, fetchCart, removeFromCart }}>
             {children}
         </CartContext.Provider>
     );

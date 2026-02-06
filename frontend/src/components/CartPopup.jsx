@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 import Button from "./Button";
+import { CartContext } from "../context/CartContext";
 import "../assets/style/CartPopup.css";
 
 
 const CartPopup = ({ items = [], onClose }) => {
+    const { removeFromCart } = useContext(CartContext);
+    const [removing, setRemoving] = useState(null);
+
     if (!items || !Array.isArray(items)) {
         return null;
     }
@@ -12,6 +18,20 @@ const CartPopup = ({ items = [], onClose }) => {
         if (!item || !item.productId) return acc;
         return acc + (item.productId.price || 0) * (item.quantity || 0);
     }, 0);
+
+    const handleRemove = async (e, productId) => {
+        e.stopPropagation();
+        if (removing) return;
+        setRemoving(productId);
+        try {
+            await removeFromCart(productId);
+            toast.success("Item removed from cart");
+        } catch (err) {
+            toast.error(err?.response?.data?.message || "Failed to remove item");
+        } finally {
+            setRemoving(null);
+        }
+    };
 
     return (
         <div className="cart-popup" onClick={(e) => e.stopPropagation()}>
@@ -27,13 +47,25 @@ const CartPopup = ({ items = [], onClose }) => {
                     <ul className="cart-items">
                         {items.map((item, index) => {
                             if (!item || !item.productId) return null;
+                            const productId = item.productId._id || item.productId;
                             return (
-                                <li key={index} className="cart-item">
-                                    <div>
+                                <li key={productId || index} className="cart-item">
+                                    <div className="cart-item-info">
                                         <p className="item-name">{item.productId.name || "Unknown Product"}</p>
                                         <p className="item-qty">Qty: {item.quantity || 0}</p>
                                     </div>
-                                    <p className="item-price">Rs {((item.productId.price || 0) * (item.quantity || 0)).toFixed(2)}</p>
+                                    <div className="cart-item-right">
+                                        <p className="item-price">Rs {((item.productId.price || 0) * (item.quantity || 0)).toFixed(2)}</p>
+                                        <button
+                                            className="cart-remove-btn"
+                                            onClick={(e) => handleRemove(e, productId)}
+                                            disabled={removing === productId}
+                                            title="Remove from cart"
+                                            aria-label="Remove from cart"
+                                        >
+                                            {removing === productId ? "..." : "×"}
+                                        </button>
+                                    </div>
                                 </li>
                             );
                         })}

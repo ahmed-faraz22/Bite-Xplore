@@ -112,7 +112,7 @@ const Header = () => {
                       }}
                       style={{ background: "none", border: "none", cursor: "pointer", position: "relative", zIndex: 1001 }}
                     >
-                      <FaShoppingCart color="#fff" size={25} />
+                      <FaShoppingCart color="#FF6B35" size={25} />
                       {cartItems.length > 0 && (
                         <span
                           style={{
@@ -155,7 +155,7 @@ const Header = () => {
                 {/* Show user info and role-based links */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   {user && (
-                    <span style={{ color: "#fff", fontSize: "14px" }}>
+                    <span style={{ color: "#1a1a1a", fontSize: "14px" }}>
                       {user.name} ({user.role})
                     </span>
                   )}
@@ -163,10 +163,10 @@ const Header = () => {
                     <a 
                       href={user.role === "admin" ? "/admin" : "/dashboard"}
                       style={{ 
-                        color: "#a855f7", 
+                        color: "#FF6B35", 
                         textDecoration: "none",
                         padding: "6px 12px",
-                        border: "1px solid #a855f7",
+                        border: "1px solid #FF6B35",
                         borderRadius: "4px",
                         fontSize: "14px"
                       }}

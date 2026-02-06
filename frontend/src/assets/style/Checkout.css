@@ -15,7 +15,7 @@
   font-size: 2.5rem;
   margin-bottom: 2rem;
   color: #fff;
-  background: linear-gradient(135deg, #9381FF 0%, #B8B8FF 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #ffe4d6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -43,7 +43,7 @@
 
 .restaurant-group {
   background: #141414;
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(147, 129, 255, 0.2);
@@ -54,7 +54,7 @@
   color: #fff;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #9381FF;
+  border-bottom: 2px solid #FF6B35;
 }
 
 .restaurant-items {
@@ -66,11 +66,34 @@
 
 .checkout-item {
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
   background: #1a1a1a;
   border: 1px solid #333;
   border-radius: 8px;
+}
+
+.checkout-remove-btn {
+  background: none;
+  border: 1px solid #FF6B35;
+  color: #FF6B35;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.checkout-remove-btn:hover {
+  background: #FF6B35;
+  color: #fff;
 }
 
 .item-image {
@@ -105,7 +128,7 @@
 .restaurant-total {
   text-align: right;
   padding-top: 1rem;
-  border-top: 2px solid #9381FF;
+  border-top: 2px solid #FF6B35;
   font-size: 1.2rem;
   color: #fff;
 }
@@ -113,7 +136,7 @@
 /* Payment and Delivery Options */
 .checkout-options {
   background: #141414;
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(147, 129, 255, 0.2);
@@ -154,7 +177,7 @@
 }
 
 .radio-group label:hover {
-  border-color: #9381FF;
+  border-color: #FF6B35;
   background: #1f1f1f;
 }
 
@@ -172,7 +195,7 @@
 /* Order Summary */
 .checkout-summary {
   background: #141414;
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(147, 129, 255, 0.2);
@@ -188,7 +211,7 @@
 }
 
 .summary-row.total-row {
-  border-top: 2px solid #9381FF;
+  border-top: 2px solid #FF6B35;
   margin-top: 0.5rem;
   padding-top: 1rem;
   font-size: 1.3rem;
@@ -219,12 +242,12 @@
 }
 
 .btn-primary {
-  background: #9381FF;
+  background: #FF6B35;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #B8B8FF;
+  background: #ffe4d6;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(147, 129, 255, 0.4);
 }

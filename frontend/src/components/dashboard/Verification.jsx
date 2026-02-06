@@ -104,7 +104,7 @@ const Verification = () => {
           <p><strong>⚠️ Restaurant Profile Required</strong></p>
           <p>You need to create your restaurant profile before you can submit verification documents.</p>
           <p style={{ marginTop: "15px" }}>
-            <a href="/dashboard" style={{ color: "#a855f7", textDecoration: "underline" }}>
+            <a href="/dashboard" style={{ color: "#FF6B35", textDecoration: "underline" }}>
               Go to Dashboard to create your restaurant profile
             </a>
           </p>

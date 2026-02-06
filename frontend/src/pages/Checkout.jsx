@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "../assets/style/Checkout.css";
 
+const API_BASE = "http://localhost:4000/api/v1";
+
 const Checkout = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ const Checkout = () => {
   const fetchCart = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/api/v1/cart", {
+      const res = await axios.get(`${API_BASE}/cart`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCart(res.data.data);
@@ -53,6 +55,19 @@ const Checkout = () => {
       navigate("/");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRemoveItem = async (productId) => {
+    try {
+      await axios.delete(`${API_BASE}/cart/delete/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      toast.success("Item removed from cart");
+      await fetchCart();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to remove item");
     }
   };
 
@@ -267,18 +282,29 @@ const Checkout = () => {
             <div key={group.restaurantId} className="restaurant-group">
               <h3 className="restaurant-name">{group.restaurantName}</h3>
               <div className="restaurant-items">
-                {group.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="checkout-item">
-                    {item.productImage && (
-                      <img src={item.productImage} alt={item.productName} className="item-image" />
-                    )}
-                    <div className="item-details">
-                      <h4>{item.productName}</h4>
-                      <p>Quantity: {item.quantity}</p>
-                      <p className="item-price">Rs {item.itemPrice.toFixed(2)}</p>
+                {group.items.map((item, itemIndex) => {
+                  const productId = item.productId?._id || item.productId;
+                  return (
+                    <div key={productId || itemIndex} className="checkout-item">
+                      {item.productImage && (
+                        <img src={item.productImage} alt={item.productName} className="item-image" />
+                      )}
+                      <div className="item-details">
+                        <h4>{item.productName}</h4>
+                        <p>Quantity: {item.quantity}</p>
+                        <p className="item-price">Rs {item.itemPrice.toFixed(2)}</p>
+                      </div>
+                      <button
+                        className="checkout-remove-btn"
+                        onClick={() => handleRemoveItem(productId)}
+                        title="Remove from cart"
+                        aria-label="Remove from cart"
+                      >
+                        ×
+                      </button>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="restaurant-total">
                 <div className="subtotal-row">

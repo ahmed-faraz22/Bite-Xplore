@@ -69,7 +69,7 @@ const AdminCommission = () => {
           disabled={recalculating}
           style={{
             padding: "12px 24px",
-            background: "#a855f7",
+            background: "#FF6B35",
             color: "#fff",
             border: "none",
             borderRadius: "8px",
@@ -85,7 +85,7 @@ const AdminCommission = () => {
       <div className="commission-info" style={{ marginBottom: "40px" }}>
         <div className="info-card">
           <h3>Total Restaurants</h3>
-          <p style={{ fontSize: "32px", color: "#a855f7", fontWeight: "700", margin: "10px 0" }}>
+          <p style={{ fontSize: "32px", color: "#FF6B35", fontWeight: "700", margin: "10px 0" }}>
             {restaurants.length}
           </p>
         </div>
@@ -108,7 +108,7 @@ const AdminCommission = () => {
       {/* Slider Restaurants */}
       {sliderRestaurants.length > 0 && (
         <div style={{ marginBottom: "40px" }}>
-          <h3 style={{ color: "#a855f7", marginBottom: "20px", fontSize: "24px" }}>
+          <h3 style={{ color: "#FF6B35", marginBottom: "20px", fontSize: "24px" }}>
             Top 10 Slider Restaurants (PKR 5,000/month)
           </h3>
           <div className="restaurant-grid">
@@ -122,7 +122,7 @@ const AdminCommission = () => {
       {/* Top-Rated Restaurants (Not in Slider) */}
       {topRatedRestaurants.length > 0 && (
         <div style={{ marginBottom: "40px" }}>
-          <h3 style={{ color: "#a855f7", marginBottom: "20px", fontSize: "24px" }}>
+          <h3 style={{ color: "#FF6B35", marginBottom: "20px", fontSize: "24px" }}>
             Top-Rated Restaurants (PKR 1,500/month)
           </h3>
           <div className="restaurant-grid">
@@ -135,7 +135,7 @@ const AdminCommission = () => {
 
       {/* All Restaurants Table */}
       <div>
-        <h3 style={{ color: "#a855f7", marginBottom: "20px", fontSize: "24px" }}>All Restaurants</h3>
+        <h3 style={{ color: "#FF6B35", marginBottom: "20px", fontSize: "24px" }}>All Restaurants</h3>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", background: "#1a1a1a", borderRadius: "8px", overflow: "hidden" }}>
             <thead>
@@ -163,7 +163,7 @@ const AdminCommission = () => {
                       {restaurant.sliderStatus === "in_slider" ? "In Slider" : "Not in Slider"}
                     </span>
                   </td>
-                  <td style={{ padding: "15px", color: "#a855f7", fontWeight: "600" }}>
+                  <td style={{ padding: "15px", color: "#FF6B35", fontWeight: "600" }}>
                     PKR {restaurant.commissionAmount?.toLocaleString() || "0"}
                   </td>
                   <td style={{ padding: "15px" }}>
@@ -211,7 +211,7 @@ const RestaurantCard = ({ restaurant, commissionAmount }) => {
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
         <span style={{ color: "#aaa" }}>Commission:</span>
-        <span style={{ color: "#a855f7", fontWeight: "700" }}>PKR {commissionAmount.toLocaleString()}</span>
+        <span style={{ color: "#FF6B35", fontWeight: "700" }}>PKR {commissionAmount.toLocaleString()}</span>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px" }}>
         <span style={{ color: "#aaa" }}>Status:</span>

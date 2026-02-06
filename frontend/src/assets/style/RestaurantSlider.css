@@ -12,7 +12,7 @@
 }
 
 .slider-header h2 {
-  color: #a855f7;
+  color: #FF6B35;
   font-size: 36px;
   margin-bottom: 10px;
   font-weight: 700;
@@ -65,9 +65,9 @@
 }
 
 .restaurant-card:hover {
-  border-color: #a855f7;
+  border-color: #FF6B35;
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
 }
 
 .restaurant-image {
@@ -90,7 +90,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 100%);
   color: #fff;
   font-size: 72px;
   font-weight: 700;
@@ -144,13 +144,13 @@
 }
 
 .restaurant-meta svg {
-  color: #a855f7;
+  color: #FF6B35;
 }
 
 .view-menu-btn {
   display: inline-block;
   padding: 12px 24px;
-  background: #a855f7;
+  background: #FF6B35;
   color: #fff;
   text-decoration: none;
   border-radius: 8px;
@@ -162,16 +162,16 @@
 }
 
 .view-menu-btn:hover {
-  background: #9333ea;
+  background: #E55A2B;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
 }
 
 .slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(168, 85, 247, 0.8);
+  background: rgba(255, 107, 53, 0.8);
   color: #fff;
   border: none;
   width: 50px;
@@ -187,7 +187,7 @@
 }
 
 .slider-btn:hover {
-  background: #a855f7;
+  background: #FF6B35;
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -217,7 +217,7 @@
 }
 
 .slider-dots .dot.active {
-  background: #a855f7;
+  background: #FF6B35;
   width: 30px;
   border-radius: 6px;
 }

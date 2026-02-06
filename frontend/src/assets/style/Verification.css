@@ -2,17 +2,17 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .verification-container h2 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 30px;
 }
 
 .verification-status {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #fff5f0;
+  border: 1px solid #f0e6e0;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 30px;
@@ -27,7 +27,7 @@
 
 .status-header h3 {
   margin: 0;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .status-badge {
@@ -87,14 +87,14 @@
 }
 
 .verification-form-container {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #fff5f0;
+  border: 1px solid #f0e6e0;
   border-radius: 8px;
   padding: 30px;
 }
 
 .verification-form-container h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 10px;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .form-group label {
-  color: #fff;
+  color: #1a1a1a;
   font-weight: 500;
 }
 
@@ -127,10 +127,10 @@
 
 .form-group input[type="file"] {
   padding: 10px;
-  background: #2a2a2a;
-  border: 1px solid #444;
+  background: #ffffff;
+  border: 1px solid #f0e6e0;
   border-radius: 6px;
-  color: #fff;
+  color: #1a1a1a;
   cursor: pointer;
 }
 
@@ -152,7 +152,7 @@
 
 .submit-btn {
   padding: 12px 24px;
-  background: #a855f7;
+  background: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -163,7 +163,7 @@
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #9333ea;
+  background: #E55A2B;
 }
 
 .submit-btn:disabled {
@@ -176,11 +176,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .admin-verification-container h2 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 30px;
 }
 
@@ -191,8 +191,8 @@
 }
 
 .verification-card {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #fff5f0;
+  border: 1px solid #f0e6e0;
   border-radius: 8px;
   padding: 20px;
 }
@@ -205,7 +205,7 @@
 }
 
 .restaurant-info h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin: 0 0 5px 0;
 }
 
@@ -263,8 +263,8 @@
 }
 
 .reject-modal-content {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #ffffff;
+  border: 1px solid #f0e6e0;
   border-radius: 8px;
   padding: 30px;
   max-width: 500px;
@@ -272,7 +272,7 @@
 }
 
 .reject-modal-content h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 15px;
 }
 
@@ -280,10 +280,10 @@
   width: 100%;
   min-height: 100px;
   padding: 10px;
-  background: #2a2a2a;
-  border: 1px solid #444;
+  background: #ffffff;
+  border: 1px solid #f0e6e0;
   border-radius: 6px;
-  color: #fff;
+  color: #1a1a1a;
   margin-bottom: 15px;
   font-family: inherit;
 }

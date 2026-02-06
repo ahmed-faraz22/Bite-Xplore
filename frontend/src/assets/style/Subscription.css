@@ -5,22 +5,22 @@
 }
 
 .subscription-card {
-    background: #141414;
+    background: #ffffff;
     border-radius: 16px;
     padding: 30px;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #f0e6e0;
 }
 
 .subscription-card h2 {
-    color: #fff;
+    color: #1a1a1a;
     margin-bottom: 25px;
     font-size: 28px;
-    border-bottom: 2px solid #3f3f3f;
+    border-bottom: 2px solid #f0e6e0;
     padding-bottom: 15px;
 }
 
 .subscription-info {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
@@ -31,7 +31,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid #3f3f3f;
+    border-bottom: 1px solid #f0e6e0;
 }
 
 .info-row:last-child {
@@ -39,12 +39,12 @@
 }
 
 .info-label {
-    color: #ccc;
+    color: #555;
     font-size: 16px;
 }
 
 .info-value {
-    color: #fff;
+    color: #1a1a1a;
     font-size: 16px;
     font-weight: 600;
 }
@@ -104,37 +104,37 @@
 }
 
 .plan-info {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
 }
 
 .plan-info h3 {
-    color: #fff;
+    color: #1a1a1a;
     margin-bottom: 15px;
     font-size: 20px;
 }
 
 .plan-details p {
-    color: #ccc;
+    color: #555;
     margin: 8px 0;
     line-height: 1.6;
 }
 
 .plan-details strong {
-    color: #fff;
+    color: #1a1a1a;
 }
 
 .payment-section {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
     padding: 25px;
     margin-top: 20px;
 }
 
 .payment-section h3 {
-    color: #fff;
+    color: #1a1a1a;
     margin-bottom: 15px;
     font-size: 20px;
 }
@@ -153,7 +153,7 @@
 
 .payment-method label {
     display: block;
-    color: #ccc;
+    color: #555;
     margin-bottom: 8px;
     font-size: 14px;
 }
@@ -161,23 +161,23 @@
 .payment-select {
     width: 100%;
     padding: 12px;
-    background: #141414;
-    border: 1px solid #3f3f3f;
+    background: #ffffff;
+    border: 1px solid #f0e6e0;
     border-radius: 8px;
-    color: #fff;
+    color: #1a1a1a;
     font-size: 16px;
     cursor: pointer;
 }
 
 .payment-select:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #FF6B35;
 }
 
 .activate-btn {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -191,13 +191,13 @@
 }
 
 .activate-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #45a049 0%, #4caf50 100%);
+    background: linear-gradient(135deg, #E55A2B 0%, #FF6B35 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .activate-btn:disabled {
-    background: #3f3f3f;
+    background: #e0e0e0;
     color: #999;
     cursor: not-allowed;
     opacity: 0.6;

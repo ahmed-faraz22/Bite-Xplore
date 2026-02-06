@@ -140,7 +140,7 @@ const Orders = () => {
 
                     {/* === Items === */}
                     <div>
-                      <strong className="text-purple-400">Items:</strong>
+                      <strong style={{ color: "#FF6B35" }}>Items:</strong>
                       <ul>
                         {order.items?.map((item, index) => (
                           <li key={item.productId?._id || item.productId || index}>
@@ -173,7 +173,7 @@ const Orders = () => {
 
                     {expandedOrder === (order._id || order.id) && (
                       <div className="payment-details">
-                        <strong className="block text-purple-400 mb-2">
+                        <strong className="block mb-2" style={{ color: "#FF6B35" }}>
                           Payment Details
                         </strong>
                         <p>

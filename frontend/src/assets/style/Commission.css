@@ -2,11 +2,11 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .commission-container h2 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 30px;
   font-size: 28px;
 }
@@ -19,15 +19,15 @@
 }
 
 .info-card {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #ffffff;
+  border: 1px solid #f0e6e0;
   border-radius: 12px;
   padding: 25px;
   text-align: center;
 }
 
 .info-card h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 15px;
   font-size: 18px;
 }
@@ -78,36 +78,37 @@
 }
 
 .status-badge.in-slider {
-  background: #10b981;
+  background: #FF6B35;
   color: #fff;
 }
 
 .status-badge.not-in-slider {
-  background: #444;
-  color: #aaa;
+  background: #fff5f0;
+  color: #FF6B35;
+  border: 1px solid #FF6B35;
 }
 
 .info-text {
-  color: #aaa;
+  color: #555;
   font-size: 14px;
   margin-top: 10px;
 }
 
 .commission-type {
-  color: #fff;
+  color: #FF6B35;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
 }
 
 .commission-amount {
-  color: #a855f7;
+  color: #FF6B35;
   font-size: 20px;
   font-weight: 700;
 }
 
 .payment-section {
-  background: #1a1a1a;
+  background: #ffffff;
   border: 2px solid;
   border-radius: 12px;
   padding: 30px;
@@ -125,7 +126,7 @@
 }
 
 .payment-section h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 20px;
   font-size: 20px;
 }
@@ -142,7 +143,7 @@
 }
 
 .expiry-text {
-  color: #aaa;
+  color: #555;
   font-size: 14px;
 }
 
@@ -166,7 +167,7 @@
 }
 
 .monthly-limit-warning p {
-  color: #fff;
+  color: #1a1a1a;
   margin: 5px 0;
 }
 
@@ -175,13 +176,13 @@
 }
 
 .limit-note {
-  color: #aaa !important;
+  color: #555 !important;
   font-size: 14px;
 }
 
 .pay-btn {
   padding: 15px 40px;
-  background: #a855f7;
+  background: #FF6B35;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -192,9 +193,9 @@
 }
 
 .pay-btn:hover:not(:disabled) {
-  background: #9333ea;
+  background: #E55A2B;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
 }
 
 .pay-btn:disabled {
@@ -203,14 +204,14 @@
 }
 
 .info-section {
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #ffffff;
+  border: 1px solid #f0e6e0;
   border-radius: 12px;
   padding: 25px;
 }
 
 .info-section h3 {
-  color: #a855f7;
+  color: #FF6B35;
   margin-bottom: 15px;
   font-size: 20px;
 }
@@ -222,7 +223,7 @@
 }
 
 .info-section li {
-  color: #aaa;
+  color: #1a1a1a;
   padding: 10px 0;
   padding-left: 25px;
   position: relative;
@@ -231,14 +232,14 @@
 
 .info-section li:before {
   content: "•";
-  color: #a855f7;
+  color: #FF6B35;
   font-weight: bold;
   position: absolute;
   left: 0;
 }
 
 .info-section li:not(:last-child) {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #f0e6e0;
 }
 
 .restaurant-grid {

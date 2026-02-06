@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidenav from '../components/dashboard/Sidenav'
+import '../assets/style/Dashboard.css'
 import AdminSidenav from '../components/dashboard/AdminSidenav'
 import { Outlet, useLocation } from 'react-router-dom'
 

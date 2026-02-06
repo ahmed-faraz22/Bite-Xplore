@@ -5,12 +5,11 @@
     width: 300px;
     background: #ffffff;
     border: 1px solid #FF6B35;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     z-index: 1001;
-    color: #fff;
+    color: #1a1a1a;
     overflow: visible;
 }
 
@@ -18,13 +17,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #9381FF;
+    border-bottom: 1px solid #FF6B35;
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
 .cart-popup-header h4 {
-    color: #fff;
+    color: #FF6B35;
     margin: 0;
 }
 
@@ -33,7 +32,7 @@
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #fff;
+    color: #1a1a1a;
     padding: 0;
     width: 24px;
     height: 24px;
@@ -44,13 +43,13 @@
 }
 
 .close-btn:hover {
-    color: #9381FF;
+    color: #FF6B35;
 }
 
 .empty-text {
     text-align: center;
     padding: 1rem 0;
-    color: #aaa;
+    color: #555;
 }
 
 .cart-items {
@@ -64,9 +63,42 @@
 .cart-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 0.5rem;
     padding: 0.5rem 0;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #f0e6e0;
+}
+
+.cart-item-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-remove-btn {
+    background: none;
+    border: 1px solid #FF6B35;
+    color: #FF6B35;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.cart-remove-btn:hover:not(:disabled) {
+    background: #FF6B35;
+    color: #fff;
+}
+
+.cart-remove-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .cart-item:last-child {
@@ -74,19 +106,19 @@
 }
 
 .item-name {
-    font-weight: 500;
-    color: #fff;
+    font-weight: 600;
+    color: #FF6B35 !important;
     margin: 0 0 0.25rem 0;
 }
 
 .item-qty {
-    color: #aaa;
+    color: #FF6B35 !important;
     font-size: 0.9rem;
     margin: 0;
 }
 
 .item-price {
-    color: #9381FF;
+    color: #FF6B35;
     font-weight: 600;
 }
 
@@ -94,14 +126,18 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    border-top: 1px solid #9381FF;
+    border-top: 1px solid #FF6B35;
     padding-top: 0.5rem;
     margin-top: 1rem;
-    color: #fff;
+    color: #1a1a1a;
+}
+
+.cart-total strong {
+    color: #FF6B35;
 }
 
 .cart-total span {
-    color: #9381FF;
+    color: #FF6B35;
 }
 
 .cart-actions {
