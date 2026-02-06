@@ -1,12 +1,13 @@
 .product-detail {
     padding: 40px 0;
-    background: #000000;
+    background: #ffffff;
 }
 
 .product-detail .inner .product-details {
     display: flex;
     gap: 30px;
-    background: #3f3f3f;
+    background: #fff5f0;
+    border: 1px solid #f0e6e0;
     padding: 20px;
     border-radius: 24px;
 }
@@ -16,7 +17,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #141414;
+    background: #ffffff;
     padding: 20px;
     border-radius: 24px;
 }
@@ -29,7 +30,8 @@
 
 .product-detail .inner .product-content {
     flex: 1;
-    background: #141414;
+    background: #ffffff;
+    border: 1px solid #f0e6e0;
     border-radius: 24px;
     padding: 20px;
 }
@@ -53,7 +55,7 @@
     gap: 20px;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #3f3f3f;
+    border-top: 1px solid #f0e6e0;
 }
 
 /* Quantity Control */
@@ -61,17 +63,17 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    background: #2a2a2a;
+    background: #fff5f0;
     padding: 8px 12px;
     border-radius: 12px;
-    border: 1px solid #3f3f3f;
+    border: 1px solid #f0e6e0;
 }
 
 .quantity-btn {
     width: 40px;
     height: 40px;
     border: none;
-    background: #3f3f3f;
+    background: #FF6B35;
     color: #fff;
     font-size: 20px;
     font-weight: 600;
@@ -84,7 +86,7 @@
 }
 
 .quantity-btn:hover {
-    background: #4caf50;
+    background: #E55A2B;
     transform: scale(1.05);
 }
 
@@ -95,7 +97,7 @@
 .quantity-display {
     min-width: 50px;
     text-align: center;
-    color: #fff;
+    color: #1a1a1a;
     font-size: 18px;
     font-weight: 600;
     padding: 0 10px;
@@ -105,7 +107,7 @@
 .order-btn {
     flex: 1;
     padding: 14px 30px;
-    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 100%);
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -115,22 +117,22 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
 }
 
 .order-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #45a049 0%, #4caf50 100%);
+    background: linear-gradient(135deg, #E55A2B 0%, #FF6B35 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .order-btn:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
 }
 
 .order-btn:disabled {
-    background: #3f3f3f;
+    background: #e0e0e0;
     color: #999;
     cursor: not-allowed;
     box-shadow: none;
@@ -161,7 +163,7 @@
 
 /* Restaurant Information */
 .restaurant-info {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 30px;
@@ -179,7 +181,7 @@
     border-radius: 12px;
     overflow: hidden;
     flex-shrink: 0;
-    background: #141414;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,7 +195,7 @@
 
 .restaurant-details h2 {
     margin: 0 0 15px 0;
-    color: #fff;
+    color: #1a1a1a;
     font-size: 24px;
 }
 
@@ -205,17 +207,17 @@
 
 .restaurant-meta p {
     margin: 0;
-    color: #ccc;
+    color: #555;
     font-size: 14px;
 }
 
 .restaurant-meta strong {
-    color: #fff;
+    color: #1a1a1a;
     margin-right: 8px;
 }
 
 .delivery-badge {
-    color: #4caf50 !important;
+    color: #22c55e !important;
     font-weight: 600;
 }
 
@@ -223,11 +225,11 @@
 .restaurant-menu-section {
     margin-top: 40px;
     padding-top: 40px;
-    border-top: 2px solid #3f3f3f;
+    border-top: 2px solid #f0e6e0;
 }
 
 .restaurant-menu-section h2 {
-    color: #fff;
+    color: #1a1a1a;
     margin-bottom: 30px;
     font-size: 28px;
 }
@@ -239,7 +241,7 @@
 }
 
 .menu-item-card {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -254,7 +256,7 @@
     width: 100%;
     height: 200px;
     overflow: hidden;
-    background: #141414;
+    background: #ffffff;
 }
 
 .menu-item-image img {
@@ -268,13 +270,13 @@
 }
 
 .menu-item-content h4 {
-    color: #fff;
+    color: #1a1a1a;
     margin: 0 0 10px 0;
     font-size: 18px;
 }
 
 .menu-item-description {
-    color: #ccc;
+    color: #555;
     font-size: 14px;
     margin: 0 0 15px 0;
     display: -webkit-box;
@@ -290,7 +292,7 @@
 }
 
 .menu-item-price {
-    color: #fff;
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: 600;
 }
@@ -323,7 +325,7 @@
     gap: 15px;
     margin-bottom: 20px;
     padding: 15px;
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
 }
 
@@ -333,12 +335,12 @@
 }
 
 .product-rating-display .star-filled {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 20px;
 }
 
 .product-rating-display .star-half {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 20px;
     opacity: 0.5;
 }
@@ -349,7 +351,7 @@
 }
 
 .rating-info {
-    color: #ccc;
+    color: #555;
     font-size: 16px;
 }
 
@@ -357,7 +359,7 @@
 .product-stock-display {
     margin-bottom: 20px;
     padding: 15px;
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
 }
 
@@ -373,7 +375,7 @@
 
 .stock-badge.in-stock {
     background: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
+    color: #22c55e;
     border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
@@ -390,7 +392,7 @@
 
 /* Rating Input Section */
 .rating-section {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 16px;
     padding: 20px;
     margin-top: 20px;
@@ -398,7 +400,7 @@
 }
 
 .rating-section h4 {
-    color: #fff;
+    color: #1a1a1a;
     margin: 0 0 15px 0;
     font-size: 18px;
 }
@@ -411,7 +413,7 @@
 }
 
 .rating-label {
-    color: #ccc;
+    color: #555;
     font-size: 14px;
     min-width: 100px;
 }
@@ -422,7 +424,7 @@
 }
 
 .star-input-filled {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 24px;
     cursor: pointer;
     transition: transform 0.2s;
@@ -440,7 +442,7 @@
 }
 
 .star-input-empty:hover {
-    color: #ffc107;
+    color: #FF6B35;
     transform: scale(1.2);
 }
 
@@ -450,7 +452,7 @@
 
 .comment-input label {
     display: block;
-    color: #ccc;
+    color: #555;
     font-size: 14px;
     margin-bottom: 8px;
 }
@@ -458,10 +460,10 @@
 .comment-input textarea {
     width: 100%;
     padding: 12px;
-    background: #141414;
-    border: 1px solid #3f3f3f;
+    background: #ffffff;
+    border: 1px solid #f0e6e0;
     border-radius: 8px;
-    color: #fff;
+    color: #1a1a1a;
     font-size: 14px;
     font-family: inherit;
     resize: vertical;
@@ -469,7 +471,7 @@
 
 .comment-input textarea:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #22c55e;
 }
 
 .comment-input textarea::placeholder {
@@ -478,7 +480,7 @@
 
 .submit-rating-btn {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -491,13 +493,13 @@
 }
 
 .submit-rating-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #45a049 0%, #4caf50 100%);
+    background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .submit-rating-btn:disabled {
-    background: #3f3f3f;
+    background: #f0e6e0;
     color: #999;
     cursor: not-allowed;
     opacity: 0.6;
@@ -509,13 +511,13 @@
 }
 
 .rating-section.login-prompt p {
-    color: #ccc;
+    color: #555;
     font-size: 16px;
     margin: 0;
 }
 
 .rating-section.login-prompt a {
-    color: #4caf50;
+    color: #22c55e;
     text-decoration: none;
     font-weight: 600;
 }
@@ -528,11 +530,11 @@
 .reviews-section {
     margin-top: 40px;
     padding-top: 40px;
-    border-top: 2px solid #3f3f3f;
+    border-top: 2px solid #f0e6e0;
 }
 
 .reviews-section h2 {
-    color: #fff;
+    color: #1a1a1a;
     margin-bottom: 30px;
     font-size: 28px;
 }
@@ -544,7 +546,7 @@
 }
 
 .review-item {
-    background: #2a2a2a;
+    background: #fff5f0;
     border-radius: 12px;
     padding: 20px;
 }
@@ -563,7 +565,7 @@
 }
 
 .reviewer-info strong {
-    color: #fff;
+    color: #1a1a1a;
     font-size: 16px;
 }
 
@@ -578,7 +580,7 @@
 }
 
 .star-filled-small {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 14px;
 }
 
@@ -588,7 +590,7 @@
 }
 
 .review-comment {
-    color: #ccc;
+    color: #555;
     font-size: 14px;
     line-height: 1.6;
     margin: 0;

@@ -1,10 +1,11 @@
 .productcard-wrapper {
     display: flex;
     flex-direction: column;
-    border: 5px solid #ffffff38;
+    border: 2px solid #f0e6e0;
     border-radius: 18px;
     padding: 15px;
-    background: #141414;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 .productcard-wrapper .card-head {
@@ -39,12 +40,12 @@
 }
 
 .productcard-wrapper .card-body .rating-display .star-filled {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 16px;
 }
 
 .productcard-wrapper .card-body .rating-display .star-half {
-    color: #ffc107;
+    color: #FF6B35;
     font-size: 16px;
     opacity: 0.5;
 }

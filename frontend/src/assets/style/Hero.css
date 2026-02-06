@@ -1,5 +1,5 @@
 .hero {
-    background: #000;
+    background: #ffffff;
     height: 100vh;
     width: 100vw;
 }
@@ -26,7 +26,7 @@
 
 .hero .inner .description h1 {
     margin-bottom: 30px;
-    background: linear-gradient(90deg, #9381FF, #FFEEDD);
+    background: linear-gradient(90deg, #FF6B35, #E55A2B);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -34,7 +34,7 @@
 .hero .inner p {
     text-align: center;
     margin-bottom: 30px;
-    color: #434343;
+    color: #555;
 }
 
 /* Responsive */

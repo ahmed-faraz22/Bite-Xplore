@@ -16,15 +16,15 @@
                     justify-content: start;
                     gap: 10px;
                     padding: 10px 30px;
-                    color: #8F84FB;
+                    color: #FF6B35;
 
                     &:hover {
-                        background-color: #8F84FB;
+                        background-color: #FF6B35;
                         color: #fff;
                         transition: all 0.3s ease-in-out;
                     }
                     &.active {
-                        background-color: #8F84FB;
+                        background-color: #FF6B35;
                         color: #fff;
                     }
                     svg {

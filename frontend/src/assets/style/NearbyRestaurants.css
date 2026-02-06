@@ -1,5 +1,5 @@
 .nearby-restaurants {
-  background: #000;
+  background: #ffffff;
   padding: 40px 0 20px 0;
   height: 100vh;
   width: 100vw;
@@ -22,7 +22,7 @@
   display: block;
   text-align: center;
   font-size: 24px;
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   margin: 20px 0;
 }
 
@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   padding: 15px;
   border-radius: 24px;
 }
@@ -43,7 +43,7 @@
 }
 
 .nearby-restaurants .inner .description .description-card ul li {
-  border: 1px solid #9381FF;
+  border: 1px solid #FF6B35;
   padding: 5px 15px;
   border-radius: 24px;
   width: calc(50% - 5px);

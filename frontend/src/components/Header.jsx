@@ -71,7 +71,6 @@ const Header = () => {
       console.warn(err);
     }
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     setIsLoggedIn(false);
     setUser(null);
     window.dispatchEvent(new Event("authChange"));
