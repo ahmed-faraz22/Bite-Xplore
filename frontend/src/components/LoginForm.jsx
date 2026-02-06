@@ -80,7 +80,9 @@ const handleSubmit = async (e) => {
     window.dispatchEvent(new Event("authChange"));
 
     // ✅ Navigate based on role from DB
-    if (user.role === "seller") {
+    if (user.role === "admin") {
+      navigate("/admin");
+    } else if (user.role === "seller") {
       navigate("/dashboard");
     } else {
       navigate("/");

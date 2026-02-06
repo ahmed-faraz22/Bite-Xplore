@@ -14,14 +14,46 @@ const Header = () => {
   const cartRef = useRef(null);
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [user, setUser] = useState(() => {
+    try {
+      const userStr = localStorage.getItem("user");
+      return userStr ? JSON.parse(userStr) : null;
+    } catch {
+      return null;
+    }
+  });
   const [showCart, setShowCart] = useState(false);
 
   const { cartItems, fetchCart } = useContext(CartContext);
 
-  // fetch cart on login
+  // Listen for auth changes (login/logout)
   useEffect(() => {
-    if (isLoggedIn) fetchCart();
-  }, [isLoggedIn, fetchCart]);
+    const handleAuthChange = () => {
+      const token = localStorage.getItem("token");
+      const userStr = localStorage.getItem("user");
+      setIsLoggedIn(!!token);
+      try {
+        setUser(userStr ? JSON.parse(userStr) : null);
+      } catch {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener("authChange", handleAuthChange);
+    window.addEventListener("storage", handleAuthChange);
+    
+    return () => {
+      window.removeEventListener("authChange", handleAuthChange);
+      window.removeEventListener("storage", handleAuthChange);
+    };
+  }, []);
+
+  // fetch cart on login (only for buyers)
+  useEffect(() => {
+    if (isLoggedIn && user?.role === "buyer") {
+      fetchCart();
+    }
+  }, [isLoggedIn, user, fetchCart]);
 
   // click outside to close
   useEffect(() => {
@@ -39,10 +71,16 @@ const Header = () => {
       console.warn(err);
     }
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
+    setUser(null);
+    window.dispatchEvent(new Event("authChange"));
     toast.success("Logged out successfully!");
     navigate("/auth");
   };
+
+  // Only show cart for buyers
+  const shouldShowCart = isLoggedIn && user?.role === "buyer";
 
   return (
     <header>
@@ -61,24 +99,84 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="header-cta" style={{ position: "relative", display: "flex", gap: "1rem" }}>
+          <div className="header-cta" style={{ position: "relative", display: "flex", gap: "1rem", alignItems: "center" }}>
             {isLoggedIn ? (
               <>
-                <div ref={cartRef} style={{ position: "relative" }}>
-                  <button
-                    onClick={() => setShowCart(prev => !prev)}
-                    style={{ background: "none", border: "none", cursor: "pointer" }}
-                  >
-                    <FaShoppingCart color="#fff" size={25} />
-                  </button>
+                {/* Show cart only for buyers */}
+                {shouldShowCart && (
+                  <div ref={cartRef} style={{ position: "relative", zIndex: 1000 }}>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setShowCart(prev => !prev);
+                      }}
+                      style={{ background: "none", border: "none", cursor: "pointer", position: "relative", zIndex: 1001 }}
+                    >
+                      <FaShoppingCart color="#fff" size={25} />
+                      {cartItems.length > 0 && (
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "-8px",
+                            right: "-8px",
+                            background: "#e74c3c",
+                            color: "#fff",
+                            borderRadius: "50%",
+                            width: "20px",
+                            height: "20px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            zIndex: 1002
+                          }}
+                        >
+                          {cartItems.length}
+                        </span>
+                      )}
+                    </button>
 
-                  {showCart && (
-                    <div style={{ position: "absolute", right: 0, top: "2.5rem", zIndex: 100 }}>
-                      <CartPopup items={cartItems} onClose={() => setShowCart(false)} />
-                    </div>
+                    {showCart && (
+                      <div style={{ 
+                        position: "absolute", 
+                        right: 0, 
+                        top: "2.5rem", 
+                        zIndex: 1001,
+                        width: "300px",
+                        maxWidth: "90vw"
+                      }}>
+                        <CartPopup items={cartItems} onClose={() => setShowCart(false)} />
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                {/* Show user info and role-based links */}
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  {user && (
+                    <span style={{ color: "#fff", fontSize: "14px" }}>
+                      {user.name} ({user.role})
+                    </span>
                   )}
+                  {(user?.role === "seller" || user?.role === "admin") && (
+                    <a 
+                      href={user.role === "admin" ? "/admin" : "/dashboard"}
+                      style={{ 
+                        color: "#a855f7", 
+                        textDecoration: "none",
+                        padding: "6px 12px",
+                        border: "1px solid #a855f7",
+                        borderRadius: "4px",
+                        fontSize: "14px"
+                      }}
+                    >
+                      Dashboard
+                    </a>
+                  )}
+                  <Button buttonText="Logout" onClick={handleLogout} />
                 </div>
-                <Button buttonText="Logout" onClick={handleLogout} />
               </>
             ) : (
               <Button buttonText="Sign In" buttonLink="/auth" />

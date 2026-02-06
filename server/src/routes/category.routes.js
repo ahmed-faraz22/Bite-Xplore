@@ -6,15 +6,17 @@ import {
     updateCategory,
     deleteCategory
 } from "../controllers/category.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { verifyJWT, authorizeRoles } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// Protected routes (only logged-in users)
-router.post("/", verifyJWT, createCategory);
-router.get("/", getAllCategories); // public
-router.get("/:id", getCategoryById); // public
-router.put("/:id", verifyJWT, updateCategory);
-router.delete("/:id", verifyJWT, deleteCategory);
+// Public routes
+router.get("/", getAllCategories);
+router.get("/:id", getCategoryById);
+
+// Admin-only routes (only admins can create, update, delete categories)
+router.post("/", verifyJWT, authorizeRoles("admin"), createCategory);
+router.put("/:id", verifyJWT, authorizeRoles("admin"), updateCategory);
+router.delete("/:id", verifyJWT, authorizeRoles("admin"), deleteCategory);
 
 export default router;

@@ -4,10 +4,17 @@ import "../assets/style/CartPopup.css";
 
 
 const CartPopup = ({ items = [], onClose }) => {
-    const totalPrice = items.reduce((acc, item) => acc + (item.productId.price || 0) * item.quantity, 0);
+    if (!items || !Array.isArray(items)) {
+        return null;
+    }
+
+    const totalPrice = items.reduce((acc, item) => {
+        if (!item || !item.productId) return acc;
+        return acc + (item.productId.price || 0) * (item.quantity || 0);
+    }, 0);
 
     return (
-        <div className="cart-popup">
+        <div className="cart-popup" onClick={(e) => e.stopPropagation()}>
             <div className="cart-popup-header">
                 <h4>Your Cart</h4>
                 <button className="close-btn" onClick={onClose}>×</button>
@@ -18,15 +25,18 @@ const CartPopup = ({ items = [], onClose }) => {
             ) : (
                 <>
                     <ul className="cart-items">
-                        {items.map((item, index) => (
-                            <li key={index} className="cart-item">
-                                <div>
-                                    <p className="item-name">{item.productId.name}</p>
-                                    <p className="item-qty">Qty: {item.quantity}</p>
-                                </div>
-                                <p className="item-price">Rs {(item.productId.price * item.quantity).toFixed(2)}</p>
-                            </li>
-                        ))}
+                        {items.map((item, index) => {
+                            if (!item || !item.productId) return null;
+                            return (
+                                <li key={index} className="cart-item">
+                                    <div>
+                                        <p className="item-name">{item.productId.name || "Unknown Product"}</p>
+                                        <p className="item-qty">Qty: {item.quantity || 0}</p>
+                                    </div>
+                                    <p className="item-price">Rs {((item.productId.price || 0) * (item.quantity || 0)).toFixed(2)}</p>
+                                </li>
+                            );
+                        })}
                     </ul>
 
                     <div className="cart-total">
@@ -34,7 +44,11 @@ const CartPopup = ({ items = [], onClose }) => {
                     </div>
 
                     <div className="cart-actions">
-                        <Button buttonText="Checkout" buttonLink="/checkout" />
+                        <Button 
+                            buttonText="Checkout" 
+                            buttonLink="/checkout" 
+                            onClick={onClose}
+                        />
                     </div>
                 </>
             )}

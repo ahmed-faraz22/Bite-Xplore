@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import "../assets/style/ProductDetail.css";
 import Button from "../components/Button";
+import { CartContext } from "../context/CartContext.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -112,6 +113,7 @@ const ProductDetail = () => {
 
   const increaseQuantity = () => setQuantity(prev => prev + 1);
   const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+  const { fetchCart } = useContext(CartContext);
 
   const handleAddToCart = async () => {
     if (!token) return toast.error("Please login to add to cart");
@@ -128,6 +130,10 @@ const ProductDetail = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success(res.data.message || "Added to cart");
+      // Refresh cart count
+      if (fetchCart) {
+        fetchCart();
+      }
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to add to cart");
     } finally {

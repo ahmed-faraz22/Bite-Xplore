@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Hero from "../components/Hero";
+import RestaurantSlider from "../components/RestaurantSlider";
 import NearbyRestaurants from "../components/NearbyRestaurants";
 import Products from "../components/Products";
 import "../assets/style/home.css";
@@ -45,6 +46,7 @@ const Home = () => {
     <>
       <div ref={containerRef} className="scroll">
         <Hero foodCardRef={foodCardRef} />
+        <RestaurantSlider />
         <NearbyRestaurants />
       </div>
       <Products />

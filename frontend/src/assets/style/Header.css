@@ -2,6 +2,8 @@ header {
     position: relative;
     background: #000000;
     min-height: 114px;
+    z-index: 100;
+    overflow: visible;
 }
 
 header .inner {

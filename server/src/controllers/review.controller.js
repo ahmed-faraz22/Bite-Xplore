@@ -3,6 +3,7 @@ import Product from "../models/Product.models.js";
 import APIError from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { calculateRestaurantRatings } from "../utils/restaurantRating.util.js";
 
 // ✅ Add Rating/Review
 const addReview = asyncHandler(async (req, res) => {
@@ -35,6 +36,11 @@ const addReview = asyncHandler(async (req, res) => {
     }
     await existingReview.save();
     
+    // Recalculate restaurant ratings
+    if (product.restaurantId) {
+      await calculateRestaurantRatings(product.restaurantId);
+    }
+    
     return res
       .status(200)
       .json(new ApiResponse(200, existingReview, "Review updated successfully"));
@@ -46,6 +52,11 @@ const addReview = asyncHandler(async (req, res) => {
       rating,
       comment: comment || "",
     });
+
+    // Recalculate restaurant ratings
+    if (product.restaurantId) {
+      await calculateRestaurantRatings(product.restaurantId);
+    }
 
     return res
       .status(201)

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import "../../assets/style/Orders.css";
 
 const Orders = () => {
@@ -6,74 +8,65 @@ const Orders = () => {
   const [activeOrders, setActiveOrders] = useState([]);
   const [totalOrders, setTotalOrders] = useState([]);
   const [expandedOrder, setExpandedOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    // Simulate fetching from backend (replace with API later)
-    const fetchOrders = async () => {
-      const mockOrders = [
-        {
-          id: "1",
-          restaurantName: "Burger King",
-          status: "pending",
-          totalPrice: 19.99,
-          paymentStatus: "pending",
-          paymentMethod: "cod",
-          paymentId: null,
-          restaurantConfirmation: false,
-          deliveryBy: "platform",
-          createdAt: "2025-10-10T14:12:00Z",
-          confirmedAt: null,
-          items: [
-            { productId: "1", name: "Burger", quantity: 1, price: 9.99 },
-            { productId: "2", name: "Fries", quantity: 1, price: 4.99 },
-          ],
-        },
-        {
-          id: "2",
-          restaurantName: "Pizza Hut",
-          status: "delivered",
-          totalPrice: 29.99,
-          paymentStatus: "paid",
-          paymentMethod: "online",
-          paymentId: "TXN-98123",
-          restaurantConfirmation: true,
-          deliveryBy: "restaurant",
-          createdAt: "2025-10-07T12:45:00Z",
-          confirmedAt: "2025-10-07T12:50:00Z",
-          items: [
-            { productId: "3", name: "Pizza", quantity: 1, price: 19.99 },
-            { productId: "4", name: "Coke", quantity: 2, price: 5.0 },
-          ],
-        },
-        {
-          id: "3",
-          restaurantName: "Pasta Express",
-          status: "confirmed",
-          totalPrice: 15.99,
-          paymentStatus: "pending",
-          paymentMethod: "cod",
-          paymentId: null,
-          restaurantConfirmation: true,
-          deliveryBy: "platform",
-          createdAt: "2025-10-12T15:10:00Z",
-          confirmedAt: "2025-10-12T15:30:00Z",
-          items: [
-            { productId: "5", name: "Pasta", quantity: 1, price: 12.99 },
-            { productId: "6", name: "Salad", quantity: 1, price: 3.0 },
-          ],
-        },
-      ];
+    fetchOrders();
+  }, []);
 
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("http://localhost:4000/api/v1/orders/restaurant", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const orders = res.data.data || [];
+      
       setActiveOrders(
-        mockOrders.filter((o) =>
+        orders.filter((o) =>
           ["pending", "confirmed", "preparing", "on_the_way"].includes(o.status)
         )
       );
-      setTotalOrders(mockOrders);
-    };
+      setTotalOrders(orders);
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to fetch orders");
+      // Fallback to empty arrays on error
+      setActiveOrders([]);
+      setTotalOrders([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchOrders();
-  }, []);
+  const formatStatus = (status) => {
+    const statusMap = {
+      pending: "Pending",
+      confirmed: "Done",
+      preparing: "Preparing",
+      on_the_way: "On the Way",
+      delivered: "Delivered",
+      cancelled: "Cancelled"
+    };
+    return statusMap[status] || status;
+  };
+
+  const approveOrder = async (orderId) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:4000/api/v1/orders/${orderId}/status`,
+        { status: "confirmed" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      toast.success("Order approved successfully!");
+      
+      // Refresh orders to show updated status
+      await fetchOrders();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to approve order");
+    }
+  };
 
   const switchTab = (tab) => setActiveTab(tab);
   const toggleExpand = (id) =>
@@ -102,39 +95,44 @@ const Orders = () => {
         {activeTab === "active" && (
           <div className="orders-section">
             <h3>Active Orders</h3>
-            {activeOrders.length === 0 ? (
+            {loading ? (
+              <p>Loading orders...</p>
+            ) : activeOrders.length === 0 ? (
               <p>No active orders at the moment.</p>
             ) : (
               <ul>
                 {activeOrders.map((order) => (
-                  <li key={order.id}>
+                  <li key={order._id || order.id}>
                     <div className="flex justify-between items-center mb-2">
                       <span className="font-semibold text-lg">
-                        {order.restaurantName}
+                        {order.buyerId?.name || "Customer"}
                       </span>
                       <span className={`status ${order.status}`}>
-                        {order.status}
+                        {formatStatus(order.status)}
                       </span>
                     </div>
 
                     <div className="text-gray-400 text-sm mb-1">
-                      <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
+                      <strong>Total:</strong> Rs {order.totalPrice?.toFixed(2) || "0.00"}
+                    </div>
+                    <div className="text-gray-400 text-sm mb-1">
+                      <strong>Restaurant Amount:</strong> Rs {order.restaurantAmount?.toFixed(2) || "0.00"}
                     </div>
                     <div className="text-gray-400 text-sm mb-1">
                       <strong>Payment:</strong>{" "}
-                      {order.paymentMethod.toUpperCase()} (
-                      {order.paymentStatus})
+                      {order.paymentMethod?.toUpperCase() || "ONLINE"} (
+                      {order.paymentStatus || "paid"})
                     </div>
                     <div className="text-gray-400 text-sm mb-1">
                       <strong>Delivery By:</strong>{" "}
                       {order.deliveryBy === "platform"
-                        ? "Our Platform"
+                        ? "Platform"
                         : "Restaurant"}
                     </div>
                     <div className="text-gray-400 text-sm mb-3">
                       <strong>Restaurant Confirmation:</strong>{" "}
-                      {order.restaurantConfirmation ? (
-                        <span className="text-green-400">Confirmed</span>
+                      {order.restaurantConfirmation || order.status === "confirmed" ? (
+                        <span className="text-green-400">✓ Done</span>
                       ) : (
                         <span className="text-yellow-400">Pending</span>
                       )}
@@ -144,33 +142,43 @@ const Orders = () => {
                     <div>
                       <strong className="text-purple-400">Items:</strong>
                       <ul>
-                        {order.items.map((item) => (
-                          <li key={item.productId}>
-                            {item.name} × {item.quantity} — $
-                            {item.price * item.quantity}
+                        {order.items?.map((item, index) => (
+                          <li key={item.productId?._id || item.productId || index}>
+                            {item.productId?.name || "Product"} × {item.quantity} — Rs
+                            {(item.price * item.quantity).toFixed(2)}
                           </li>
                         ))}
                       </ul>
                     </div>
 
+                    {/* === Approve Button (only for pending orders) === */}
+                    {(!order.restaurantConfirmation && order.status === "pending") && (
+                      <button
+                        onClick={() => approveOrder(order._id || order.id)}
+                        className="approve-btn mt-3"
+                      >
+                        ✓ Approve Order
+                      </button>
+                    )}
+
                     {/* === Payment Details Toggle === */}
                     <button
-                      onClick={() => toggleExpand(order.id)}
+                      onClick={() => toggleExpand(order._id || order.id)}
                       className="toggle-btn mt-3"
                     >
-                      {expandedOrder === order.id
+                      {expandedOrder === (order._id || order.id)
                         ? "Hide Payment Details"
                         : "View Payment Details"}
                     </button>
 
-                    {expandedOrder === order.id && (
+                    {expandedOrder === (order._id || order.id) && (
                       <div className="payment-details">
                         <strong className="block text-purple-400 mb-2">
                           Payment Details
                         </strong>
                         <p>
                           <strong>Method:</strong>{" "}
-                          {order.paymentMethod.toUpperCase()}
+                          {order.paymentMethod?.toUpperCase() || "ONLINE"}
                         </p>
                         <p>
                           <strong>Status:</strong>{" "}
@@ -181,7 +189,7 @@ const Orders = () => {
                                 : "text-yellow-400"
                             }
                           >
-                            {order.paymentStatus.toUpperCase()}
+                            {order.paymentStatus?.toUpperCase() || "PAID"}
                           </span>
                         </p>
                         <p>
@@ -189,9 +197,19 @@ const Orders = () => {
                           {order.paymentId || "N/A"}
                         </p>
                         <p>
-                          <strong>Amount:</strong> $
-                          {order.totalPrice.toFixed(2)}
+                          <strong>Total Amount:</strong> Rs{" "}
+                          {order.totalPrice?.toFixed(2) || "0.00"}
                         </p>
+                        <p>
+                          <strong>Restaurant Amount:</strong> Rs{" "}
+                          {order.restaurantAmount?.toFixed(2) || "0.00"}
+                        </p>
+                        {order.deliveryFee > 0 && (
+                          <p>
+                            <strong>Delivery Fee:</strong> Rs{" "}
+                            {order.deliveryFee.toFixed(2)}
+                          </p>
+                        )}
                         <p>
                           <strong>Placed At:</strong>{" "}
                           {new Date(order.createdAt).toLocaleString()}
@@ -215,34 +233,47 @@ const Orders = () => {
         {activeTab === "done" && (
           <div className="orders-section">
             <h3>All Orders</h3>
-            {totalOrders.length === 0 ? (
-              <p>No past orders available.</p>
+            {loading ? (
+              <p>Loading orders...</p>
+            ) : totalOrders.length === 0 ? (
+              <p>No orders available.</p>
             ) : (
               <ul>
                 {totalOrders.map((order) => (
-                  <li key={order.id}>
+                  <li key={order._id || order.id}>
                     <div className="flex justify-between items-center mb-2">
                       <span className="font-semibold text-lg">
-                        {order.restaurantName}
+                        {order.buyerId?.name || "Customer"}
                       </span>
                       <span className={`status ${order.status}`}>
-                        {order.status}
+                        {formatStatus(order.status)}
                       </span>
                     </div>
 
                     <div className="text-gray-400 text-sm mb-1">
-                      <strong>Total:</strong> ${order.totalPrice.toFixed(2)}
+                      <strong>Total:</strong> Rs {order.totalPrice?.toFixed(2) || "0.00"}
+                    </div>
+                    <div className="text-gray-400 text-sm mb-1">
+                      <strong>Restaurant Amount:</strong> Rs {order.restaurantAmount?.toFixed(2) || "0.00"}
                     </div>
                     <div className="text-gray-400 text-sm mb-1">
                       <strong>Payment:</strong>{" "}
-                      {order.paymentMethod.toUpperCase()} (
-                      {order.paymentStatus})
+                      {order.paymentMethod?.toUpperCase() || "ONLINE"} (
+                      {order.paymentStatus || "paid"})
                     </div>
                     <div className="text-gray-400 text-sm mb-1">
                       <strong>Delivery By:</strong>{" "}
                       {order.deliveryBy === "platform"
-                        ? "Our Platform"
+                        ? "Platform"
                         : "Restaurant"}
+                    </div>
+                    <div className="text-gray-400 text-sm mb-1">
+                      <strong>Status:</strong>{" "}
+                      {order.restaurantConfirmation || order.status === "confirmed" ? (
+                        <span className="text-green-400">✓ Done</span>
+                      ) : (
+                        <span className="text-yellow-400">Pending Confirmation</span>
+                      )}
                     </div>
                   </li>
                 ))}

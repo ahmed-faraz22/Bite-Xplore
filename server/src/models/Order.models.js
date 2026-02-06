@@ -34,6 +34,11 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    // Delivery fee (only charged for platform delivery)
+    deliveryFee: {
+      type: Number,
+      default: 0,
+    },
 
     // Order and payment statuses
     status: {
@@ -43,8 +48,9 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ["cod", "online"],
+      enum: ["online"],
       required: true,
+      default: "online",
     },
     paymentStatus: {
       type: String,
@@ -53,6 +59,23 @@ const orderSchema = new mongoose.Schema(
     },
     paymentId: {
       type: String, // store payment gateway transaction id (if online)
+      default: null,
+    },
+    // Split payment tracking
+    restaurantAmount: {
+      type: Number, // Amount to be paid to this restaurant (food items only, no delivery fee)
+      default: null,
+    },
+    platformAmount: {
+      type: Number, // Amount to be paid to platform (delivery fees)
+      default: 0,
+    },
+    paymentTransferred: {
+      type: Boolean, // Whether payment has been transferred to restaurant
+      default: false,
+    },
+    transferredAt: {
+      type: Date,
       default: null,
     },
 

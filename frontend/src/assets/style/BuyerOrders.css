@@ -1,0 +1,357 @@
+.buyer-orders-container {
+  min-height: 80vh;
+  padding: 2rem 0;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.buyer-orders-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.buyer-orders-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  background: linear-gradient(135deg, #9381FF 0%, #B8B8FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Gotham", sans-serif;
+}
+
+.loading,
+.no-orders {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #fff;
+}
+
+.no-orders p {
+  font-size: 1.2rem;
+  color: #b8b8ff;
+  margin-bottom: 1.5rem;
+}
+
+/* Tabs */
+.orders-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: rgba(147, 129, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.5rem;
+  border: 1px solid rgba(147, 129, 255, 0.2);
+}
+
+.orders-tabs .tab {
+  flex: 1;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #b8b8ff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.orders-tabs .tab:hover {
+  background-color: rgba(147, 129, 255, 0.15);
+  color: #fff;
+}
+
+.orders-tabs .tab.active {
+  background-color: #9381FF;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(147, 129, 255, 0.4);
+}
+
+/* Orders List */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.order-card {
+  background: linear-gradient(145deg, #1c1c1c, #232323);
+  border: 1px solid rgba(147, 129, 255, 0.15);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(147, 129, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #fff;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(147, 129, 255, 0.2);
+  border-color: rgba(147, 129, 255, 0.3);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(147, 129, 255, 0.2);
+}
+
+.restaurant-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.restaurant-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.restaurant-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+  font-size: 1.3rem;
+  font-family: "Gotham", sans-serif;
+}
+
+.order-date {
+  margin: 0;
+  color: #b8b8ff;
+  font-size: 0.9rem;
+}
+
+.order-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+/* Order Items */
+.order-items {
+  margin-bottom: 1.5rem;
+}
+
+.order-items h4 {
+  margin: 0 0 1rem 0;
+  color: #fff;
+  font-size: 1.1rem;
+  font-family: "Gotham", sans-serif;
+}
+
+.order-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #141414;
+  border: 1px solid rgba(147, 129, 255, 0.1);
+  border-radius: 8px;
+}
+
+.item-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex: 1;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-name {
+  margin: 0 0 0.25rem 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.item-quantity {
+  margin: 0;
+  color: #b8b8ff;
+  font-size: 0.9rem;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #9381FF;
+  font-size: 1.1rem;
+}
+
+/* Order Summary */
+.order-summary {
+  padding-top: 1rem;
+  border-top: 2px solid rgba(147, 129, 255, 0.2);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #b8b8ff;
+  font-size: 0.95rem;
+}
+
+.summary-row.total-row {
+  border-top: 1px solid rgba(147, 129, 255, 0.2);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.payment-info {
+  font-size: 0.95rem;
+}
+
+.payment-method {
+  font-weight: 600;
+  color: #fff;
+}
+
+.payment-status {
+  font-weight: 600;
+}
+
+.payment-status.paid {
+  color: #27ae60;
+}
+
+.payment-status.pending {
+  color: #ffa726;
+}
+
+.confirmed {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.subtotal-row,
+.delivery-fee-row,
+.restaurant-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #b8b8ff;
+  font-size: 0.95rem;
+}
+
+.restaurant-total-row {
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(147, 129, 255, 0.2);
+}
+
+.restaurant-delivery-info {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(147, 129, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(147, 129, 255, 0.2);
+}
+
+.restaurant-delivery-info strong {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.delivery-fee-note {
+  display: block;
+  margin-top: 0.25rem;
+  color: #b8b8ff;
+  font-size: 0.85rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: #9381FF;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 30px;
+  font-size: 16px;
+  text-transform: capitalize;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: #B8B8FF;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(147, 129, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .buyer-orders-inner {
+    padding: 1rem;
+  }
+
+  .buyer-orders-container h1 {
+    font-size: 2rem;
+  }
+
+  .order-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .item-price {
+    align-self: flex-end;
+  }
+
+  .orders-tabs {
+    flex-direction: column;
+  }
+
+  .orders-tabs .tab {
+    text-align: left;
+  }
+}
+

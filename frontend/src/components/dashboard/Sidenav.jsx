@@ -6,9 +6,22 @@ import { CiMemoPad } from "react-icons/ci";
 import { FaListCheck, FaRegNewspaper } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { FaCreditCard } from "react-icons/fa";
+import { FaCreditCard, FaShieldAlt, FaMoneyBillWave } from "react-icons/fa";
 
 const Sidenav = () => {
+    // Get user role from localStorage
+    const getUser = () => {
+        try {
+            const userStr = localStorage.getItem("user");
+            return userStr ? JSON.parse(userStr) : null;
+        } catch {
+            return null;
+        }
+    };
+    
+    const user = getUser();
+    const isAdmin = user?.role === "admin";
+
     return (
         <aside className="sidenav">
             <div className="inner">
@@ -28,11 +41,14 @@ const Sidenav = () => {
                             <IoAddCircleOutline /> Menu Items
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="categories">
-                            <CiMemoPad /> Categories
-                        </NavLink>
-                    </li>
+                    {/* Only show Categories link for admins */}
+                    {isAdmin && (
+                        <li>
+                            <NavLink to="categories">
+                                <CiMemoPad /> Categories
+                            </NavLink>
+                        </li>
+                    )}
                     <li>
                         <NavLink to="Orders">
                             <FaListCheck /> Orders
@@ -41,6 +57,16 @@ const Sidenav = () => {
                     <li>
                         <NavLink to="subscription">
                             <FaCreditCard /> Subscription
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="verification">
+                            <FaShieldAlt /> Verification
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="commission">
+                            <FaMoneyBillWave /> Commission
                         </NavLink>
                     </li>
                     {/* <li>

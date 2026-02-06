@@ -8,6 +8,7 @@ import {
   deleteProduct,
 } from "../controllers/product.controller.js";
 import { verifyJWT, authorizeRoles } from "../middlewares/auth.middleware.js";
+import { verifyRestaurantAccess } from "../middlewares/verification.middleware.js";
 
 const router = express.Router();
 
@@ -27,8 +28,9 @@ router.get("/", getAllProducts);
 router.get("/:id", getProductById);
 
 // Protected routes (seller/admin)
-router.post("/", verifyJWT, authorizeRoles("seller", "admin"), upload.array("images"), createProduct);
-router.put("/:id", verifyJWT, authorizeRoles("seller", "admin"), upload.array("images"), updateProduct);
-router.delete("/:id", verifyJWT, authorizeRoles("seller", "admin"), deleteProduct);
+// Note: Admin can bypass verification, but sellers need to be verified to publish menus
+router.post("/", verifyJWT, authorizeRoles("seller", "admin"), verifyRestaurantAccess, upload.array("images"), createProduct);
+router.put("/:id", verifyJWT, authorizeRoles("seller", "admin"), verifyRestaurantAccess, upload.array("images"), updateProduct);
+router.delete("/:id", verifyJWT, authorizeRoles("seller", "admin"), verifyRestaurantAccess, deleteProduct);
 
 export default router;

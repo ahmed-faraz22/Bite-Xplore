@@ -5,7 +5,14 @@ import APIError from "../utils/ApiError.js";
 
 // ✅ Get Cart
 const getCart = asyncHandler(async (req, res) => {
-    let cart = await Cart.findOne({ buyerId: req.user._id }).populate("items.productId");
+    let cart = await Cart.findOne({ buyerId: req.user._id })
+        .populate({
+            path: "items.productId",
+            populate: {
+                path: "restaurantId",
+                select: "name logo hasOwnDelivery"
+            }
+        });
 
     if (!cart) {
         cart = { items: [] };
@@ -36,7 +43,13 @@ const addToCart = asyncHandler(async (req, res) => {
     }
 
     await cart.save();
-    await cart.populate("items.productId");
+    await cart.populate({
+        path: "items.productId",
+        populate: {
+            path: "restaurantId",
+            select: "name logo hasOwnDelivery"
+        }
+    });
 
     return res.status(200).json({
         status: 200,
@@ -58,7 +71,13 @@ const updateCartItem = asyncHandler(async (req, res) => {
 
     item.quantity = quantity;
     await cart.save();
-    await cart.populate("items.productId");
+    await cart.populate({
+        path: "items.productId",
+        populate: {
+            path: "restaurantId",
+            select: "name logo hasOwnDelivery"
+        }
+    });
 
     return res.status(200).json({
         status: 200,
@@ -77,7 +96,13 @@ const deleteCartItem = asyncHandler(async (req, res) => {
 
     cart.items = cart.items.filter(item => item.productId.toString() !== productId);
     await cart.save();
-    await cart.populate("items.productId");
+    await cart.populate({
+        path: "items.productId",
+        populate: {
+            path: "restaurantId",
+            select: "name logo hasOwnDelivery"
+        }
+    });
 
     return res.status(200).json({
         status: 200,

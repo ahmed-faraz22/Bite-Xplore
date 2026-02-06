@@ -55,7 +55,16 @@ export const getMyRestaurant = asyncHandler(async (req, res) => {
 
 // ✅ Update my restaurant
 export const updateMyRestaurant = asyncHandler(async (req, res) => {
-  const { name, address, city, phone, hasOwnDelivery, openingTime, closingTime } = req.body;
+  const { 
+    name, 
+    address, 
+    city, 
+    phone, 
+    hasOwnDelivery, 
+    openingTime, 
+    closingTime,
+    paymentDetails 
+  } = req.body;
 
   const restaurant = await Restaurant.findOne({ ownerId: req.user._id });
   if (!restaurant) {
@@ -90,6 +99,28 @@ export const updateMyRestaurant = asyncHandler(async (req, res) => {
     closingTime: closingTime || restaurant.closingTime || "22:00"
   };
   if (city) updateData.city = city;
+
+  // Update payment details if provided
+  if (paymentDetails) {
+    // Parse JSON string if it's a string
+    let parsedPaymentDetails = paymentDetails;
+    if (typeof paymentDetails === 'string') {
+      try {
+        parsedPaymentDetails = JSON.parse(paymentDetails);
+      } catch (err) {
+        console.error("Failed to parse paymentDetails:", err);
+        parsedPaymentDetails = {};
+      }
+    }
+    
+    updateData.paymentDetails = {
+      accountHolderName: parsedPaymentDetails.accountHolderName || restaurant.paymentDetails?.accountHolderName || null,
+      accountNumber: parsedPaymentDetails.accountNumber || restaurant.paymentDetails?.accountNumber || null,
+      bankName: parsedPaymentDetails.bankName || restaurant.paymentDetails?.bankName || null,
+      iban: parsedPaymentDetails.iban || restaurant.paymentDetails?.iban || null,
+      paymentMethod: parsedPaymentDetails.paymentMethod || restaurant.paymentDetails?.paymentMethod || null
+    };
+  }
 
   const updatedRestaurant = await Restaurant.findOneAndUpdate(
     { ownerId: req.user._id },

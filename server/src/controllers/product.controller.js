@@ -77,10 +77,11 @@ const getAllProducts = asyncHandler(async (req, res) => {
   // Only show available products
   filter.available = true;
 
+  // Fetch products with variety - sort by restaurant and creation date for better distribution
   const products = await Product.find(filter)
     .populate("restaurantId", "name address city phone")
     .populate("categoryId", "name")
-    .sort({ createdAt: -1 });
+    .sort({ restaurantId: 1, createdAt: -1 });
 
   // Calculate average ratings for each product
   const productsWithRatings = await Promise.all(

@@ -23,6 +23,8 @@ import cityRoutes from "./routes/city.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import subscriptionRoutes from "./routes/subscription.routes.js";
 import orderRoutes from "./routes/order.routes.js";
+import verificationRoutes from "./routes/verification.routes.js";
+import commissionRoutes from "./routes/commission.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
@@ -32,6 +34,8 @@ app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/subscription", subscriptionRoutes);
 app.use("/api/v1/orders", orderRoutes);
+app.use("/api/v1/verification", verificationRoutes);
+app.use("/api/v1/commission", commissionRoutes);
 
 // ✅ Additional routes for frontend compatibility (without /v1)
 app.use("/api/restaurants", restaurantRoutes);

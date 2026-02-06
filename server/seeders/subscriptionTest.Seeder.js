@@ -157,7 +157,7 @@ const importData = async () => {
         items: orderItems,
         totalPrice: totalPrice,
         status: ['pending', 'confirmed', 'preparing', 'delivered'][Math.floor(Math.random() * 4)],
-        paymentMethod: ['cod', 'online'][Math.floor(Math.random() * 2)],
+        paymentMethod: 'online',
         paymentStatus: ['pending', 'paid'][Math.floor(Math.random() * 2)],
         deliveryBy: restaurant.hasOwnDelivery ? 'restaurant' : 'platform',
         deliveryStatus: 'delivered',

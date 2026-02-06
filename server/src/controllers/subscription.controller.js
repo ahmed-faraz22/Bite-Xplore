@@ -14,7 +14,7 @@ const getSubscriptionStatus = asyncHandler(async (req, res) => {
   const restaurant = await Restaurant.findOne({ ownerId: req.user._id });
   
   if (!restaurant) {
-    throw new APIError(404, "Restaurant not found");
+    throw new APIError(404, "Restaurant profile not found. Please create your restaurant profile first in the Dashboard.");
   }
 
   // Check if subscription is expired

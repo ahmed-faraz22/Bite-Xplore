@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js",
+    "seed:admin": "node seeders/admin.Seeder.js",
+    "seed:admin:delete": "node seeders/admin.Seeder.js -d",
+    "seed:restaurants": "node seeders/restaurant.Seeder.js",
+    "seed:restaurants:delete": "node seeders/restaurant.Seeder.js -d",
     "seed:categories": "node seeders/category.Seeder.js",
     "seed:categories:delete": "node seeders/category.Seeder.js -d",
     "seed:products": "node seeders/product.Seeder.js",
@@ -14,8 +18,10 @@
     "seed:subscription-test": "node seeders/subscriptionTest.Seeder.js",
     "seed:subscription-test:delete": "node seeders/subscriptionTest.Seeder.js -d",
     "seed:delete-all": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d",
-    "seed:all": "node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
-    "seed:reset": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js"
+    "seed:all": "node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
+    "seed:reset": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
+    "seed:reset-all": "node seeders/resetAll.Seeder.js",
+    "seed:full-reset": "node seeders/resetAll.Seeder.js && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js"
   },
   "keywords": [],
   "author": "Ahmed Faraz",

@@ -16,6 +16,13 @@ const Dashboardmain = () => {
     hasOwnDelivery: false,
     openingTime: "09:00",
     closingTime: "22:00",
+    paymentDetails: {
+      accountHolderName: "",
+      accountNumber: "",
+      bankName: "",
+      iban: "",
+      paymentMethod: "",
+    },
   });
   const [logoFile, setLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState(null);
@@ -32,7 +39,16 @@ const Dashboardmain = () => {
           "http://localhost:4000/api/v1/restaurants/my-restaurant"
         );
         setRestaurant(res.data.data);
-        setFormData(res.data.data);
+        setFormData({
+          ...res.data.data,
+          paymentDetails: res.data.data.paymentDetails || {
+            accountHolderName: "",
+            accountNumber: "",
+            bankName: "",
+            iban: "",
+            paymentMethod: "",
+          },
+        });
         if (res.data.data.logo) {
           setLogoPreview(res.data.data.logo);
         }
@@ -56,6 +72,19 @@ const Dashboardmain = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
+    
+    // Handle nested payment details
+    if (name.startsWith("paymentDetails.")) {
+      const fieldName = name.split(".")[1];
+      setFormData({
+        ...formData,
+        paymentDetails: {
+          ...formData.paymentDetails,
+          [fieldName]: value,
+        },
+      });
+      return;
+    }
     
     if (type === "file" && name === "logo") {
       const file = files[0];
@@ -135,7 +164,7 @@ const Dashboardmain = () => {
     // Address validation (optional but validate length if provided)
     if (formData.address && formData.address.trim()) {
       if (formData.address.trim().length < 5) {
-        newErrors.address = "Address must be at least 5 characters";
+      newErrors.address = "Address must be at least 5 characters";
       } else if (formData.address.trim().length > 200) {
         newErrors.address = "Address must be less than 200 characters";
       }
@@ -172,6 +201,12 @@ const Dashboardmain = () => {
       }
     }
 
+    // Payment details validation (warning, not blocking)
+    if (!formData.paymentDetails?.accountNumber) {
+      // Show warning but don't block - backend will block orders
+      console.warn("Payment account details not complete. Orders will be blocked until account details are set.");
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -195,6 +230,9 @@ const Dashboardmain = () => {
       submitData.append("hasOwnDelivery", formData.hasOwnDelivery);
       submitData.append("openingTime", formData.openingTime || "09:00");
       submitData.append("closingTime", formData.closingTime || "22:00");
+      
+      // Add payment details as JSON string
+      submitData.append("paymentDetails", JSON.stringify(formData.paymentDetails || {}));
       
       if (logoFile) {
         submitData.append("logo", logoFile);
@@ -478,6 +516,151 @@ const Dashboardmain = () => {
           </div>
         </div>
 
+        {/* Earnings Section */}
+        <div className="earnings-section" style={{ 
+          marginBottom: "2rem", 
+          padding: "1.5rem", 
+          backgroundColor: "#f8f9fa", 
+          borderRadius: "8px",
+          border: "1px solid #dee2e6"
+        }}>
+          <h3 style={{ marginBottom: "1rem", color: "#333" }}>💰 Total Earnings</h3>
+          <div className="user-field-row">
+            <div className="user-field">
+              <label>Total Earnings from Orders</label>
+              <p style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#28a745" }}>
+                Rs {restaurant?.totalEarnings?.toFixed(2) || "0.00"}
+              </p>
+              <small style={{ color: "#666" }}>
+                Total amount earned from confirmed orders
+              </small>
+            </div>
+            <div className="user-field">
+              <label>Total Orders</label>
+              <p style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#007bff" }}>
+                {restaurant?.orderCount || 0}
+              </p>
+              <small style={{ color: "#666" }}>
+                Number of orders received
+              </small>
+            </div>
+          </div>
+          {restaurant?.lastEarningDate && (
+            <div style={{ marginTop: "1rem", padding: "0.75rem", backgroundColor: "#e7f3ff", borderRadius: "4px" }}>
+              <small style={{ color: "#666" }}>
+                Last earning: {new Date(restaurant.lastEarningDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                })}
+              </small>
+            </div>
+          )}
+        </div>
+
+        {/* Payment Details Section */}
+        <div className="payment-details-section">
+          <h3 style={{ marginBottom: "1rem", color: "#333" }}>Payment Details</h3>
+          <div style={{ 
+            marginBottom: "1rem", 
+            padding: "12px", 
+            backgroundColor: "#fff3cd", 
+            border: "1px solid #ffc107", 
+            borderRadius: "4px",
+            color: "#856404"
+          }}>
+            <strong>⚠️ Important:</strong> Payment account details are required to receive payments from orders. 
+            Orders cannot be placed if your account details are not set up. Please ensure all fields are filled correctly.
+          </div>
+          <p style={{ marginBottom: "1rem", color: "#666", fontSize: "0.9rem" }}>
+            Add your payment details to receive payments from orders. This information is required for automatic payment transfers.
+          </p>
+          
+          <div className="user-field-row">
+            <div className="user-field">
+              <label>Account Holder Name</label>
+              {isEditing ? (
+                <input
+                  name="paymentDetails.accountHolderName"
+                  value={formData.paymentDetails?.accountHolderName || ""}
+                  onChange={handleChange}
+                  className="user-input"
+                  placeholder="e.g., John Doe"
+                />
+              ) : (
+                <p>{restaurant?.paymentDetails?.accountHolderName || "Not set"}</p>
+              )}
+            </div>
+            <div className="user-field">
+              <label>Account Number</label>
+              {isEditing ? (
+                <input
+                  name="paymentDetails.accountNumber"
+                  value={formData.paymentDetails?.accountNumber || ""}
+                  onChange={handleChange}
+                  className="user-input"
+                  placeholder="e.g., 1234567890"
+                />
+              ) : (
+                <p>{restaurant?.paymentDetails?.accountNumber || "Not set"}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="user-field-row">
+            <div className="user-field">
+              <label>Bank Name</label>
+              {isEditing ? (
+                <input
+                  name="paymentDetails.bankName"
+                  value={formData.paymentDetails?.bankName || ""}
+                  onChange={handleChange}
+                  className="user-input"
+                  placeholder="e.g., HBL, UBL, MCB"
+                />
+              ) : (
+                <p>{restaurant?.paymentDetails?.bankName || "Not set"}</p>
+              )}
+            </div>
+            <div className="user-field">
+              <label>IBAN</label>
+              {isEditing ? (
+                <input
+                  name="paymentDetails.iban"
+                  value={formData.paymentDetails?.iban || ""}
+                  onChange={handleChange}
+                  className="user-input"
+                  placeholder="e.g., PK12ABCD1234567890123456"
+                />
+              ) : (
+                <p>{restaurant?.paymentDetails?.iban || "Not set"}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="user-field-row">
+            <div className="user-field">
+              <label>Payment Method</label>
+              {isEditing ? (
+                <select
+                  name="paymentDetails.paymentMethod"
+                  value={formData.paymentDetails?.paymentMethod || ""}
+                  onChange={handleChange}
+                  className="user-input"
+                >
+                  <option value="">Select payment method</option>
+                  <option value="bank_transfer">Bank Transfer</option>
+                  <option value="easypaisa">EasyPaisa</option>
+                  <option value="jazzcash">JazzCash</option>
+                  <option value="other">Other</option>
+                </select>
+              ) : (
+                <p>{restaurant?.paymentDetails?.paymentMethod ? restaurant.paymentDetails.paymentMethod.replace("_", " ").toUpperCase() : "Not set"}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="user-actions">
           {isEditing ? (
             <button
@@ -497,8 +680,8 @@ const Dashboardmain = () => {
             </button>
           )}
         </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

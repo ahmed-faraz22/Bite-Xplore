@@ -16,6 +16,13 @@ import ProtectedRoute from "./components/dashboard/ProtectedRoute";
 import Product from "./components/dashboard/Product";
 import Orders from "./components/dashboard/Orders";
 import Subscription from "./components/dashboard/Subscription";
+import Verification from "./components/dashboard/Verification";
+import AdminVerification from "./components/dashboard/AdminVerification";
+import AdminDashboard from "./components/dashboard/AdminDashboard";
+import AdminCommission from "./components/dashboard/AdminCommission";
+import Commission from "./components/dashboard/Commission";
+import Checkout from "./pages/Checkout";
+import BuyerOrders from "./pages/BuyerOrders";
 
 function App() {
   return (
@@ -29,6 +36,8 @@ function App() {
           <Route path="explore" element={<Explore />} />
           <Route path="product/:id" element={<ProductDetail />} />
           <Route path="auth" element={<Auth />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="orders" element={<BuyerOrders />} />
 
           {/* Seller-only dashboard */}
           <Route
@@ -46,6 +55,25 @@ function App() {
             <Route path="Product" element={< Product/>} />
             <Route path="Orders" element= {<Orders/>} />
             <Route path="subscription" element={<Subscription />} />
+            <Route path="verification" element={<Verification />} />
+            <Route path="commission" element={<Commission />} />
+          </Route>
+
+          {/* Admin-only routes */}
+          <Route
+            path="admin"
+            element={
+              <ProtectedRoute allowedRole="admin">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="verification" element={<AdminVerification />} />
+            <Route path="categories" element={<Category />} />
+            <Route path="restaurants" element={<AdminDashboard />} />
+            <Route path="orders" element={<AdminDashboard />} />
+            <Route path="commission" element={<AdminCommission />} />
           </Route>
         </Route>
       </Routes>
