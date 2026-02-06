@@ -207,7 +207,7 @@ const Commission = () => {
           <li>Top-rated restaurants (4.0+ rating with 5+ reviews) can appear in the slider</li>
           <li>Top 10 restaurants (by rating, then orders) are shown in the landing page slider</li>
           <li>Slider restaurants: PKR 5,000/month</li>
-          <li>Top-rated restaurants (>30 orders, not in slider): PKR 1,500/month</li>
+          <li>Top-rated restaurants (30 orders, not in slider): PKR 1,500/month</li>
           <li>Non-paying top-rated restaurants are limited to 15 orders/month</li>
         </ul>
       </div>
