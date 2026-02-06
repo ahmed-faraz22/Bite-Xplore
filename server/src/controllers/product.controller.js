@@ -101,24 +101,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
     })
   );
 
-  // Calculate average ratings for each product
-  const productsWithRatings = await Promise.all(
-    products.map(async (product) => {
-      const reviews = await Review.find({ productId: product._id }).select("rating");
-      const ratings = reviews.map((r) => r.rating);
-      const averageRating =
-        ratings.length > 0
-          ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
-          : 0;
-
-      return {
-        ...product.toObject(),
-        averageRating: Math.round(averageRating * 10) / 10,
-        totalReviews: reviews.length,
-      };
-    })
-  );
-
   return res
     .status(200)
     .json(new ApiResponse(200, productsWithRatings, "Products fetched successfully"));
