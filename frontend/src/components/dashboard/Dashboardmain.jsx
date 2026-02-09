@@ -221,7 +221,6 @@ const Dashboardmain = () => {
 
       setLoading(true);
 
-      // Create FormData for file upload
       const submitData = new FormData();
       submitData.append("name", formData.name);
       submitData.append("address", formData.address || "");
@@ -231,7 +230,7 @@ const Dashboardmain = () => {
       submitData.append("openingTime", formData.openingTime || "09:00");
       submitData.append("closingTime", formData.closingTime || "22:00");
       
-      // Add payment details as JSON string
+  
       submitData.append("paymentDetails", JSON.stringify(formData.paymentDetails || {}));
       
       if (logoFile) {
@@ -239,7 +238,6 @@ const Dashboardmain = () => {
       }
 
       if (restaurant) {
-        // Update existing
         const res = await axios.put(
           "http://localhost:4000/api/v1/restaurants/my-restaurant",
           submitData,
@@ -255,7 +253,6 @@ const Dashboardmain = () => {
         }
         toast.success("Restaurant profile updated successfully 🎉");
       } else {
-        // Create new
         const res = await axios.post(
           "http://localhost:4000/api/v1/restaurants/my-restaurant",
           submitData,

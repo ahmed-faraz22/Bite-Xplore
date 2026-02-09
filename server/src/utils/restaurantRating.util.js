@@ -1,18 +1,15 @@
 import Restaurant from "../models/Restaurant.models.js";
 import Product from "../models/Product.models.js";
 import Review from "../models/Review.models.js";
+import { MONTHLY_ORDER_LIMIT_UNPAID_COMMISSION } from "../constant.js";
 
-/**
- * Calculate and update restaurant ratings based on product reviews
- */
+
 export const calculateRestaurantRatings = async (restaurantId) => {
   try {
-    // Get all products for this restaurant
     const products = await Product.find({ restaurantId }).select("_id");
     const productIds = products.map(p => p._id);
 
     if (productIds.length === 0) {
-      // No products, reset ratings
       await Restaurant.findByIdAndUpdate(restaurantId, {
         averageRating: 0,
         totalRatings: 0,
@@ -21,11 +18,9 @@ export const calculateRestaurantRatings = async (restaurantId) => {
       return { averageRating: 0, totalRatings: 0, isTopRated: false };
     }
 
-    // Get all reviews for these products
     const reviews = await Review.find({ productId: { $in: productIds } }).select("rating");
     
     if (reviews.length === 0) {
-      // No reviews, reset ratings
       await Restaurant.findByIdAndUpdate(restaurantId, {
         averageRating: 0,
         totalRatings: 0,
@@ -34,15 +29,12 @@ export const calculateRestaurantRatings = async (restaurantId) => {
       return { averageRating: 0, totalRatings: 0, isTopRated: false };
     }
 
-    // Calculate average rating
     const ratings = reviews.map(r => r.rating);
     const averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
     const roundedRating = Math.round(averageRating * 10) / 10;
 
-    // Determine if top-rated (4.0 or higher with at least 5 reviews)
     const isTopRated = roundedRating >= 4.0 && reviews.length >= 5;
 
-    // Update restaurant
     await Restaurant.findByIdAndUpdate(restaurantId, {
       averageRating: roundedRating,
       totalRatings: reviews.length,
@@ -179,16 +171,15 @@ export const checkMonthlyOrderLimit = async (restaurantId) => {
       await restaurant.save();
     }
 
-    // Check if restaurant needs commission payment
-    // Only top-rated restaurants NOT in slider with >30 orders need commission
-    if (restaurant.commissionType === "top_rated" && restaurant.sliderPaymentStatus !== "paid") {
-      // Also check if payment expired
-      const isPaymentExpired = restaurant.sliderPaymentExpiry && now > restaurant.sliderPaymentExpiry;
-      
-      if (isPaymentExpired || restaurant.monthlyOrderCount >= 15) {
+    // Check if restaurant has a commission bill (slider or top-rated) and is unpaid or expired
+    const hasCommissionBill = (restaurant.commissionType === "slider" || restaurant.commissionType === "top_rated") && restaurant.commissionAmount > 0;
+    const isPaid = restaurant.sliderPaymentStatus === "paid" && restaurant.sliderPaymentExpiry && now <= restaurant.sliderPaymentExpiry;
+
+    if (hasCommissionBill && !isPaid) {
+      if (restaurant.monthlyOrderCount >= MONTHLY_ORDER_LIMIT_UNPAID_COMMISSION) {
         return {
           allowed: false,
-          message: `Monthly order limit of 15 reached. Please pay the commission fee (PKR ${restaurant.commissionAmount}) to continue receiving orders.`
+          message: `Monthly order limit of ${MONTHLY_ORDER_LIMIT_UNPAID_COMMISSION} reached. Please pay the commission fee (PKR ${restaurant.commissionAmount}) to continue receiving orders. Payment is valid for 30 days.`
         };
       }
     }

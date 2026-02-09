@@ -25,6 +25,7 @@ import subscriptionRoutes from "./routes/subscription.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import verificationRoutes from "./routes/verification.routes.js";
 import commissionRoutes from "./routes/commission.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/categories", categoryRoutes);
@@ -36,6 +37,7 @@ app.use("/api/v1/subscription", subscriptionRoutes);
 app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/verification", verificationRoutes);
 app.use("/api/v1/commission", commissionRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 // ✅ Additional routes for frontend compatibility (without /v1)
 app.use("/api/restaurants", restaurantRoutes);

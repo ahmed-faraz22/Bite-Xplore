@@ -46,7 +46,7 @@ const Home = () => {
     <>
       <div ref={containerRef} className="scroll">
         <Hero foodCardRef={foodCardRef} />
-        <RestaurantSlider />
+        {/* <RestaurantSlider /> */}
         <NearbyRestaurants />
       </div>
       <Products />

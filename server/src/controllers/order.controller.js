@@ -149,11 +149,13 @@ const createOrder = asyncHandler(async (req, res) => {
     restaurant.monthlyOrderResetDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   }
   
-  // Only increment monthly count for unpaid top-rated restaurants
-  if (restaurant.commissionType === "top_rated" && restaurant.sliderPaymentStatus !== "paid") {
+  // Increment monthly count when commission bill is unpaid (slider or top-rated)
+  const hasCommissionBill = (restaurant.commissionType === "slider" || restaurant.commissionType === "top_rated") && restaurant.commissionAmount > 0;
+  const isPaid = restaurant.sliderPaymentStatus === "paid" && restaurant.sliderPaymentExpiry && now <= restaurant.sliderPaymentExpiry;
+  if (hasCommissionBill && !isPaid) {
     restaurant.monthlyOrderCount += 1;
   }
-  
+
   await restaurant.save();
 
   // Clear cart items for this restaurant
@@ -709,11 +711,13 @@ const verifyOrderPayment = asyncHandler(async (req, res) => {
           restaurant.monthlyOrderResetDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
         }
         
-        // Only increment monthly count for unpaid top-rated restaurants
-        if (restaurant.commissionType === "top_rated" && restaurant.sliderPaymentStatus !== "paid") {
+        // Increment monthly count when commission bill is unpaid (slider or top-rated)
+        const hasCommissionBill = (restaurant.commissionType === "slider" || restaurant.commissionType === "top_rated") && restaurant.commissionAmount > 0;
+        const isPaid = restaurant.sliderPaymentStatus === "paid" && restaurant.sliderPaymentExpiry && now <= restaurant.sliderPaymentExpiry;
+        if (hasCommissionBill && !isPaid) {
           restaurant.monthlyOrderCount += 1;
         }
-        
+
         await restaurant.save();
 
         // Track which product IDs to remove from cart (will remove all at once at the end)

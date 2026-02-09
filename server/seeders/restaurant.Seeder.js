@@ -21,6 +21,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '09:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
     }
   },
   {
@@ -38,6 +39,7 @@ const restaurantData = [
       hasOwnDelivery: false,
       openingTime: '10:00',
       closingTime: '22:00',
+      logo: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400',
     }
   },
   {
@@ -55,6 +57,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '11:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400',
     }
   },
   {
@@ -72,6 +75,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '09:00',
       closingTime: '22:00',
+      logo: 'https://images.unsplash.com/photo-1553979459-d2229ba7433f?w=400',
     }
   },
   {
@@ -89,6 +93,7 @@ const restaurantData = [
       hasOwnDelivery: false,
       openingTime: '08:00',
       closingTime: '21:00',
+      logo: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400',
     }
   },
   {
@@ -106,6 +111,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '10:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400',
     }
   },
   {
@@ -123,6 +129,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '07:00',
       closingTime: '24:00',
+      logo: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
     }
   },
   {
@@ -140,6 +147,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '12:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400',
     }
   },
   {
@@ -157,6 +165,7 @@ const restaurantData = [
       hasOwnDelivery: false,
       openingTime: '09:00',
       closingTime: '22:00',
+      logo: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400',
     }
   },
   {
@@ -174,6 +183,7 @@ const restaurantData = [
       hasOwnDelivery: false,
       openingTime: '08:00',
       closingTime: '22:00',
+      logo: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400',
     }
   },
   {
@@ -191,6 +201,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '07:00',
       closingTime: '22:00',
+      logo: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400',
     }
   },
   {
@@ -208,6 +219,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '11:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400',
     }
   },
   {
@@ -225,6 +237,7 @@ const restaurantData = [
       hasOwnDelivery: false,
       openingTime: '10:00',
       closingTime: '21:00',
+      logo: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',
     }
   },
   {
@@ -242,6 +255,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '11:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400',
     }
   },
   {
@@ -259,6 +273,7 @@ const restaurantData = [
       hasOwnDelivery: true,
       openingTime: '12:00',
       closingTime: '23:00',
+      logo: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=400',
     }
   }
 ];
@@ -271,28 +286,26 @@ const importData = async () => {
     let updatedCount = 0;
     let skippedCount = 0;
 
-    for (const data of restaurantData) {
+    for (let index = 0; index < restaurantData.length; index++) {
+      const data = restaurantData[index];
       try {
-        // Check if user already exists
         let user = await User.findOne({ email: data.user.email });
 
         if (!user) {
-          // Create new user
           user = await User.create({
             name: data.user.name,
             username: data.user.username,
             email: data.user.email,
-            password: data.user.password, // Will be hashed by pre-save hook
+            password: data.user.password,
             role: 'seller',
             isVerified: true,
             status: 'active',
           });
           console.log(`✅ Created user: ${user.email}`);
         } else {
-          // Update existing user
           user.name = data.user.name;
           user.username = data.user.username;
-          user.password = data.user.password; // Will be rehashed
+          user.password = data.user.password;
           user.role = 'seller';
           user.isVerified = true;
           user.status = 'active';
@@ -301,37 +314,52 @@ const importData = async () => {
           updatedCount++;
         }
 
-        // Check if restaurant already exists for this user
         let restaurant = await Restaurant.findOne({ ownerId: user._id });
 
+        const paymentDetails = {
+          accountHolderName: data.user.name,
+          accountNumber: 'SEED' + String(index + 1).padStart(4, '0'),
+          bankName: 'Test Bank',
+          iban: 'PK00TEST0000000000000000',
+          paymentMethod: 'bank_transfer',
+        };
+
+        const orderCount = index < 15 ? Math.max(4, 50 - index * 3) : 0;
+
         if (!restaurant) {
-          // Create new restaurant
           restaurant = await Restaurant.create({
             ownerId: user._id,
             name: data.restaurant.name,
             address: data.restaurant.address,
             city: data.restaurant.city,
             phone: data.restaurant.phone,
+            logo: data.restaurant.logo || null,
             hasOwnDelivery: data.restaurant.hasOwnDelivery,
             openingTime: data.restaurant.openingTime,
             closingTime: data.restaurant.closingTime,
-            verificationStatus: 'verified', // Auto-verify for seeded restaurants
-            orderCount: 0,
+            verificationStatus: 'verified',
+            verifiedAt: new Date(),
+            verificationProvider: 'manual',
+            orderCount,
             subscriptionStatus: 'free',
             isSuspended: false,
+            paymentDetails,
           });
           console.log(`✅ Created restaurant: ${restaurant.name} (${restaurant.city})`);
           createdCount++;
         } else {
-          // Update existing restaurant
           restaurant.name = data.restaurant.name;
           restaurant.address = data.restaurant.address;
           restaurant.city = data.restaurant.city;
           restaurant.phone = data.restaurant.phone;
+          restaurant.logo = data.restaurant.logo || restaurant.logo;
           restaurant.hasOwnDelivery = data.restaurant.hasOwnDelivery;
           restaurant.openingTime = data.restaurant.openingTime;
           restaurant.closingTime = data.restaurant.closingTime;
           restaurant.verificationStatus = 'verified';
+          restaurant.verifiedAt = restaurant.verifiedAt || new Date();
+          restaurant.orderCount = orderCount;
+          restaurant.paymentDetails = paymentDetails;
           await restaurant.save();
           console.log(`🔄 Updated restaurant: ${restaurant.name} (${restaurant.city})`);
           skippedCount++;

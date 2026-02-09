@@ -142,7 +142,7 @@ const importData = async () => {
 
       const orderItems = selectedProducts.map(product => ({
         productId: product._id,
-        quantity: Math.floor(Math.random() * 3) + 1, // 1-3 quantity
+        quantity: Math.floor(Math.random() * 3) + 1,
         price: product.price,
       }));
 
@@ -151,15 +151,25 @@ const importData = async () => {
         0
       );
 
+      const deliveryBy = restaurant.hasOwnDelivery ? 'restaurant' : 'platform';
+      const deliveryFee = deliveryBy === 'platform' ? 200 : 0;
+      const restaurantAmount = totalPrice;
+      const platformAmount = deliveryFee;
+      const totalWithDelivery = totalPrice + deliveryFee;
+
       const order = await Order.create({
         buyerId: buyer._id,
         restaurantId: restaurant._id,
         items: orderItems,
-        totalPrice: totalPrice,
+        totalPrice: totalWithDelivery,
+        deliveryFee,
+        restaurantAmount,
+        platformAmount,
         status: ['pending', 'confirmed', 'preparing', 'delivered'][Math.floor(Math.random() * 4)],
         paymentMethod: 'online',
-        paymentStatus: ['pending', 'paid'][Math.floor(Math.random() * 2)],
-        deliveryBy: restaurant.hasOwnDelivery ? 'restaurant' : 'platform',
+        paymentStatus: 'paid',
+        paymentId: 'seed_order_' + Date.now() + '_' + i,
+        deliveryBy,
         deliveryStatus: 'delivered',
         restaurantConfirmation: true,
         confirmedAt: new Date(),

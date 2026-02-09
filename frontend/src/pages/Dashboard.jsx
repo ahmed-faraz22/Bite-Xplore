@@ -1,7 +1,8 @@
 import React from 'react'
 import Sidenav from '../components/dashboard/Sidenav'
-import '../assets/style/Dashboard.css'
 import AdminSidenav from '../components/dashboard/AdminSidenav'
+import CommissionAlert from '../components/dashboard/CommissionAlert'
+import '../assets/style/Dashboard.css'
 import { Outlet, useLocation } from 'react-router-dom'
 
 const Dashboard = () => {
@@ -30,6 +31,7 @@ const Dashboard = () => {
 
                     {/* Content area */}
                     <div className="dashboard-content" style={{ flex: 1, padding: '20px' }}>
+                        {!showAdminNav && <CommissionAlert />}
                         <Outlet />
                     </div>
                 </div>

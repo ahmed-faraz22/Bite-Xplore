@@ -1,11 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const API_BASE = "http://localhost:4000/api/v1";
 
 const AdminDashboard = () => {
-  const stats = [
-    { label: "Pending Verifications", value: "0", link: "/admin/verification" },
-    { label: "Total Restaurants", value: "0", link: "#" },
-    { label: "Total Categories", value: "0", link: "#" },
-    { label: "Total Orders", value: "0", link: "#" },
+  const [stats, setStats] = useState({
+    pendingVerifications: 0,
+    totalRestaurants: 0,
+    totalCategories: 0,
+    totalOrders: 0,
+  });
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (!token) return;
+      try {
+        setLoading(true);
+        const res = await axios.get(`${API_BASE}/admin/stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = res.data?.data || {};
+        setStats({
+          pendingVerifications: data.pendingVerifications ?? 0,
+          totalRestaurants: data.totalRestaurants ?? 0,
+          totalCategories: data.totalCategories ?? 0,
+          totalOrders: data.totalOrders ?? 0,
+        });
+      } catch (err) {
+        toast.error(err?.response?.data?.message || "Failed to load dashboard stats");
+        setStats({
+          pendingVerifications: 0,
+          totalRestaurants: 0,
+          totalCategories: 0,
+          totalOrders: 0,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, [token]);
+
+  const statCards = [
+    { label: "Pending Verifications", value: stats.pendingVerifications, link: "/admin/verification" },
+    { label: "Total Restaurants", value: stats.totalRestaurants, link: "#" },
+    { label: "Total Categories", value: stats.totalCategories, link: "#" },
+    { label: "Total Orders", value: stats.totalOrders, link: "#" },
   ];
 
   return (
@@ -23,7 +67,7 @@ const AdminDashboard = () => {
         gap: "20px",
         marginBottom: "40px"
       }}>
-        {stats.map((stat, index) => (
+        {statCards.map((stat, index) => (
           <div key={index} style={{
             background: "#ffffff",
             border: "1px solid #f0e6e0",
@@ -31,11 +75,13 @@ const AdminDashboard = () => {
             padding: "20px",
             textAlign: "center"
           }}>
-            <h3 style={{ fontSize: "32px", margin: "0 0 10px 0", color: "#FF6B35" }}>{stat.value}</h3>
+            <h3 style={{ fontSize: "32px", margin: "0 0 10px 0", color: "#FF6B35" }}>
+              {loading ? "—" : stat.value}
+            </h3>
             <p style={{ margin: "0 0 15px 0", color: "#555", fontSize: "14px" }}>{stat.label}</p>
             {stat.link && stat.link !== "#" && (
-              <a
-                href={stat.link}
+              <Link
+                to={stat.link}
                 style={{
                   color: "#FF6B35",
                   textDecoration: "underline",
@@ -45,7 +91,7 @@ const AdminDashboard = () => {
                 }}
               >
                 View Details →
-              </a>
+              </Link>
             )}
           </div>
         ))}
@@ -59,8 +105,8 @@ const AdminDashboard = () => {
       }}>
         <h3 style={{ color: "#FF6B35", marginBottom: "20px", fontSize: "20px" }}>Quick Actions</h3>
         <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
-          <a
-            href="/admin/verification"
+          <Link
+            to="/admin/verification"
             style={{
               padding: "12px 24px",
               background: "#FF6B35",
@@ -75,7 +121,7 @@ const AdminDashboard = () => {
             onMouseLeave={(e) => e.target.style.background = "#FF6B35"}
           >
             Review Pending Verifications
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -8,44 +10,42 @@ import "../assets/style/Products.css";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import Foodcard from "./Foodcard";
 
+const API_BASE = "http://localhost:4000/api/v1";
+
 const Products = () => {
   const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Dummy data
   useEffect(() => {
-    const dummyRestaurants = [
-      {
-        id: 1,
-        name: "Italiano Delight",
-        image: "https://img.freepik.com/free-photo/delicious-burger-studio_23-2151846495.jpg?semt=ais_hybrid&w=740&q=80",
-        averageRating: 4.5,
-        location: "New York",
-      },
-      {
-        id: 2,
-        name: "Sushi World",
-        image: "https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg",
-        averageRating: 4.8,
-        location: "Tokyo",
-      },
-      {
-        id: 3,
-        name: "Burger Hub",
-        image: "https://i.ytimg.com/vi/TR6uEJURHYU/maxresdefault.jpg",
-        averageRating: 4.2,
-        location: "Los Angeles",
-      },
-      {
-        id: 4,
-        name: "Curry Palace",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZyukz4gg7god4Za_BwstWhBrcDteVCaWQIQ&s",
-        averageRating: 4.7,
-        location: "Delhi",
-      },
-    ];
-
-    setRestaurants(dummyRestaurants);
+    const fetchTopRestaurants = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/commission/slider`);
+        setRestaurants(res.data.data || []);
+      } catch (err) {
+        console.error("Error fetching top restaurants:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTopRestaurants();
   }, []);
+
+  if (loading) {
+    return (
+      <section className="products">
+        <div className="container">
+          <div className="inner">
+            <h2>Top Rated Restaurants</h2>
+            <p className="products-loading">Loading top restaurants...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (restaurants.length === 0) {
+    return null;
+  }
 
   return (
     <section className="products">
@@ -74,15 +74,18 @@ const Products = () => {
             className="mySwiper"
           >
             {restaurants.map((restaurant) => (
-              <SwiperSlide key={restaurant.id}>
-                <Foodcard
-                  product={{
-                    id: restaurant.id,
-                    name: restaurant.name,
-                    image: restaurant.image,
-                    rating: restaurant.averageRating,
-                  }}
-                />
+              <SwiperSlide key={restaurant._id}>
+                <Link to={`/explore?restaurant=${restaurant._id}`} className="products-slide-link">
+                  <Foodcard
+                    isRestaurant
+                    product={{
+                      id: restaurant._id,
+                      name: restaurant.name,
+                      image: restaurant.logo || null,
+                      rating: restaurant.averageRating != null ? Number(restaurant.averageRating).toFixed(1) : "0.0",
+                    }}
+                  />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

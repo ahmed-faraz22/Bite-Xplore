@@ -14,13 +14,22 @@ import Stripe from "stripe";
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 /**
- * Get top 10 restaurants for slider (public)
+ * Get restaurants for slider (public)
+ * Returns only restaurants with sliderStatus === "in_slider" from DB,
+ * so the homepage slider matches the Admin Commission tab exactly.
  */
 export const getSliderRestaurants = asyncHandler(async (req, res) => {
-  const top10 = await getTop10RestaurantsForSlider();
-  
+  const restaurants = await Restaurant.find({
+    verificationStatus: "verified",
+    sliderStatus: "in_slider"
+  })
+    .select("_id name logo city averageRating totalRatings orderCount sliderStatus")
+    .sort({ averageRating: -1, orderCount: -1 })
+    .limit(10)
+    .lean();
+
   res.status(200).json(
-    new ApiResponse(200, top10, "Top 10 restaurants fetched successfully")
+    new ApiResponse(200, restaurants, "Slider restaurants fetched successfully")
   );
 });
 

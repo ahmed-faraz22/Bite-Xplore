@@ -21,7 +21,9 @@
     "seed:all": "node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
     "seed:reset": "node seeders/review.Seeder.js -d && node seeders/product.Seeder.js -d && node seeders/category.Seeder.js -d && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js",
     "seed:reset-all": "node seeders/resetAll.Seeder.js",
-    "seed:full-reset": "node seeders/resetAll.Seeder.js && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js"
+    "seed:slider-update": "node seeders/sliderUpdate.Seeder.js",
+    "seed:full": "node seeders/resetAll.Seeder.js && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js && node seeders/sliderUpdate.Seeder.js",
+    "seed:full-reset": "node seeders/resetAll.Seeder.js && node seeders/admin.Seeder.js && node seeders/restaurant.Seeder.js && node seeders/category.Seeder.js && node seeders/product.Seeder.js && node seeders/review.Seeder.js && node seeders/sliderUpdate.Seeder.js"
   },
   "keywords": [],
   "author": "Ahmed Faraz",

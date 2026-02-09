@@ -177,15 +177,16 @@ const Commission = () => {
           ) : (
             <div className="payment-due-content">
               <p className="warning-text">
-                {isPaymentExpired ? "⚠️ Payment expired" : "⚠️ Payment required"}
+                {isPaymentExpired ? "⚠️ Payment expired – please pay again" : "⚠️ Payment required"}
               </p>
-              {commissionStatus.commissionType === "top_rated" && (
+              <p className="validity-note">After payment, your bill is valid for <strong>30 days</strong>. Then this notification will show again.</p>
+              {(commissionStatus.commissionType === "slider" || commissionStatus.commissionType === "top_rated") && (
                 <div className="monthly-limit-warning">
-                  <p><strong>Monthly Order Limit:</strong> {commissionStatus.monthlyOrderCount || 0} / 15</p>
+                  <p><strong>Monthly order limit (until paid):</strong> {commissionStatus.monthlyOrderCount || 0} / 10</p>
                   <p className="limit-note">
-                    {commissionStatus.monthlyOrderCount >= 15 
+                    {(commissionStatus.monthlyOrderCount || 0) >= 10
                       ? "❌ Limit reached. Pay commission to continue receiving orders."
-                      : `⚠️ You can receive up to 15 orders per month without payment. Currently: ${commissionStatus.monthlyOrderCount || 0}/15`}
+                      : `⚠️ You can receive up to 10 orders per month until the bill is paid. Currently: ${commissionStatus.monthlyOrderCount || 0}/10`}
                   </p>
                 </div>
               )}
@@ -206,9 +207,10 @@ const Commission = () => {
         <ul>
           <li>Top-rated restaurants (4.0+ rating with 5+ reviews) can appear in the slider</li>
           <li>Top 10 restaurants (by rating, then orders) are shown in the landing page slider</li>
-          <li>Slider restaurants: PKR 5,000/month</li>
-          <li>Top-rated restaurants (30 orders, not in slider): PKR 1,500/month</li>
-          <li>Non-paying top-rated restaurants are limited to 15 orders/month</li>
+          <li>Slider restaurants: PKR 5,000/month (valid 30 days after payment)</li>
+          <li>Top-rated restaurants (30+ orders, not in slider): PKR 1,500/month (valid 30 days after payment)</li>
+          <li>If the bill is not paid, monthly order limit is 10. After payment, valid for 30 days; then the notification will show again.</li>
+          <li>Restaurants not in slider and not top-rated are free until they reach the general subscription limit.</li>
         </ul>
       </div>
     </div>
